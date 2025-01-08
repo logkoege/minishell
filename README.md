@@ -1,1 +1,2 @@
 # minishell
+exec 💯
