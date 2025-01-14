@@ -1,4 +1,4 @@
-#ifndef MNISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include <string.h>
@@ -19,24 +19,52 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define CMD		1	// Commande
-# define ARG		2	// Argument
-# define PIPE		3	// |
-# define TRUNC		4	// >
-# define INPUT		5	// <
-# define APPEND		6	// >>
-# define HEREDOC	7	// <<
+# define word		1	// word
+# define PIPE		2	// |
+# define TRUNC		3	// >
+# define INPUT		4	// <
+# define APPEND		5	// >>
+# define HEREDOC	6	// <<
 
-// typedef struct s_struct
-// {
+typedef struct s_token
+{
+	int		type;
+	char	*value;
+	struct s_token	*next;
+}	t_token;
 
-// }	t_struct
+typedef struct s_cmd
+{
+	char	**arg;
+	bool	skip_cmd;
+	t_token	*token;
+	struct s_cmd	*next;
+}	t_cmd;
 
-// parsing.c
-void	parsing(int argc, char **argv);
-void	pars_arg(int argc);
+typedef struct s_data
+{
+	t_token	*token;
+	t_cmd	*cmd;
+	int		pipe[2];
+	int		exit_code;
+	bool	single_quote;
+	bool	double_quote;
+}	t_data;
+
+// main.c
+int		main(int argc, char **argv, char **envp);
+
+// free_fonctions.c
+void	free_structs(t_data *data);
+void	free_all(t_data *data);
+
+// spliting.c
+char	*start_split(t_data *data, char *input);
+char	*delete_space(t_data *data, char *input);
 
 // utils.c
-void	rdline(void);
+void	rdline(t_data *data);
+int		ft_strlen(char *str);
+void	init_var(t_data *data, int argc, char **argv);
 
 #endif
