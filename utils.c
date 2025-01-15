@@ -33,3 +33,37 @@ void	init_var(t_data *data, int argc, char **argv)
 	data->single_quote = false;
 	data->double_quote = false;
 }
+
+int is_ws(char c)
+{
+	if ((c == ' ' ) || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
+
+int inputlen(char *input)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i] == '|')
+		{
+			if (i != 0 && input[i - 1] != ' ' && input[i - 1] != '>' && input[i - 1] != '<')
+			{
+				j++;
+			}
+			if (input[i + 1] != ' ' && input[i + 1] != '\0' && input[i - 1] != '>' && input[i - 1] != '<')
+			{
+				j++;
+			}
+		}
+		track(&i, &j, input, '>');
+		track(&i, &j, input, '<');
+		i++;
+	}
+	return (i + j);
+}

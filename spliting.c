@@ -4,6 +4,7 @@ char	*start_split(t_data *data, char *input)
 {
 	char	*str;
 
+	token_is_valid(input);
 	str = delete_space(data, input);
 	return (str);
 }
@@ -16,7 +17,7 @@ char	*delete_space(t_data *data, char *input)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlen(input) + 1));
+	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
 	if (!str)
 		return (NULL);
 	while (input[i])
@@ -34,5 +35,41 @@ char	*delete_space(t_data *data, char *input)
 	else
 		str[j] = '\0';
 	printf("str = %s\n", str);
+	return (str);
+}
+
+char	*add_space(char *input)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	j = 0;
+	i = 0;
+	str = malloc(sizeof(char) * (inputlen(input) + 1));
+	while (input[i])
+	{
+		if (input[i] == '\"')
+		{
+			str[j++] = input[i++];
+			while(input[i] && input[i] != '\"')
+				str[j++] = input[i++];
+		}
+		if (input[i] == '\'')
+		{
+			str[j++] = input[i++];
+			while(input[i] && input[i] != '\'')
+				str[j++] = input[i++];
+		}
+		if (token_is_valid(&input[i]))
+		{
+			str[j++] = ' ';
+			str[j++] = input[i++];
+			str[j++] = ' ';
+		}
+		else
+			str[j++] = input[i++];
+		i++;
+	}
 	return (str);
 }

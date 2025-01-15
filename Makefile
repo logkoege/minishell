@@ -7,6 +7,8 @@ SRC = main.c		\
 		utils.c		\
 		spliting.c	\
 		free_fonctions.c\
+		tokenizer.c	\
+		checker.c	\
 
 OBJ = $(SRC:.c=.o)
 

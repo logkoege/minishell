@@ -37,6 +37,8 @@ typedef struct s_cmd
 {
 	char	**arg;
 	bool	skip_cmd;
+	char	**file;
+	int		*tkn;
 	t_token	*token;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -51,20 +53,30 @@ typedef struct s_data
 	bool	double_quote;
 }	t_data;
 
-// main.c
-int		main(int argc, char **argv, char **envp);
+// checker.c
+int		check_pipe(char *input);
+void	track(int *i, int *j, char *input, char n);
+int		token_is_valid(char *input);
+int		check_double_redirect(char *input);
+int		check_other(char *input);
 
 // free_fonctions.c
 void	free_structs(t_data *data);
 void	free_all(t_data *data);
 
+// main.c
+int		main(int argc, char **argv, char **envp);
+
 // spliting.c
 char	*start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input);
+char	*add_space(char *input);
 
 // utils.c
 void	rdline(t_data *data);
 int		ft_strlen(char *str);
 void	init_var(t_data *data, int argc, char **argv);
+int		is_ws(char c);
+int		inputlen(char *input);
 
 #endif
