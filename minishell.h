@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 16:33:31 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:56:38 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		inputlen(char *input);
 
 // util2.c
 int		token_is_valid(char *input);
+int		quote_not_closed(t_data *data);
 
 // tokenizer.c
 
