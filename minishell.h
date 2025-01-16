@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 15:08:43 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:33:31 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ typedef struct s_data
 // checker.c
 int		check_pipe(char *input);
 void	track(int *i, int *j, char *input, char n);
-int		token_is_valid(char *input);
 int		check_double_redirect(char *input);
 int		check_other(char *input);
+int		check_invalid_combinations(char *input);
 
 // free_fonctions.c
 void	free_structs(t_data *data);
@@ -90,5 +90,12 @@ int		ft_strlen(char *str);
 void	init_var(t_data *data, int argc, char **argv);
 int		is_ws(char c);
 int		inputlen(char *input);
+
+// util2.c
+int		token_is_valid(char *input);
+
+// tokenizer.c
+
+// chain_list.c
 
 #endif

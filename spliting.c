@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 15:12:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:44:31 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ char	*start_split(t_data *data, char *input)
 {
 	char	*str;
 
-	token_is_valid(input);
+	if (token_is_valid(input) == 0)
+	{
+		return (NULL);
+	}
 	str = delete_space(data, input);
+	printf("str = %s\n", str);
 	return (str);
 }
 
@@ -49,41 +53,5 @@ char	*delete_space(t_data *data, char *input)
 	else
 		str[j] = '\0';
 	printf("str = %s\n", str);
-	return (str);
-}
-
-char	*add_space(char *input)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	j = 0;
-	i = 0;
-	str = malloc(sizeof(char) * (inputlen(input) + 1));
-	while (input[i])
-	{
-		if (input[i] == '\"')
-		{
-			str[j++] = input[i++];
-			while (input[i] && input[i] != '\"')
-				str[j++] = input[i++];
-		}
-		if (input[i] == '\'')
-		{
-			str[j++] = input[i++];
-			while (input[i] && input[i] != '\'')
-				str[j++] = input[i++];
-		}
-		if (token_is_valid(&input[i]))
-		{
-			str[j++] = ' ';
-			str[j++] = input[i++];
-			str[j++] = ' ';
-		}
-		else
-			str[j++] = input[i++];
-		i++;
-	}
 	return (str);
 }

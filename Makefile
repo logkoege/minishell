@@ -5,10 +5,12 @@ LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 CFLAGS = -Wall -Wextra -Werror -lreadline #-g -fsanitize=address
 SRC = main.c		\
 		utils.c		\
+		utils2.c	\
 		spliting.c	\
 		free_fonctions.c\
 		tokenizer.c	\
 		checker.c	\
+		chain_list.c\
 
 OBJ = $(SRC:.c=.o)
 

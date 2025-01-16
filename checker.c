@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 15:07:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:22:22 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_pipe(char *input)
 				i++;
 			if (input[i] == '|' || input[i] == '\0')
 			{
-				printf("syntax error near unexpected token '|'\n");
+				printf("syntax4 error near unexpected token '|'\n");
 				return (0);
 			}
 		}
@@ -52,7 +52,7 @@ int	check_double_redirect(char *input)
 			if (input[i] == '>' || input[i] == '<'
 				|| input[i] == '|' || input[i] == '\0')
 			{
-				printf("syntax error\n");
+				printf("syntax3 error\n");
 				return (0);
 			}
 		}
@@ -78,7 +78,7 @@ int	check_other(char *input)
 			if (input[i] == '>' || input[i] == '<'
 				|| input[i] == '|' || input[i] == '\0')
 			{
-				printf("syntax error\n");
+				printf("syntax1 error\n");
 				return (0);
 			}
 		}
@@ -100,7 +100,7 @@ int	check_invalid_combinations(char *input)
 		if (((input[i] == '>') && (input[i + 1] == '<'))
 			|| ((input[i] == '<') && (input[i + 1] == '>')))
 		{
-			printf("syntax error\n");
+			printf("syntax2 error\n");
 			return (0);
 		}
 		i++;
