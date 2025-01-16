@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
+/*   Updated: 2025/01/16 15:07:05 by logkoege         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-
 
 int	check_pipe(char *input)
 {
@@ -28,19 +38,21 @@ int	check_pipe(char *input)
 
 int	check_double_redirect(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if ((input[i] == '>' && input[i + 1] == '>') || (input[i] == '<' && input[i + 1] == '<'))
+		if ((input[i] == '>' && input[i + 1] == '>')
+			|| (input[i] == '<' && input[i + 1] == '<'))
 		{
 			i += 2;
 			while (input[i] && is_ws(input[i]))
 				i++;
-			if (input[i] == '>' || input[i] == '<' || input[i] == '|' || input[i] == '\0')
+			if (input[i] == '>' || input[i] == '<'
+				|| input[i] == '|' || input[i] == '\0')
 			{
-				printf("syntax error near unexpected token '%c%c'\n", input[i - 2], input[i - 1]);
+				printf("syntax error\n");
 				return (0);
 			}
 		}
@@ -57,14 +69,16 @@ int	check_other(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if ((input[i] == '>' || input[i] == '<') && (input[i + 1] != '>' && input[i + 1] != '<'))
+		if ((input[i] == '>' || input[i] == '<')
+			&& (input[i + 1] != '>' && input[i + 1] != '<'))
 		{
 			i++;
 			while (input[i] && is_ws(input[i]))
 				i++;
-			if (input[i] == '>' || input[i] == '<' || input[i] == '|' || input[i] == '\0')
+			if (input[i] == '>' || input[i] == '<'
+				|| input[i] == '|' || input[i] == '\0')
 			{
-				printf("syntax error near unexpected token '%c'\n", input[i - 1]);
+				printf("syntax error\n");
 				return (0);
 			}
 		}
@@ -83,9 +97,10 @@ int	check_invalid_combinations(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (((input[i] == '>') && (input[i + 1] == '<'))|| ((input[i] == '<') && (input[i + 1] == '>')))
+		if (((input[i] == '>') && (input[i + 1] == '<'))
+			|| ((input[i] == '<') && (input[i + 1] == '>')))
 		{
-			printf("syntax error near unexpected token '%c%c'\n", input[i], input[i + 1]);
+			printf("syntax error\n");
 			return (0);
 		}
 		i++;
@@ -110,22 +125,4 @@ void	track(int *i, int *j, char *input, char n)
 		else if (input[*i + 1] != ' ' && input[*i + 1] != '\0')
 			(*j)++;
 	}
-}
-
-int	token_is_valid(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (check_pipe(&input[i]) == 0)
-			return (0);
-		if (check_other(&input[i]) == 0)
-			return (0);
-		if (check_invalid_combinations(&input[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
 }

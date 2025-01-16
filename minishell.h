@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
+/*   Updated: 2025/01/16 15:08:43 by logkoege         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -19,7 +31,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define word		1	// word
+# define WORD		1	// word
 # define PIPE		2	// |
 # define TRUNC		3	// >
 # define INPUT		4	// <
@@ -28,18 +40,18 @@
 
 typedef struct s_token
 {
-	int		type;
-	char	*value;
+	int				type;
+	char			*value;
 	struct s_token	*next;
 }	t_token;
 
 typedef struct s_cmd
 {
-	char	**arg;
-	bool	skip_cmd;
-	char	**file;
-	int		*tkn;
-	t_token	*token;
+	char			**arg;
+	bool			skip_cmd;
+	char			**file;
+	int				*tkn;
+	t_token			*token;
 	struct s_cmd	*next;
 }	t_cmd;
 

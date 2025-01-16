@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
+/*   Updated: 2025/01/16 15:10:23 by logkoege         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	rdline(t_data *data)
 {
-	char *inpt;
+	char	*inpt;
+
 	while (1)
 	{
 		inpt = readline("minishell$ ");
@@ -34,14 +47,14 @@ void	init_var(t_data *data, int argc, char **argv)
 	data->double_quote = false;
 }
 
-int is_ws(char c)
+int	is_ws(char c)
 {
 	if ((c == ' ' ) || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }
 
-int inputlen(char *input)
+int	inputlen(char *input)
 {
 	int	i;
 	int	j;
@@ -52,11 +65,13 @@ int inputlen(char *input)
 	{
 		if (input[i] == '|')
 		{
-			if (i != 0 && input[i - 1] != ' ' && input[i - 1] != '>' && input[i - 1] != '<')
+			if (i != 0 && input[i - 1] != ' '
+				&& input[i - 1] != '>' && input[i - 1] != '<')
 			{
 				j++;
 			}
-			if (input[i + 1] != ' ' && input[i + 1] != '\0' && input[i - 1] != '>' && input[i - 1] != '<')
+			if (input[i + 1] != ' ' && input[i + 1] != '\0'
+				&& input[i - 1] != '>' && input[i - 1] != '<')
 			{
 				j++;
 			}

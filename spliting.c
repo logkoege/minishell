@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spliting.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
+/*   Updated: 2025/01/16 15:12:00 by logkoege         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*start_split(t_data *data, char *input)
@@ -26,11 +38,13 @@ char	*delete_space(t_data *data, char *input)
 			data->single_quote = !data->single_quote;
 		else if (input[i] == '"' && !data->single_quote)
 			data->double_quote = !data->double_quote;
-		if (input[i] != ' ' || data->single_quote || data->double_quote || (j > 0 && str[j - 1] != ' '))
+		if (input[i] != ' ' || data->single_quote
+			|| data->double_quote || (j > 0 && str[j - 1] != ' '))
 			str[j++] = input[i];
 		i++;
 	}
-	if (j > 0 && str[j - 1] == ' ' && !data->single_quote && !data->double_quote)
+	if (j > 0 && str[j - 1] == ' '
+		&& !data->single_quote && !data->double_quote)
 		str[j - 1] = '\0';
 	else
 		str[j] = '\0';
@@ -52,13 +66,13 @@ char	*add_space(char *input)
 		if (input[i] == '\"')
 		{
 			str[j++] = input[i++];
-			while(input[i] && input[i] != '\"')
+			while (input[i] && input[i] != '\"')
 				str[j++] = input[i++];
 		}
 		if (input[i] == '\'')
 		{
 			str[j++] = input[i++];
-			while(input[i] && input[i] != '\'')
+			while (input[i] && input[i] != '\'')
 				str[j++] = input[i++];
 		}
 		if (token_is_valid(&input[i]))
