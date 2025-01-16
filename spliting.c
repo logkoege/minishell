@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 14:44:31 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:39:26 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char	*delete_space(t_data *data, char *input)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
 	if (!str)
 		return (NULL);
-	while (input[i])
+	while (input[++i])
 	{
 		if (input[i] == '\'' && !data->double_quote)
 			data->single_quote = !data->single_quote;
@@ -45,13 +45,11 @@ char	*delete_space(t_data *data, char *input)
 		if (input[i] != ' ' || data->single_quote
 			|| data->double_quote || (j > 0 && str[j - 1] != ' '))
 			str[j++] = input[i];
-		i++;
 	}
 	if (j > 0 && str[j - 1] == ' '
 		&& !data->single_quote && !data->double_quote)
 		str[j - 1] = '\0';
 	else
 		str[j] = '\0';
-	printf("str = %s\n", str);
 	return (str);
 }
