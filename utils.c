@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 14:16:34 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:36:58 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	init_var(t_data *data, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	data->token = malloc(sizeof(t_token));
+	data->i = 0;
+	data->first = malloc(sizeof(t_first));
 	data->cmd = malloc(sizeof(t_cmd));
 	data->single_quote = false;
 	data->double_quote = false;

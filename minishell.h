@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 16:56:38 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:32:56 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@
 # define APPEND		5	// >>
 # define HEREDOC	6	// <<
 
-typedef struct s_token
+typedef struct s_first
 {
-	int				type;
-	char			*value;
-	struct s_token	*next;
-}	t_token;
+	int				token;
+	char			*str;
+	struct s_first	*next;
+}	t_first;
 
 typedef struct s_cmd
 {
@@ -51,19 +51,25 @@ typedef struct s_cmd
 	bool			skip_cmd;
 	char			**file;
 	int				*tkn;
-	t_token			*token;
+	t_first			*first;
 	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_data
 {
-	t_token	*token;
+	t_first	*first;
 	t_cmd	*cmd;
 	int		pipe[2];
 	int		exit_code;
 	bool	single_quote;
 	bool	double_quote;
+	int		i;
 }	t_data;
+
+// chain_list.c
+t_first	*lstnew(int token, char *str);
+void	lstadd_back(t_first **lst, t_first *new);
+t_first	*lstlast(t_first *lst);
 
 // checker.c
 int		check_pipe(char *input);
@@ -76,13 +82,9 @@ int		check_invalid_combinations(char *input);
 void	free_structs(t_data *data);
 void	free_all(t_data *data);
 
-// main.c
-int		main(int argc, char **argv, char **envp);
-
 // spliting.c
 char	*start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input);
-char	*add_space(char *input);
 
 // utils.c
 void	rdline(t_data *data);
@@ -96,7 +98,7 @@ int		token_is_valid(char *input);
 int		quote_not_closed(t_data *data);
 
 // tokenizer.c
-
-// chain_list.c
+int	tokenizer(t_data *data,char *str);
+int	tokenizer_utils(t_data *data,char *str, char n);
 
 #endif
