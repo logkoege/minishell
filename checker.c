@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 17:05:36 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:24:11 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	check_pipe(char *input , t_data *data)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '|' && (data->single_quote == false && data->double_quote == false))
+		if (input[i] == '|')
 		{
 			i++;
+			if (data->single_quote == false && data->double_quote == false)
+				break;
 			while (input[i] && is_ws(input[i]))
 				i++;
 			if (input[i] == '|' || input[i] == '\0')
@@ -83,6 +85,8 @@ int	check_other(char *input, t_data *data)
 			if (input[i] == '>' || input[i] == '<'
 				|| input[i] == '|' || input[i] == '\0')
 			{
+				if (data->single_quote == false && data->double_quote == true)
+					return (1);
 				printf("syntax1 error\n");
 				return (0);
 			}
