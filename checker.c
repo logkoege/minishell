@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 16:46:40 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:05:36 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	check_other(char *input, t_data *data)
 
 int	check_invalid_combinations(char *input, t_data *data)
 {
-	int	i;
+	int	i;	
 
 	i = 0;
 	while (input[i])
