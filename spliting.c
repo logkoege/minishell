@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 15:49:41 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:22:11 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*delete_space(t_data *data, char *input)
 
 	i = -1;
 	j = 0;
+	data->double_quote = false;
+	data->single_quote = false;
 	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
 	while (input[++i])
 	{

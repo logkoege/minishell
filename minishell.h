@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 15:19:47 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:37:50 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	lstadd_back(t_first **lst, t_first *new);
 t_first	*lstlast(t_first *lst);
 
 // checker.c
-int		check_pipe(char *input);
+int		check_pipe(char *input, t_data *data);
 void	track(int *i, int *j, char *input, char n);
 int		check_double_redirect(char *input, t_data *data);
 int		check_other(char *input, t_data *data);

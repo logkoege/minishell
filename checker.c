@@ -6,20 +6,20 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 15:20:59 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:46:40 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_pipe(char *input)
+int	check_pipe(char *input , t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '|')
+		if (input[i] == '|' && (data->single_quote == false && data->double_quote == false))
 		{
 			i++;
 			while (input[i] && is_ws(input[i]))
@@ -41,26 +41,27 @@ int	check_double_redirect(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-	while (input[i])
+	if (data->double_quote != false || data->single_quote != false)
 	{
-		i += skip_quote(&input[i], data);
-		printf("input[i] = %c\n", input[i]);
-		printf("i = %d\n", i);
-		if ((input[i] == '>' && input[i + 1] == '>')
-			|| (input[i] == '<' && input[i + 1] == '<'))
+		while (input[i])
 		{
-			i += 2;
-			while (input[i] && is_ws(input[i]))
-				i++;
-			if (input[i] == '>' || input[i] == '<'
-				|| input[i] == '|' || input[i] == '\0')
+			i += skip_quote(&input[i], data);
+			if ((input[i] == '>' && input[i + 1] == '>')
+				|| (input[i] == '<' && input[i + 1] == '<'))
 			{
-				printf("syntax3 error\n");
-				return (0);
+				i += 2;
+				while (input[i] && is_ws(input[i]))
+					i++;
+				if (input[i] == '>' || input[i] == '<'
+					|| input[i] == '|' || input[i] == '\0')
+				{
+					printf("syntax3 error\n");
+					return (0);
+				}
 			}
+			else
+				i++;
 		}
-		else
-			i++;
 	}
 	return (1);
 }
@@ -86,10 +87,12 @@ int	check_other(char *input, t_data *data)
 				return (0);
 			}
 		}
-		else if (check_double_redirect(&input[i], data) == 0)
+		if (data->single_quote == false && data->double_quote == false)
+		{
+			if (check_double_redirect(&input[i], data) == 0 )
 			return (0);
-		else
-			i++;
+		}
+		i++;
 	}
 	return (1);
 }
@@ -102,11 +105,14 @@ int	check_invalid_combinations(char *input, t_data *data)
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
-		if (((input[i] == '>') && (input[i + 1] == '<'))
-			|| ((input[i] == '<') && (input[i + 1] == '>')))
+		if (data->double_quote == false && data->single_quote == false)
 		{
-			printf("syntax2 error\n");
-			return (0);
+			if (((input[i] == '>') && (input[i + 1] == '<'))
+				|| ((input[i] == '<') && (input[i + 1] == '>')))
+			{
+				printf("syntax2 error\n");
+				return (0);
+			}
 		}
 		i++;
 	}
