@@ -40,8 +40,6 @@ void	lstadd_back(t_first **lst, t_first *new)
 
 t_first	*lstlast(t_first *lst)
 {
-	t_first	*last;
-
 	while (lst != NULL)
 	{
 		if (lst->next == NULL)

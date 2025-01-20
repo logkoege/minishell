@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 16:59:36 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:47:20 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@ int	quote_not_closed(t_data *data)
 {
 	if (data->single_quote)
 	{
+		data->single_quote = false;
 		printf("quote not closed\n");
 		return (0);
 	}
 	if (data->double_quote)
 	{
-		printf("quote not closed\n");
+		data->double_quote = false;
+		printf("doublequote not closed\n");
 		return (0);
 	}
 	return (1);
 }
+
+// int	quote(char *str,int *i)
+// {
+	
+// }

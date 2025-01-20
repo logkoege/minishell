@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/16 14:22:22 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:38:32 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_double_redirect(char *input)
 	int	i;
 
 	i = 0;
+	
 	while (input[i])
 	{
 		if ((input[i] == '>' && input[i + 1] == '>')
