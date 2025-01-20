@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 14:53:15 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:19:47 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_first	*lstlast(t_first *lst);
 // checker.c
 int		check_pipe(char *input);
 void	track(int *i, int *j, char *input, char n);
-int		check_double_redirect(char *input);
-int		check_other(char *input);
-int		check_invalid_combinations(char *input);
+int		check_double_redirect(char *input, t_data *data);
+int		check_other(char *input, t_data *data);
+int		check_invalid_combinations(char *input, t_data *data);
 
 // free_fonctions.c
 void	free_structs(t_data *data);
@@ -94,9 +94,9 @@ int		is_ws(char c);
 int		inputlen(char *input);
 
 // util2.c
-int		token_is_valid(char *input);
+int		token_is_valid(char *input, t_data *data);
 int		quote_not_closed(t_data *data);
-
+int		skip_quote(char *input, t_data *data);
 // tokenizer.c
 int		tokenizer(t_data *data, char *str);
 int		tokenizer_utils(t_data *data, char *str, char n);

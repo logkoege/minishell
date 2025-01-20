@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 14:52:39 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:20:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,16 @@ int	check_pipe(char *input)
 	return (1);
 }
 
-int	check_double_redirect(char *input)
+int	check_double_redirect(char *input, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
+		i += skip_quote(&input[i], data);
+		printf("input[i] = %c\n", input[i]);
+		printf("i = %d\n", i);
 		if ((input[i] == '>' && input[i + 1] == '>')
 			|| (input[i] == '<' && input[i + 1] == '<'))
 		{
@@ -62,13 +65,14 @@ int	check_double_redirect(char *input)
 	return (1);
 }
 
-int	check_other(char *input)
+int	check_other(char *input, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
+		i += skip_quote(&input[i], data);
 		if ((input[i] == '>' || input[i] == '<')
 			&& (input[i + 1] != '>' && input[i + 1] != '<'))
 		{
@@ -82,7 +86,7 @@ int	check_other(char *input)
 				return (0);
 			}
 		}
-		else if (check_double_redirect(&input[i]) == 0)
+		else if (check_double_redirect(&input[i], data) == 0)
 			return (0);
 		else
 			i++;
@@ -90,13 +94,14 @@ int	check_other(char *input)
 	return (1);
 }
 
-int	check_invalid_combinations(char *input)
+int	check_invalid_combinations(char *input, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
+		i += skip_quote(&input[i], data);
 		if (((input[i] == '>') && (input[i + 1] == '<'))
 			|| ((input[i] == '<') && (input[i + 1] == '>')))
 		{

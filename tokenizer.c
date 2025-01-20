@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 14:53:53 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:23:57 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ int	tokenizer_utils(t_data *data, char *str, char n)
 {
 	if (str[data->i] == n)
 	{
-		printf("str[data->i] = %c\n", str[data->i]);
-		printf("str[data->i + 1] = %c\n", str[data->i + 1]);
 		if (str[data->i + 1] == n)
 		{
-			printf("ls\n");
 			data->i += 2;
 			return (2);
 		}

@@ -6,13 +6,13 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 14:51:14 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:51:47 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	token_is_valid(char *input)
+int	token_is_valid(char *input, t_data *data)
 {
 	int	i;
 
@@ -21,9 +21,9 @@ int	token_is_valid(char *input)
 	{
 		if (check_pipe(&input[i]) == 0)
 			return (0);
-		if (check_other(&input[i]) == 0)
+		if (check_other(&input[i], data) == 0)
 			return (0);
-		if (check_invalid_combinations(&input[i]) == 0)
+		if (check_invalid_combinations(&input[i], data) == 0)
 			return (0);
 		i++;
 	}
@@ -47,6 +47,29 @@ int	quote_not_closed(t_data *data)
 	return (1);
 }
 
-// int	quote(char *str,int *i)
-// {
-// }
+int	skip_quote(char *input, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' && !data->double_quote)
+		{
+			data->single_quote = !data->single_quote;
+			i++;
+			while (input[i] && input[i] != '\'')
+				i++;
+		}
+		else if (input[i] == '\"' && !data->single_quote)
+		{
+			data->double_quote = !data->double_quote;
+			i++;
+			while (input[i] && input[i] != '\"')
+				i++;
+		}
+		if (input[i])
+			i++;
+	}
+	return (i);
+}
