@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:29:42 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/17 16:34:10 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:53:34 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_first	*lstnew(int token, char *str)
 {
 	t_first	*lst;
-	
+
 	lst = malloc(sizeof(t_first));
 	if (!lst)
 		return (NULL);
@@ -46,5 +46,5 @@ t_first	*lstlast(t_first *lst)
 			return (lst);
 		lst = lst->next;
 	}
-		return (NULL);
+	return (NULL);
 }

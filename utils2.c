@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 13:47:20 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:51:14 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ int	quote_not_closed(t_data *data)
 
 // int	quote(char *str,int *i)
 // {
-	
 // }
