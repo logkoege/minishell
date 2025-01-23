@@ -6,24 +6,23 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 18:24:11 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:19:20 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_pipe(char *input , t_data *data)
+int	check_pipe(char *input, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
+		i += skip_quote(&input[i], data);
 		if (input[i] == '|')
 		{
 			i++;
-			if (data->single_quote == false && data->double_quote == false)
-				break;
 			while (input[i] && is_ws(input[i]))
 				i++;
 			if (input[i] == '|' || input[i] == '\0')
@@ -43,7 +42,7 @@ int	check_double_redirect(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->double_quote != false || data->single_quote != false)
+	if (data->double_quote == false || data->single_quote == false)
 	{
 		while (input[i])
 		{
@@ -85,7 +84,7 @@ int	check_other(char *input, t_data *data)
 			if (input[i] == '>' || input[i] == '<'
 				|| input[i] == '|' || input[i] == '\0')
 			{
-				if (data->single_quote == false && data->double_quote == true)
+				if (data->single_quote == true || data->double_quote == true)
 					return (1);
 				printf("syntax1 error\n");
 				return (0);

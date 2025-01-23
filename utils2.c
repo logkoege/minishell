@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 19:48:31 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:24:14 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	token_is_valid(char *input, t_data *data)
 	int	i;
 
 	i = 0;
+	data->single_quote = false;
+	data->double_quote = false;
 	while (input[i])
 	{
 		if (check_pipe(&input[i], data) == 0)
@@ -25,6 +27,7 @@ int	token_is_valid(char *input, t_data *data)
 			return (0);
 		if (check_invalid_combinations(&input[i], data) == 0)
 			return (0);
+
 		i++;
 	}
 	return (1);
@@ -69,3 +72,30 @@ int	skip_quote(char *input, t_data *data)
 	}
 	return (i);
 }
+
+// int	checking_token(char *input, t_data data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (input[i])
+// 	{
+// 		i += skip_quote(&input[i], &data);
+// 		if ((input[i] == '>' || input[i] == '<'))
+// 		{
+// 			i++;
+// 			while (input[i] && is_ws(input[i]))
+// 				i++;
+// 			if (input[i] == '>' || input[i] == '<'
+// 				|| input[i] == '|' || input[i] == '\0')
+// 			{
+// 				if (data.single_quote == true || data.double_quote == true)
+// 					return (1);
+// 				printf("syntax5 error\n");
+// 				return (0);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
