@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/23 14:19:20 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:07:53 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_pipe(char *input, t_data *data)
 	int	i;
 
 	i = 0;
+	if (pipe_utils(input) == 0)
+		return (0);
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
@@ -42,27 +44,24 @@ int	check_double_redirect(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->double_quote == false || data->single_quote == false)
+	while (input[i])
 	{
-		while (input[i])
+		i += skip_quote(&input[i], data);
+		if ((input[i] == '>' && input[i + 1] == '>')
+			|| (input[i] == '<' && input[i + 1] == '<'))
 		{
-			i += skip_quote(&input[i], data);
-			if ((input[i] == '>' && input[i + 1] == '>')
-				|| (input[i] == '<' && input[i + 1] == '<'))
-			{
-				i += 2;
-				while (input[i] && is_ws(input[i]))
-					i++;
-				if (input[i] == '>' || input[i] == '<'
-					|| input[i] == '|' || input[i] == '\0')
-				{
-					printf("syntax3 error\n");
-					return (0);
-				}
-			}
-			else
+			i += 2;
+			while (input[i] && is_ws(input[i]))
 				i++;
+			if (input[i] == '>' || input[i] == '<'
+				|| input[i] == '|' || input[i] == '\0')
+			{
+				printf("syntax3 error\n");
+				return (0);
+			}
 		}
+		else
+			i++;
 	}
 	return (1);
 }
