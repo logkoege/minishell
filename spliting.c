@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 18:31:09 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:39:50 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ char	*start_split(t_data *data, char *input)
 	str = delete_space(data, input);
 	printf("str = %s\n", str);
 	if (token_is_valid(input, data) == 0)
-	{
 		return (NULL);
-	}
 	return (str);
 }
 
@@ -49,8 +47,7 @@ char	*delete_space(t_data *data, char *input)
 	if (j > 0 && str[j - 1] == ' '
 		&& !data->single_quote && !data->double_quote)
 		str[j - 1] = '\0';
-	else
-		str[j] = '\0';
+	str[j] = '\0';
 	quote_not_closed(data);
 	return (str);
 }

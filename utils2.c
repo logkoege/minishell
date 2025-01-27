@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/24 16:07:32 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:36:47 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	skip_quote(char *input, t_data *data)
 	int	i;
 
 	i = 0;
-
 	if (input[i] == '\'' && !data->double_quote)
 	{
 		data->single_quote = !data->single_quote;
@@ -64,6 +63,7 @@ int	skip_quote(char *input, t_data *data)
 	}
 	return (i);
 }
+
 int	pipe_utils(char *input)
 {
 	int	i;

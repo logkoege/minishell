@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/24 16:13:49 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:43:19 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_pipe(char *input, t_data *data)
 			if (input[i] == '|' || input[i] == '\0')
 			{
 				printf("syntax4 error near unexpected token '|'\n");
-					return (0);
+				return (0);
 			}
 		}
 		else
@@ -70,8 +70,8 @@ int	check_other(char *input, t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (input[i])
+	i = -1;
+	while (input[++i])
 	{
 		i += skip_quote(&input[i], data);
 		if ((input[i] == '>' || input[i] == '<')
@@ -89,12 +89,8 @@ int	check_other(char *input, t_data *data)
 				return (0);
 			}
 		}
-		if (data->single_quote == false && data->double_quote == false)
-		{
-			if (check_double_redirect(&input[i], data) == 0 )
+		if (check_double_redirect(&input[i], data) == 0)
 			return (0);
-		}
-		i++;
 	}
 	return (1);
 }
