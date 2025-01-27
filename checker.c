@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/24 16:07:53 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:13:49 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_pipe(char *input, t_data *data)
 			if (input[i] == '|' || input[i] == '\0')
 			{
 				printf("syntax4 error near unexpected token '|'\n");
-				return (0);
+					return (0);
 			}
 		}
 		else
