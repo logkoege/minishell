@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/24 16:07:40 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:37:38 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int		pipe_utils(char *input);
 // tokenizer.c
 int		tokenizer(t_data *data, char *str);
 int		tokenizer_utils(t_data *data, char *str, char n);
+void	setup_tokeniser(t_data *data, char *input);
 
 #endif

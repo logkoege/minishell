@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/20 14:23:57 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:38:37 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,15 @@ int	tokenizer(t_data *data, char *str)
 	if (tokenizer_utils(data, str, '<') == 1)
 		return (4);
 	return (1);
+}
+
+void	setup_tokeniser(t_data *data, char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		printf("input = %s\n", input);
+	}
 }
