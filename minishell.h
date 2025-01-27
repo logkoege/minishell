@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/27 16:37:38 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:14:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	free_all(t_data *data);
 
 // spliting.c
 char	*start_split(t_data *data, char *input);
-char	*delete_space(t_data *data, char *input);
+char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
 void	rdline(t_data *data);
