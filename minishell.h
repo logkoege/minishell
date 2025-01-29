@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/27 19:14:59 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:37:25 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ typedef struct s_data
 	int		exit_code;
 	bool	single_quote;
 	bool	double_quote;
+	int		j;
 	int		i;
 }	t_data;
 
 // chain_list.c
 t_first	*lstnew(int token, char *str);
-void	lstadd_back(t_first **lst, t_first *new);
 t_first	*lstlast(t_first *lst);
+void	lstadd_back(t_first **lst, t_first *new);
 
 // checker.c
 int		check_pipe(char *input, t_data *data);
