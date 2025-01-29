@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 LFLAGS = -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
-CFLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -lreadline #-g -fsanitize=address
 SRC = main.c		\
 		utils.c		\
 		utils2.c	\

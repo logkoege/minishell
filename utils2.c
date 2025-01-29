@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/27 19:14:32 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:15:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	pipe_utils(char *input)
 	int	i;
 
 	i = 0;
-	is_ws(input[i]);
+	while (input[i] && is_ws(input[i]))
+		i++;
 	if (input[i] == '|')
 	{
 		printf("syntax pipe error\n");

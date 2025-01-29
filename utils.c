@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/28 23:42:28 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:24:14 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	rdline(t_data *data)
 			continue ;
 		start_split(data, inpt);
 		add_history(inpt);
+		data->single_quote = false;
+		data->double_quote = false;
 		free(inpt);
 	}
 }

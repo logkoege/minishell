@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/27 15:43:19 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:27:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int	check_other(char *input, t_data *data)
 			if (input[i] == '>' || input[i] == '<'
 				|| input[i] == '|' || input[i] == '\0')
 			{
-				if (data->single_quote == true || data->double_quote == true)
-					return (1);
 				printf("syntax1 error\n");
 				return (0);
 			}
@@ -103,14 +101,11 @@ int	check_invalid_combinations(char *input, t_data *data)
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
-		if (data->double_quote == false && data->single_quote == false)
+		if (((input[i] == '>') && (input[i + 1] == '<'))
+			|| ((input[i] == '<') && (input[i + 1] == '>')))
 		{
-			if (((input[i] == '>') && (input[i + 1] == '<'))
-				|| ((input[i] == '<') && (input[i + 1] == '>')))
-			{
-				printf("syntax2 error\n");
-				return (0);
-			}
+			printf("syntax2 error\n");
+			return (0);
 		}
 		i++;
 	}
