@@ -11,6 +11,7 @@ SRC = main.c		\
 		tokenizer.c	\
 		checker.c	\
 		chain_list.c\
+		signal.c	\
 
 OBJ = $(SRC:.c=.o)
 

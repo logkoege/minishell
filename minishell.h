@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 02:37:25 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:06:10 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,9 @@ int		pipe_utils(char *input);
 int		tokenizer(t_data *data, char *str);
 int		tokenizer_utils(t_data *data, char *str, char n);
 void	setup_tokeniser(t_data *data, char *input);
+
+// signal.c
+void	handle_signal(int sig);
+void	setup_signals(void);
 
 #endif
