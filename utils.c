@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 18:09:49 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:23:24 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void	rdline(t_data *data)
 		if (!inpt || inpt[0] == '\0')
 			continue ;
 		start_split(data, inpt);
+		//setup_signals();
 		add_history(inpt);
-		setup_signals();
+		// printf("str = %s\n", data->first->str);
+		// printf("token = %d\n", data->first->token);
 		data->single_quote = false;
 		data->double_quote = false;
 		free(inpt);
+		data->j = 0;
 	}
 }
 

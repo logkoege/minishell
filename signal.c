@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/30 15:35:46 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:07:47 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_signal(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		write(1, "lslsl\n", 6);
+		printf("Quit: 3\n");
 		exit(0);
 	}
 }

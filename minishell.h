@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 18:06:10 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:19:11 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_data
 }	t_data;
 
 // chain_list.c
-t_first	*lstnew(int token, char *str);
+t_first	*lstnew(int token, char *ssr);
 t_first	*lstlast(t_first *lst);
 void	lstadd_back(t_first **lst, t_first *new);
 
@@ -101,8 +101,8 @@ int		skip_quote(char *input, t_data *data);
 int		pipe_utils(char *input);
 
 // tokenizer.c
-int		tokenizer(t_data *data, char *str);
-int		tokenizer_utils(t_data *data, char *str, char n);
+int		tokenizer(char *str);
+int		tokenizer_utils(char *str, char n);
 void	setup_tokeniser(t_data *data, char *input);
 
 // signal.c

@@ -6,43 +6,46 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 01:12:37 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:17:05 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	tokenizer_utils(t_data *data, char *str, char n)
+int	tokenizer_utils(char *str, char n)
 {
-	if (str[data->i] == n)
+	int i;
+
+	i = 0;
+	if (str[i] == n)
 	{
-		if (str[data->i + 1] == n)
+		if (str[i + 1] == n)
 		{
-			data->i += 2;
+			i += 2;
 			return (2);
 		}
-		data->i++;
+		i++;
 		return (1);
 	}
 	return (0);
 }
 
-int	tokenizer(t_data *data, char *str)
+int	tokenizer(char *str)
 {
-	while (is_ws(str[data->i]))
-		data->i++;
-	if (str[data->i] == '|')
+	int i;
+
+	i = 0;
+	if (str[i] == '|')
 	{
-		data->i++;
 		return (2);
 	}
-	if (tokenizer_utils(data, str, '>') == 2)
+	if (tokenizer_utils(str, '>') == 2)
 		return (5);
-	if (tokenizer_utils(data, str, '<') == 2)
+	if (tokenizer_utils(str, '<') == 2)
 		return (6);
-	if (tokenizer_utils(data, str, '>') == 1)
+	if (tokenizer_utils(str, '>') == 1)
 		return (3);
-	if (tokenizer_utils(data, str, '<') == 1)
+	if (tokenizer_utils(str, '<') == 1)
 		return (4);
 	return (1);
 }
@@ -53,27 +56,68 @@ void	setup_tokeniser(t_data *data, char *input)
 	int		i;
 
 	i = 0;
-	ssr = malloc(sizeof(char) * (ft_strlen(input) + 1));
-	while (input[data->j] != '|' && input[data->j] != '>'
-		&& input[data->j] != '<' && input[data->j] != ' ' && input[data->j])
+	while (input[data->j])
 	{
-		if (input[data->j] == '\"')
+		i = 0;
+		ssr = malloc(sizeof(char) * (ft_strlen(input) + 1));
+		if (input[data->j] == '|')
 		{
-			ssr[i++] = input[data->j++];
-			while (input[data->j++] != '\"')
-				ssr[i++] = input[data->j++];
+			ssr[i++] = '|';
+			data->j++;
 		}
-		if (input[data->j] == '\'')
+		else if (input[data->j] == '>')
 		{
-			ssr[i++] = input[data->j++];
-			while (input[data->j++] != '\'')
-				ssr[i++] = input[data->j++];
+			if (input[data->j + 1] == '>')
+			{
+				ssr[i++] = '>';
+				ssr[i++] = '>';
+				data->j += 2;
+			}
+			else
+			{
+				ssr[i++] = '>';
+				data->j++;
+			}
 		}
-		ssr[i++] = input[data->j++];
+		else if (input[data->j] == '<')
+		{
+			if (input[data->j + 1] == '<')
+			{
+				ssr[i++] = '<';
+				ssr[i++] = '<';
+				data->j += 2;
+			}
+			else
+			{
+				ssr[i++] = '<';
+				data->j++;
+			}
+		}
+		else
+		{
+			while (input[data->j] != '|' && input[data->j] != '>'
+				&& input[data->j] != '<' && input[data->j] != ' ' && input[data->j])
+			{
+				if (input[data->j] == '\"')
+				{
+					ssr[i++] = input[data->j++];
+					while (input[data->j++] != '\"')
+						ssr[i++] = input[data->j++];
+				}
+				else if (input[data->j] == '\'')
+				{
+					ssr[i++] = input[data->j++];
+					while (input[data->j++] != '\'')
+						ssr[i++] = input[data->j++];
+				}
+				else
+					ssr[i++] = input[data->j++];
+			}
+		}
+		if (input[data->j] == ' ')
+			data->j++;
+		ssr[i] = '\0';
+		lstadd_back(&data->first, lstnew(tokenizer(ssr), ssr));
+		free(ssr);
 	}
-	if (input[data->j] == ' ')
-		data->j++;
-	ssr[i] = '\0';
-	lstadd_back(&data->first, lstnew(tokenizer(data, ssr), ssr));
-	free(ssr);
 }
