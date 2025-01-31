@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/01/29 14:09:32 by lloginov         ###   ########.fr        #
+#    Updated: 2025/01/31 19:57:39 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS = -Wall -Wextra -Werror  -g3  #-fsanitize=adress
 SRC =   src/minishell.c\
 		src/find_env.c\
 		src/utils.c\
+		src/builtin1.c\
 
 OBJ = $(SRC:.c=.o)
 
