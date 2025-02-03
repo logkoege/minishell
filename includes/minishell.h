@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/01/31 19:54:47 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:07:19 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef	struct s_env
+{
+	char			**envi;
+	int				i;
+	struct s_env	*next;
+}	t_env;
+
 
 int					check_path(char *s1,  char *s2);
 char    			*find_env(t_cmd *exec, char **envp);
@@ -62,8 +69,13 @@ char				**ft_split(char *s, char c);
 void				builtin_env(char **envp);
 void				builtin_pwd(char **envp);
 void				builtin_echo(t_cmd *exec, int nb);
+void				bultin_cd(t_cmd *exec, char **envp, char *dir);
+void				builtin_change_pwd(t_cmd *exec, char *cwd, int pwd_size);
 
 
+//error_handling
+
+void    free_exit1(t_cmd *exec, char *pointer, char *msg);
 
 
 
