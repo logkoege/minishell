@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:17:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:50:32 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,18 @@ void	setup_tokeniser(t_data *data, char *input)
 				if (input[data->j] == '\"')
 				{
 					ssr[i++] = input[data->j++];
-					while (input[data->j++] != '\"')
+					while (input[data->j] != '\"')
 						ssr[i++] = input[data->j++];
+					ssr[i++] = '\"';
+					data->j++;
 				}
 				else if (input[data->j] == '\'')
 				{
 					ssr[i++] = input[data->j++];
-					while (input[data->j++] != '\'')
+					while (input[data->j] != '\'')
 						ssr[i++] = input[data->j++];
+					ssr[i++] = '\'';
+					data->j++;
 				}
 				else
 					ssr[i++] = input[data->j++];
