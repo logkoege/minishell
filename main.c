@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 01:13:19 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:36:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	main(int argc, char **argv, char **envp)
 	t_data		data;
 
 	(void)envp;
+	data.first = NULL;
 	init_var(&data, argc, argv);
-	rdline(&data);
+	rdline(&data, envp);
 	free_all(&data);
 	return (0);
 }

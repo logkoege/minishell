@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:29:42 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:21:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:21:52 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_first	*lstnew(int token, char *ssr)
 		return (NULL);
 	lst->token = token;
 	lst->str = ssr;
-	printf("lst->str = %s\n", lst->str);
-	printf("lst->token = %d\n", lst->token);
 	lst->next = NULL;
 	return (lst);
 }

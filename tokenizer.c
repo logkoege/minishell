@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/03 16:50:32 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:17:54 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	tokenizer_utils(char *str, char n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == n)
@@ -32,7 +32,7 @@ int	tokenizer_utils(char *str, char n)
 
 int	tokenizer(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '|')
@@ -122,6 +122,5 @@ void	setup_tokeniser(t_data *data, char *input)
 			data->j++;
 		ssr[i] = '\0';
 		lstadd_back(&data->first, lstnew(tokenizer(ssr), ssr));
-		free(ssr);
 	}
 }

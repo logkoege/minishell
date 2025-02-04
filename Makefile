@@ -12,6 +12,7 @@ SRC = main.c		\
 		checker.c	\
 		chain_list.c\
 		signal.c	\
+		dollar.c	\
 
 OBJ = $(SRC:.c=.o)
 

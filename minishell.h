@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:19:11 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:42:15 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
-void	rdline(t_data *data);
+void	rdline(t_data *data, char **envp);
 int		ft_strlen(char *str);
 void	init_var(t_data *data, int argc, char **argv);
 int		is_ws(char c);
@@ -108,5 +108,10 @@ void	setup_tokeniser(t_data *data, char *input);
 // signal.c
 void	handle_signal(int sig);
 void	setup_signals(void);
+
+// dollar.c
+void	dollar_parser(t_data *data, char **envp);
+void	dollar_checker(t_data *data, char **envp);
+void	dollar_changer(t_data *data, int i, char **envp);
 
 #endif
