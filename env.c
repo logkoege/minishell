@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/05 14:03:30 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:26:45 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,47 @@ void	list_env(t_data *data, char **envp)
 	{
 		env = malloc(sizeof(t_env));
 		if (!env)
-			exit(1);
-		env->tout = ft_strdup(envp[i]);
-		env->avant_eq = ft_strcdup(envp[i], '=');
-		env->apres_eq = ft_strchr(envp[i], '=') + 1;
-		env->next = NULL;
-		if (data->first->next == NULL)
-			data->first->next = env;
-		else
-			lstadd_back(&data->first->next, env);
+			return ;
+		lstadd_back_env(lst_new_env(env, envp[i]), env);
 		i++;
 	}
+}
+
+t_env	*lst_new_env(t_env *env, char *envp)
+{
+	t_env	*lst;
+
+	lst = malloc(sizeof(t_env));
+	if (!lst)
+		return (NULL);
+	lst->before_eq = ft_sub(envp, 0, ft_strlen(envp)
+			- ft_strlen(ft_chr(envp, '=')));
+	lst->after_eq = ft_chr(envp, '=');
+	lst->all = ft_dup(envp);
+	lst->next = NULL;
+	return (lst);
+}
+
+void	lstadd_back_env(t_env **lst, t_env *new)
+{
+	t_env	*last;
+
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	last = lstlast_env(*lst);
+	last->next = new;
+}
+
+t_env	*lstlast_env(t_env *lst)
+{
+	while (lst != NULL)
+	{
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
 }
