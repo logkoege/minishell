@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/04 22:42:20 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:25:42 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,14 @@ void	dollar_checker(t_data *data, char **envp)
 
 void	dollar_changer(t_data *data, int i, char **envp)
 {
-	
+	envp++;
+	envp--;
 	i++;
 	while ((data->first->str[i] && data->first->str[i] >= 'A'
 			&& data->first->str[i] >= 'Z') || (data->first->str[i] == '_'))
 	{
-		avant il faut initialiser la nouevelle liste chainee
-		if (strcmp a partir de $ justqua la fin de la partie de la string == 0)
-			changement de la sting avec le $ en la nouvelle valeur de env
-			
+		//if (strcmp a partir de $ justqua la fin de la partie de la string == 0)
+		//	changement de la sting avec le $ en la nouvelle valeur de env
+			i++;
 	}
 }
-
-while (envp[j][h])
-{
-	if (envp[j][h] == '=')
-	h++;
-}
-a finir 

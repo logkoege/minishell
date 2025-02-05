@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:29:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/05 14:34:51 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:32:22 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_chr(char *s, int c)
 	return ((char *)s);
 }
 
-char	*ft_dup(const char *s1)
+char	*ft_dup(char *s1)
 {
 	char	*s2;
 	int		i;
