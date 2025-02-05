@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/04 22:42:15 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:00:45 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@
 # define INPUT		4	// <
 # define APPEND		5	// >>
 # define HEREDOC	6	// <<
+
+typedef struct s_env
+{
+	char			*tout;
+	char			*avant_eq;
+	char			*apres_eq;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_first
 {
