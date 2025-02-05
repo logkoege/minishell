@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   innit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/05 18:19:42 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/03 18:48:33 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/03 18:51:15 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	innit_var(t_cmd *cmd, t_env *env)
 {
-	t_cmd exec;
-	t_env env;
-	(void)ac;
-	(void)av;
-	(void)envp;
+	cmd->arg = NULL;
+	cmd->file = NULL;
+	cmd->tkn = 0;
+	
+	env->envi = NULL;
+	env->i = 0;
 
-	find_env(&exec, envp, &env);
-	// builtin_env(envp);
-	// builtin_echo(&exec, 1);
-	bultin_cd(&exec, envp, "cd ..");
-	// builtin_pwd(envp);
-	// while (1)
-	// {
-
-	// }
-	return(0);
 }

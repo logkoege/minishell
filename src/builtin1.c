@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/03 15:52:04 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:27:19 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	bultin_cd(t_cmd *exec, char **envp, char *dir)
 	pwd_size = 1024;
 
 
-	cwd = malloc(sizeof(char *) *pwd_size);
+	cwd = malloc(sizeof(char *) * pwd_size);
 	if(!cwd)
 		free_exit1(exec, cwd, "Error : CWD error (1)");
 
@@ -125,15 +125,13 @@ void	builtin_change_pwd(t_cmd *exec, char *cwd, int pwd_size)
 {
 	char *old_pwd;
 	char *new_pwd;
-
+	(void)old_pwd;
 	old_pwd = getenv("PWD");
 	new_pwd = getcwd(cwd, pwd_size);
 	if(new_pwd == NULL)
 		free_exit1(exec, cwd, "Error : getcwd error(1)");
 	else
 	{
-		if(setenv("PWD", old_pwd, 1) == -1)
-			free_exit1(exec, cwd, "Error : setenv error (1)");
 		printf("NOUVEAU ENV PWD : %s", getenv("PWD"));
 
 	}

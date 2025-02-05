@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/03 16:17:21 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:29:18 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,12 @@ int check_path(char *s1,  char *s2)
 
 // }
 
-char    *find_env(t_cmd *exec, char **envp)
+char    *find_env(t_cmd *exec, char **envp, t_env *env)
 {
-    int i;
-    int j;
-
-    char *path;
-    i = 0;
-    j = 0;
+	(void)env;
     (void)exec;
-    (void)path;
-    (void)j;
+    list_env(envp);
 
-    while(envp[i])
-    {
-        printf("%s\n", envp[i]);
-        printf("len : %ld\n", sizeof(envp[i]));
-        break;
-    }
-	
-    return(NULL);
+	return(NULL);
 }
 
