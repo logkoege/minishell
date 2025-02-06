@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/05 18:25:19 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:23:16 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ typedef struct s_env
 
 int					check_path(char *s1,  char *s2);
 char    			*find_env(t_cmd *exec, char **envp, t_env *env);
+char 				*ft_getenv(char *str, t_env *env);
 
 //builtin1
 void				builtin_env(char **envp);
-void				builtin_pwd(char **envp);
+void				builtin_pwd(t_env *env);
 void				builtin_echo(t_cmd *exec, int nb);
-void				bultin_cd(t_cmd *exec, char **envp, char *dir);
-void				builtin_change_pwd(t_cmd *exec, char *cwd, int pwd_size);
+void				bultin_cd(t_env *env, char **envp, char *dir);
+void				builtin_change_pwd(t_env *env, char *cwd, int pwd_size);
 
 //innit var
 void	innit_var(t_cmd *cmd, t_env *env);
@@ -79,7 +80,7 @@ void	innit_var(t_cmd *cmd, t_env *env);
 void    free_exit1(t_cmd *exec, char *pointer, char *msg);
 
 // chain lists
-void	list_env(char **envp);
+t_env	*list_env(char **envp);
 t_env	*lst_new_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 t_env	*lstlast_env(t_env *lst);
@@ -93,5 +94,9 @@ char				**ft_split(char *s, char c);
 char	*ft_dup(char *s1);
 char	*ft_chr(char *s, int c);
 char	*ft_sub(char *s, int start, int len);
+int		ft_strcmp(char *s1, char *s2);
+
+//join
+char	*ft_strjoin(char *s1, char *s2);
 
 #endif

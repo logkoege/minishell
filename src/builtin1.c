@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/05 18:27:19 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:56:41 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	builtin_env(char **envp)
 	}
 }
 
-void	builtin_pwd(char **envp)
+void	builtin_pwd(t_env *env)
 {
 	char *pwd;
 
@@ -43,27 +43,16 @@ void	builtin_pwd(char **envp)
     //     else
     //     	i++;
     // }
-	// return;
+	// retrn;
 
-	(void)envp;
-	pwd = getenv("PATH");
+	pwd = ft_getenv("PATH", env);
 	printf("%s\n", pwd);
 	return ;
 }
 
 void	builtin_echo(t_cmd *exec, int nb)
 {
-    // exec->arg = (char **)malloc(4 * sizeof(char *));
-	// exec->tkn = (int *)malloc(4 * sizeof(int)); 
-	
-	// exec->arg[0] = "bonjour ";
-	// exec->arg[1] = "bonjour1 ";
-	// exec->arg[2] = "bonjour2 ";
-	// exec->arg[3] = "bonjour3 ";
-	// exec->tkn[0] = 1;
-	// exec->tkn[1] = 1;
-	// exec->tkn[2] = 1;
-	// exec->tkn[3] = 1;
+
 	int i;
 	int j;
 
@@ -90,7 +79,7 @@ void	builtin_echo(t_cmd *exec, int nb)
 	}
 }
 
-void	bultin_cd(t_cmd *exec, char **envp, char *dir)
+void	bultin_cd(t_env *env, char **envp, char *dir)
 {
 	char *cwd;
 	int pwd_size;
@@ -99,21 +88,21 @@ void	bultin_cd(t_cmd *exec, char **envp, char *dir)
 
 	cwd = malloc(sizeof(char *) * pwd_size);
 	if(!cwd)
-		free_exit1(exec, cwd, "Error : CWD error (1)");
+		exit(1);
+	// free_exit1(exec, cwd, "Error : CWD error (1)");
 
-	(void)exec;
 	(void)envp;
 	dir = "src";
-	if(getcwd(cwd, pwd_size) != NULL)
-		printf("%s\n", cwd);
+	// if(getcwd(cwd, pwd_size) != NULL)
+	// 	printf("%s\n", cwd);
 
 	if(chdir(dir) == 0)
 	{
 		printf("bien cngahge\n");
 		if(getcwd(cwd, pwd_size) != NULL)
 		{
-			printf("voici le nouveau pwd : %s\n", cwd);
-			builtin_change_pwd(exec, cwd, pwd_size);
+			// printf("voici le nouveau pwd : %s\n", cwd);
+			builtin_change_pwd(env, cwd, pwd_size);
 		}
 	}
 	else
@@ -121,18 +110,43 @@ void	bultin_cd(t_cmd *exec, char **envp, char *dir)
 	
 }
 
-void	builtin_change_pwd(t_cmd *exec, char *cwd, int pwd_size)
+void	builtin_change_pwd(t_env *env, char *cwd, int pwd_size)
 {
 	char *old_pwd;
 	char *new_pwd;
 	(void)old_pwd;
-	old_pwd = getenv("PWD");
-	new_pwd = getcwd(cwd, pwd_size);
+	t_env *head = env;
+	old_pwd = ft_getenv("PWD", env);
+	if(!old_pwd)
+	{
+		fprintf(stderr, "eERRRO\n");
+		exit(1);
+	}
+	new_pwd = ft_strjoin("PWD=", getcwd(cwd, pwd_size));
+	printf("old pwd : %s\n new pwd %s\n", old_pwd, new_pwd);
+	while (env)
+	{
+		if (ft_strcmp(env->before_eq, "PWD") == 0)
+		{
+			free(env->all);
+			env->all =	ft_dup(new_pwd);
+			break;
+		}
+		env = env->next;
+	}
 	if(new_pwd == NULL)
-		free_exit1(exec, cwd, "Error : getcwd error(1)");
+		printf("wrong\n");	
+	// free_exit1(exec, cwd, "Error : getcwd error(1)");
 	else
 	{
-		printf("NOUVEAU ENV PWD : %s", getenv("PWD"));
-
+		printf("NOUVEAU ENV PWD : %s\n", ft_getenv("PWD", env));
 	}
+	
+
+	while(head)
+	{
+		printf("%s\n", head->all);
+		head = head->next;
+	}
+	return;
 }

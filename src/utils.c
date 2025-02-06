@@ -6,23 +6,11 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:40:50 by lloginov          #+#    #+#             */
-/*   Updated: 2025/01/29 14:15:54 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:53:13 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	if(!str)
-		return(0);
-	while(str[i])
-		i++;
-	return(i);
-}
 
 char	*ft_strdup(char *src)
 {
