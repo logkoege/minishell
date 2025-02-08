@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/05 18:19:06 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:37:25 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, char **envp);
 void	dollar_checker(t_data *data, char **envp);
-void	dollar_changer(t_data *data, int i, char **envp);
+void	dollar_changer(t_data *data, int i);
 
 // env.c
 void	list_env(char **envp);

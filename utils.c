@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/05 18:20:01 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:34:18 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	rdline(t_data *data, char **envp)
 		start_split(data, inpt);
 		//setup_signals();
 		add_history(inpt);
-		//dollar_parser(data, envp);
+		dollar_parser(data, envp);
 		while (data->first->next != NULL)
 		{
 			printf("str = %s\n", data->first->str);
