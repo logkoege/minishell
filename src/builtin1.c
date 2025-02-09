@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/06 18:56:41 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:51:12 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,21 @@ void	builtin_echo(t_cmd *exec, int nb)
 
 	int i;
 	int j;
+	t_cmd *head;
 
 	j = 1;
 	i = 0;
-	while(exec->tkn[i] == 1)
-		i++;
-	if(nb == 0)
+	while(exec->tkn[0] == 1)
 	{
-		while(i > j)
-		{
-			printf("%s", exec->arg[j]);
-			j++;
-		}
-		printf("\n");
+		exec = exec->next;
 	}
-	else if(nb == 1)
+	if(nb == 1)
+	while(head != exec)
 	{
-		while(i > j)
-		{
-			printf("%s", exec->arg[j]);
-			j++;
-		}
+		// printf("%s\n", head->arg);
+		head = head->next;
 	}
+	
 }
 
 void	bultin_cd(t_env *env, char **envp, char *dir)
@@ -88,14 +81,12 @@ void	bultin_cd(t_env *env, char **envp, char *dir)
 
 	cwd = malloc(sizeof(char *) * pwd_size);
 	if(!cwd)
-		exit(1);
-	// free_exit1(exec, cwd, "Error : CWD error (1)");
-
+		free_exit1(env, cwd, "Error : CWD error (1)");
 	(void)envp;
-	dir = "src";
+	// dir = "src";
+	printf("\n%s\n", env->all);
 	// if(getcwd(cwd, pwd_size) != NULL)
 	// 	printf("%s\n", cwd);
-
 	if(chdir(dir) == 0)
 	{
 		printf("bien cngahge\n");
@@ -123,7 +114,7 @@ void	builtin_change_pwd(t_env *env, char *cwd, int pwd_size)
 		exit(1);
 	}
 	new_pwd = ft_strjoin("PWD=", getcwd(cwd, pwd_size));
-	printf("old pwd : %s\n new pwd %s\n", old_pwd, new_pwd);
+	// printf("old pwd : %s\n new pwd %s\n", old_pwd, new_pwd);
 	while (env)
 	{
 		if (ft_strcmp(env->before_eq, "PWD") == 0)
@@ -141,12 +132,10 @@ void	builtin_change_pwd(t_env *env, char *cwd, int pwd_size)
 	{
 		printf("NOUVEAU ENV PWD : %s\n", ft_getenv("PWD", env));
 	}
-	
-
-	while(head)
-	{
-		printf("%s\n", head->all);
-		head = head->next;
-	}
+	// while(head)
+	// {
+	// 	printf("%s\n", head->all);
+	// 	head = head->next;
+	// }
 	return;
 }

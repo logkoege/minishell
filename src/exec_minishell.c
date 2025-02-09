@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/09 17:50:11 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/09 17:52:07 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+
+void	main_exec(t_cmd *exec, t_env *env, char **envp)
 {
-	t_cmd exec;
-	t_env env;
-	(void)ac;
-	(void)av;
-	(void)envp;
+	env = find_env(exec, envp, env);
+	while(env)
+	{
+		printf("%s\n", env->all);
+		env = env->next;
+	}
 
-	
-	main_exec(&exec, &env, envp);
-	// builtin_env(envp);
-	// builtin_echo(&exec, 1);
-	// bultin_cd(&env, envp, "cd ..");
-	// builtin_pwd(envp);
-	
-	// while (1)
-	// {
-
-	// }
-	return(0);
 }

@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/02/06 18:04:37 by lloginov         ###   ########.fr        #
+#    Updated: 2025/02/09 17:50:11 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC =   src/minishell.c\
 		src/chain_lists.c\
 		src/utils2.c\
 		src/ft_join.c\
+		src/pathfinder.c\
+		src/exec_minishell.c\
 
 OBJ = $(SRC:.c=.o)
 

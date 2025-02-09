@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/09 17:50:11 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/06 19:12:18 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/09 16:43:35 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	buitlin_env(t_env *env)
 {
-	t_cmd exec;
-	t_env env;
-	(void)ac;
-	(void)av;
-	(void)envp;
+	t_env *tmp;
 
-	
-	main_exec(&exec, &env, envp);
-	// builtin_env(envp);
-	// builtin_echo(&exec, 1);
-	// bultin_cd(&env, envp, "cd ..");
-	// builtin_pwd(envp);
-	
-	// while (1)
-	// {
+	while(tmp)
+	{
+		printf("%s\n", tmp->all);
+		tmp = tmp->next;
+	}
 
-	// }
-	return(0);
+}
+
+void	builtin_exit(t_cmd *cmd)
+{
+	printf("%s\n", cmd->arg);
+	exit(0);
 }
