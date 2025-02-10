@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/08 17:37:25 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:49:29 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		check_invalid_combinations(char *input, t_data *data);
 // free_fonctions.c
 void	free_structs(t_data *data);
 void	free_all(t_data *data);
+void	free_struct(t_data *data);
 
 // spliting.c
 char	*start_split(t_data *data, char *input);

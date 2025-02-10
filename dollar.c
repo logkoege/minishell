@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/08 17:37:13 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:45:05 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	dollar_parser(t_data *data, char **envp)
 {
+	(void)envp;
 	while (data->first->next != NULL)
 	{
 		dollar_checker(data, envp);
@@ -27,6 +28,7 @@ void	dollar_checker(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
+	(void)envp;
 	while (data->first->str[i])
 	{
 		if (data->first->str[i] == '\"')
