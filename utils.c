@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/08 17:34:18 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:07:33 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ void	rdline(t_data *data, char **envp)
 	while (1)
 	{
 		inpt = readline("minishell$ ");
+		if (inpt == NULL)
+			exit(1);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
 		list_env(envp);
 		start_split(data, inpt);
-		//setup_signals();
+		setup_signals();
 		add_history(inpt);
 		dollar_parser(data, envp);
 		while (data->first->next != NULL)
@@ -34,8 +36,6 @@ void	rdline(t_data *data, char **envp)
 		}
 		printf("str = %s\n", data->first->str);
 		printf("token = %d\n", data->first->token);
-		data->single_quote = false;
-		data->double_quote = false;
 		free(inpt);
 		data->j = 0;
 	}

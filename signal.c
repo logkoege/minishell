@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 15:07:47 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:07:03 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "minishell$ ", 12);
+		write(1, "\n ", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -28,5 +31,5 @@ void	handle_signal(int sig)
 void	setup_signals(void)
 {
 	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }
