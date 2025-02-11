@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:07:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:13:38 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ int	dollar_cmp(t_first *tmp, t_env *env, int i)
 
 	j = 0;
 	tenv = env;
-	while (tenv->before_eq[i] == )
+	while (tenv->before_eq[j] == )
 }
