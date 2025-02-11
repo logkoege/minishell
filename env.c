@@ -6,18 +6,16 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/08 17:33:32 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:48:29 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	list_env(char **envp)
+void	list_env(char **envp, t_env *env)
 {
 	int		i;
-	t_env	*env;
 
-	env = NULL;
 	i = 0;
 	while (envp[i])
 	{
@@ -63,4 +61,16 @@ t_env	*lstlast_env(t_env *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+void	print_lst_env(t_env *env, t_data *data)
+{
+	while (data->first->next != NULL)
+	{
+		printf("str = %s\n", data->first->str);
+		printf("token = %d\n", data->first->token);
+		data->first = data->first->next;
+	}
+	printf("str = %s\n", data->first->str);
+	printf("token = %d\n", data->first->token);
 }

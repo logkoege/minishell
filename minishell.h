@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/10 17:43:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:50:29 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
-void	rdline(t_data *data, char **envp);
+void	rdline(t_data *data, char **envp, t_env *env);
 int		ft_strlen(char *str);
 void	init_var(t_data *data, int argc, char **argv);
 int		is_ws(char c);
@@ -119,15 +119,16 @@ void	handle_signal(int sig);
 void	setup_signals(void);
 
 // dollar.c
-void	dollar_parser(t_data *data);
-void	dollar_checker(t_first *tmp);
-void	dollar_changer(t_first *tmp, int i);
+void	dollar_parser(t_data *data, t_env *env);
+void	dollar_checker(t_first *tmp, t_env *env);
+void	dollar_changer(t_first *tmp, int i, t_env *env);
 
 // env.c
-void	list_env(char **envp);
+void	list_env(char **envp, t_env *env);
 t_env	*lst_new_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 t_env	*lstlast_env(t_env *lst);
+void	print_lst_env(t_env *env, t_data *data);
 
 // utils3.c
 char	*ft_chr(char *s, int c);
