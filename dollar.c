@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:13:38 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:51:31 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,48 @@ void	dollar_checker(t_first *tmp, t_env *env)
 void	dollar_changer(t_first *tmp, int i, t_env *env)
 {
 	int	t;
+	t_env	*tenv2;
 
 	i++;
-	t = i;
-	while ((tmp->next != NULL))
-	{
-		if (dollar_cmp(tmp, env, i) == 1);
-			change_it
-	}
-	//refaire une fois la boucle
+	tenv2 = dollar_cmp(tmp, env, i);
+		printf("tenv = %s\n", tenv2->before_eq);
+	
 }
 
-int	dollar_cmp(t_first *tmp, t_env *env, int i)
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i)
 {
 	t_env	*tenv;
 	int		j;
-
+	int		t;
 
 	j = 0;
+	t = i;
 	tenv = env;
-	while (tenv->before_eq[j] == )
+	while (tenv->next != NULL)
+	{
+		j = 0;
+		i = t;
+		while (tenv->before_eq[j] == tmp->str[i])
+		{
+			i++;
+			j++;
+			if (tenv->before_eq[j] == '\0' && tmp->str[i] == '\0'
+				|| tmp->str[i] == ' ' || tmp->str[i] == '\"')
+				return (tenv);
+		}
+		env = tenv->next;
+	}
+	j = 0;
+	i = t;
+	while (tenv->before_eq[j] == tmp->str[i])
+	{
+		i++;
+		j++;
+		if (tenv->before_eq[j] == '\0' && tmp->str[i] == '\0'
+			|| tmp->str[i] == ' ' || tmp->str[i] == '\"')
+			return (tenv);
+	}
+	return (NULL);
 }
+
+void	change_it()
