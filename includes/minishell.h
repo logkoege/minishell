@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/09 17:50:11 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:41:19 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ t_env    			*find_env(t_cmd *exec, char **envp, t_env *env);
 char 				*ft_getenv(char *str, t_env *env);
 
 //builtin1
-void				builtin_env(char **envp);
+void				builtin_env(t_env *env);
 void				builtin_pwd(t_env *env);
 void				builtin_echo(t_cmd *exec, int nb);
-void				bultin_cd(t_env *env, char **envp, char *dir);
+void				bultin_cd(t_env *env, char *dir);
 void				builtin_change_pwd(t_env *env, char *cwd, int pwd_size);
 
 //innit var
@@ -104,6 +104,8 @@ char	*find_path(t_env *env, char *cmd);
 
 //exec_minishell
 void	main_exec(t_cmd *exec, t_env *env, char **envp);
+void	check_arg(t_cmd *exec, t_env *env);
+int exec_1(t_cmd *exec, t_env *env);
 
 
 #endif

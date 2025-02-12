@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/09 17:50:45 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:01:52 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_env    *find_env(t_cmd *exec, char **envp, t_env *env)
 	env = list_env(envp);
 
 	// bultin_cd(env, envp, "..");
-	find_path(env, "ls");
 	return(env);
 }
 

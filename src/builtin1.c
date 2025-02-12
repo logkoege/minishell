@@ -6,24 +6,22 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/09 17:51:12 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:00:55 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	builtin_env(char **envp)
+void	builtin_env(t_env *env)
 {
-	int i;
+	t_env *head;
 
-	i = 0;
+	head = env;
 
-	if(!envp)
-		return ;
-	while(envp[i])
+	while(head)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		printf("%s\n", head->all);
+		head = head->next;
 	}
 }
 
@@ -72,7 +70,7 @@ void	builtin_echo(t_cmd *exec, int nb)
 	
 }
 
-void	bultin_cd(t_env *env, char **envp, char *dir)
+void	bultin_cd(t_env *env, char *dir)
 {
 	char *cwd;
 	int pwd_size;
@@ -82,7 +80,6 @@ void	bultin_cd(t_env *env, char **envp, char *dir)
 	cwd = malloc(sizeof(char *) * pwd_size);
 	if(!cwd)
 		free_exit1(env, cwd, "Error : CWD error (1)");
-	(void)envp;
 	// dir = "src";
 	printf("\n%s\n", env->all);
 	// if(getcwd(cwd, pwd_size) != NULL)
@@ -115,27 +112,27 @@ void	builtin_change_pwd(t_env *env, char *cwd, int pwd_size)
 	}
 	new_pwd = ft_strjoin("PWD=", getcwd(cwd, pwd_size));
 	// printf("old pwd : %s\n new pwd %s\n", old_pwd, new_pwd);
-	while (env)
+	while (head)
 	{
-		if (ft_strcmp(env->before_eq, "PWD") == 0)
+		if (ft_strcmp(head->before_eq, "PWD") == 0)
 		{
-			free(env->all);
-			env->all =	ft_dup(new_pwd);
+			free(head->all);
+			head->all =	ft_dup(new_pwd);
 			break;
 		}
-		env = env->next;
+		head = head->next;
 	}
 	if(new_pwd == NULL)
 		printf("wrong\n");	
 	// free_exit1(exec, cwd, "Error : getcwd error(1)");
 	else
 	{
-		printf("NOUVEAU ENV PWD : %s\n", ft_getenv("PWD", env));
+		printf("NOUVEAU head PWD : %s\n", ft_getenv("PWD", head));
 	}
-	// while(head)
-	// {
-	// 	printf("%s\n", head->all);
-	// 	head = head->next;
-	// }
+	while(head)
+	{
+		printf("%s\n", head->all);
+		head = head->next;
+	}
 	return;
 }
