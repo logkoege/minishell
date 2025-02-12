@@ -6,22 +6,23 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:08:02 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:29:05 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	list_env(char **envp, t_env *env)
+t_env	*list_env(char **envp, t_env **env)
 {
 	int		i;
 
 	i = 0;
 	while (envp[i])
 	{
-		lstadd_back_env(&env, lst_new_env(envp[i]));
+		lstadd_back_env(env, lst_new_env(envp[i]));
 		i++;
 	}
+	return (*env);
 }
 
 t_env	*lst_new_env(char *envp)
@@ -63,7 +64,7 @@ t_env	*lstlast_env(t_env *lst)
 	return (NULL);
 }
 
-void	print_lst_env(t_env *env, t_data *data)
+void	print_lst_first(t_data *data)
 {
 	while (data->first->next != NULL)
 	{

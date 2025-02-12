@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:08:10 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:40:43 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,15 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env);
-void	dollar_changer(t_first *tmp, int i, t_env *env);
+void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote);
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 
 // env.c
-void	list_env(char **envp, t_env *env);
+t_env	*list_env(char **envp, t_env **env);
 t_env	*lst_new_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 t_env	*lstlast_env(t_env *lst);
-void	print_lst_env(t_env *env, t_data *data);
+void	print_lst_first(t_data *data);
 
 // utils3.c
 char	*ft_chr(char *s, int c);
