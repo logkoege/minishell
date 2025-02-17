@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/12 15:00:55 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:33:56 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	bultin_cd(t_env *env, char *dir)
 
 	cwd = malloc(sizeof(char *) * pwd_size);
 	if(!cwd)
-		free_exit1(env, cwd, "Error : CWD error (1)");
+		free_exit1(NULL, cwd, "Error : CWD error (1)");
 	// dir = "src";
 	printf("\n%s\n", env->all);
 	// if(getcwd(cwd, pwd_size) != NULL)

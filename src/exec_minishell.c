@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/12 16:55:23 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:32:33 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	main_exec(t_cmd *exec, t_env *env, char **envp)
 {
 	check_arg(exec, env);
 	env = find_env(exec, envp, env);
+	builtin_export(exec, env);
 	// exec_1(exec, env);
 
 
