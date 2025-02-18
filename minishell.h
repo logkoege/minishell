@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/12 16:40:43 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:11:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env);
 void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
+void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // env.c
 t_env	*list_env(char **envp, t_env **env);

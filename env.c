@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/12 15:29:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:31:30 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,15 @@ t_env	*lstlast_env(t_env *lst)
 
 void	print_lst_first(t_data *data)
 {
-	while (data->first->next != NULL)
+	t_first	*print;
+
+	print = data->first;
+	while (print->next != NULL)
 	{
-		printf("str = %s\n", data->first->str);
-		printf("token = %d\n", data->first->token);
-		data->first = data->first->next;
+		printf("str = %s\n", print->str);
+		printf("token = %d\n", print->token);
+		print = print->next;
 	}
-	printf("str = %s\n", data->first->str);
-	printf("token = %d\n", data->first->token);
+	printf("str = %s\n", print->str);
+	printf("token = %d\n", print->token);
 }

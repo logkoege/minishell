@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/12 17:11:16 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:31:39 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	dollar_parser(t_data *data, t_env *env)
 	tmp = data->first;
 	while (tmp)
 	{
+		printf("p\n");
 		dollar_checker(tmp, env);
 		tmp = tmp->next;
 	}
@@ -115,4 +116,32 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 	return (NULL);
 }
 
-//void	change_it()
+void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	k = 0;
+	while (j < i - 1)
+	{
+		str[j] = tmp->str[j];
+		j++;
+	}
+	while (tenv2->after_eq[k])
+	{
+		str[j] = tenv2->after_eq[k];
+		j++;
+		k++;
+	}
+	i = i + ft_strlen(tenv2->before_eq);
+	while (tmp->str[i])
+	{
+		str[j] = tmp->str[i];
+		i++;
+		j++;
+	}
+	free(tmp->str);
+	tmp->str = str;
+	printf("str = %s\n", str);
+}
