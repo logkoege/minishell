@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/19 18:12:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:12:10 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		print_lst_first(data);
 		dollar_parser(data, env);
 		printf("after dollar\n");
+		first_to_cmd(data);
 		free(inpt);
 		free_struct(data);
 		data->j = 0;

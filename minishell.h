@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/18 19:11:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:14:05 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,14 @@ void	print_lst_first(t_data *data);
 char	*ft_chr(char *s, int c);
 char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
+
+// lst_cmd.c
+t_cmd	*lst_new_cmd(void);
+t_cmd	*lstlast_cmd(t_cmd *lst);
+t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
+
+// last_chainlist.c
+char	*delete_quote(char *str);
+void	first_to_cmd(t_data *data);
 
 #endif

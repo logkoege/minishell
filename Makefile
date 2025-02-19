@@ -15,6 +15,9 @@ SRC = main.c		\
 		signal.c	\
 		dollar.c	\
 		env.c		\
+		last_chainlist.c\
+		lst_cmd.c	\
+		
 
 OBJ = $(SRC:.c=.o)
 
