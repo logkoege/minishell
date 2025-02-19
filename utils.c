@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/18 19:29:41 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:12:00 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		if (!inpt || inpt[0] == '\0')
 			continue ;
 		env = list_env(envp, &env);
-		start_split(data, inpt);
+		if (start_split(data, inpt) == NULL)
+			continue ;
 		setup_signals();
 		add_history(inpt);
 		print_lst_first(data);
