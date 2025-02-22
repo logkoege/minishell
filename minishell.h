@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/19 19:14:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:52:38 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_data
 	int		exit_code;
 	bool	single_quote;
 	bool	double_quote;
+	int		lst_size;
 	int		j;
 	int		i;
 }	t_data;
@@ -138,12 +139,13 @@ char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
 
 // lst_cmd.c
-t_cmd	*lst_new_cmd(void);
+t_cmd	*lst_new_cmd(t_data *data);
 t_cmd	*lstlast_cmd(t_cmd *lst);
 t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 // last_chainlist.c
 char	*delete_quote(char *str);
 void	first_to_cmd(t_data *data);
+void	print_lst_cmd(t_cmd *cmd);
 
 #endif

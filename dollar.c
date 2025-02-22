@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/18 19:31:39 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:04:55 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	dollar_parser(t_data *data, t_env *env)
 	tmp = data->first;
 	while (tmp)
 	{
-		printf("p\n");
 		dollar_checker(tmp, env);
 		tmp = tmp->next;
 	}
@@ -76,7 +75,7 @@ void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote)
 	{
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str)
 					+ ft_strlen(tenv2->after_eq)));
-		printf("tenv2 = %s\n", tenv2->after_eq);
+		//printf("tenv2 = %s\n", tenv2->after_eq);
 		replace_dollar(tmp, tenv2, str, i);
 	}
 }
@@ -96,8 +95,8 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 		i = t;
 		while (tenv->before_eq[j] == tmp->str[i] || tenv->before_eq[j] == '\0')
 		{
-			printf("tenv->before_eq[j] = %c\n", tenv->before_eq[j]);
-			printf("tmp->str[i] = %c\n", tmp->str[i]);
+			//printf("tenv->before_eq[j] = %c\n", tenv->before_eq[j]);
+			//printf("tmp->str[i] = %c\n", tmp->str[i]);
 			if (tenv->before_eq[j] == '\0')
 			{
 				if (quote == true && tmp->str[i] == '\"')
@@ -112,7 +111,6 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 		}
 		tenv = tenv->next;
 	}
-	printf("faux\n");
 	return (NULL);
 }
 
@@ -143,5 +141,5 @@ void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i)
 	}
 	free(tmp->str);
 	tmp->str = str;
-	printf("str = %s\n", str);
+	//printf("str = %s\n", str);
 }

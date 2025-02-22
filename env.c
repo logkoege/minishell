@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/18 19:31:30 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:05:20 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	print_lst_first(t_data *data)
 	t_first	*print;
 
 	print = data->first;
-	while (print->next != NULL)
+	data->lst_size = 0;
+	while (print)
 	{
-		printf("str = %s\n", print->str);
-		printf("token = %d\n", print->token);
+		data->lst_size++;
+		//printf("str = %s\n", print->str);
+		//printf("token = %d\n", print->token);
 		print = print->next;
 	}
-	printf("str = %s\n", print->str);
-	printf("token = %d\n", print->token);
 }
