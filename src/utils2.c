@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:41:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/06 11:57:52 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:35:50 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*ft_dup(char *s1)
 		i++;
 	}
 	s2[i] = '\0';
+	// free(s1);
 	return (s2);
 }
 int ft_strlen(char *str)

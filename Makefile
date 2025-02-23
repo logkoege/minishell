@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/02/17 17:26:13 by lloginov         ###   ########.fr        #
+#    Updated: 2025/02/23 19:47:54 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = minishell
 CC = gcc
-CFLAGS = -g2 -Wall -Wextra  -fsanitize=address #-Werror
+CFLAGS = -g2 -Wall -Wextra  #-fsanitize=address #-Werror
 
 SRC =   src/minishell.c\
 		src/find_env.c\
@@ -27,6 +27,8 @@ SRC =   src/minishell.c\
 		src/ft_join.c\
 		src/pathfinder.c\
 		src/exec_minishell.c\
+		src/builtin_cd.c\
+		src/utils3.c\
 
 OBJ = $(SRC:.c=.o)
 

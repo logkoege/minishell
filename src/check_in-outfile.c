@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/22 16:26:17 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/23 18:17:11 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
-{
-	t_cmd exec;
-	t_env env;
-	(void)ac;
-	(void)av;
-	(void)envp;
+// void	check_all(t_cmd *cmd)
+// {
+// 	int i;
+// 	t_cmd *head;
 
-	
-	main_exec(&exec, &env, envp);
-	// builtin_env(envp);
-	// builtin_echo(&exec, 1);
-	// bultin_cd(&env, envp, "cd ..");
-	// builtin_pwd(envp);
-	
-	// while (1)
-	// {
-
-	// }
-	return(0);
-}
+// 	head = cmd;
+// 	i = 0;
+// 	head= head->next;
+// 	while(cmd)
+// 	{
+// 		if(cmd->next->tkn != 1)
+// 		{
+// 			if(cmd->arg[i])
+// 		}
+// 	}
+// }

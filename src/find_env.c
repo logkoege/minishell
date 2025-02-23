@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/12 15:01:52 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/23 20:01:18 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_env    *find_env(t_cmd *exec, char **envp, t_env *env)
 	return(env);
 }
 
-char *ft_getenv(char *str, t_env *env)
+char *ft_getenv(char *str, t_env *env, int i)
 {
 	t_env *tmp;
 
@@ -60,8 +60,12 @@ char *ft_getenv(char *str, t_env *env)
 	{
 		if(ft_strcmp(tmp->before_eq, str) == 0)
 		{
-			// printf("VOICI : %s\n", tmp->all);
-			return(tmp->all);
+			if(i == 1)
+				return(tmp->all);
+			else if(i == 2)
+				return(tmp->before_eq);
+			else if(i == 3)
+				return(tmp->after_eq);
 		}
 		tmp = tmp->next;
 	}

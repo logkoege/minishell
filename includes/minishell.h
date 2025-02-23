@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/17 15:15:26 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/23 20:01:18 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,22 @@ typedef struct s_xport
 {
 	char			*all;
 	char			*before_eq;
-	char			*after_eq;
 	struct s_xport	*next;
 }	t_xport;
 
 int					check_path(char *s1,  char *s2);
 t_env    			*find_env(t_cmd *exec, char **envp, t_env *env);
-char 				*ft_getenv(char *str, t_env *env);
+char 				*ft_getenv(char *str, t_env *env, int i);
+
 
 //builtin1
 void				builtin_env(t_env *env);
 void				builtin_pwd(t_env *env);
 void				builtin_echo(t_cmd *exec, int nb);
-void				bultin_cd(t_env *env, char *dir);
-void				builtin_change_pwd(t_env *env, char *cwd, int pwd_size);
+t_env				*bultin_cd(t_env *env, char *dir);
+t_env				*builtin_change_pwd(t_env *env);
+void				builtin_home(t_env *env);
+t_env 				*builtin_cd_old_pwd(t_env *env);
 
 //buitlin2
 void	builtin_export(t_cmd *cmd, t_env *env);
@@ -90,6 +92,7 @@ void	innit_var(t_cmd *cmd, t_env *env);
 //error_handling
 
 void    free_exit1(t_cmd *exec, char *pointer, char *msg);
+void	free_env(t_env *env);
 
 // chain lists
 t_env	*list_env(char **envp);
@@ -107,6 +110,9 @@ char	*ft_dup(char *s1);
 char	*ft_chr(char *s, int c);
 char	*ft_sub(char *s, int start, int len);
 int		ft_strcmp(char *s1, char *s2);
+
+//utils3
+int	is_ws(char c);
 
 //join
 char	*ft_strjoin(char *s1, char *s2);

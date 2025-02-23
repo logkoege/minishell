@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/12 12:27:42 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/23 20:03:02 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*find_path(t_env *env, char *cmd)
 	int i;
 
 	i = 0;
-	path = ft_getenv("PATH", env);
+	path = ft_getenv("PATH", env, 1);
 	split_path = ft_split(path, ':');	
 	while(split_path[i])
 	{
