@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/25 13:40:55 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:43:37 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	first_to_cmd(t_data *data)
 			|| tmp->token == INPUT || tmp->token == APPEND)
 		{
 			cmd->tkn[k] = tmp->token;
+			cmd->tkn[k + 1] = 0;
 			tmp = tmp->next;
 			cmd->file[j] = tmp->str;
 			cmd->file[j + 1] = NULL;
@@ -97,6 +98,7 @@ void	first_to_cmd(t_data *data)
 			cmd->arg[i] = delete_quote(tmp->str);
 			cmd->arg[i + 1] = NULL;
 			cmd->tkn[k] = tmp->token;
+			cmd->tkn[k + 1] = 0;
 			i++;
 			k++;
 		}
