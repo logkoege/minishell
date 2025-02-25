@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/25 13:43:37 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:03:33 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	first_to_cmd(t_data *data)
 			k = 0;
 			i = 0;
 			j = 0;
-			tmp = tmp->next;
 		}
 		if (tmp->token == HEREDOC || tmp->token == TRUNC
 			|| tmp->token == INPUT || tmp->token == APPEND)
