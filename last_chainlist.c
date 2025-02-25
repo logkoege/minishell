@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/22 22:02:27 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:26:07 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*delete_quote(char *str)
 			i++;
 			while (str[i] != '\'')
 			{
-				new[j++] = str[i++];
+				new[j] = str[i];
 				i++;
 				j++;
 			}
@@ -79,7 +79,8 @@ void	first_to_cmd(t_data *data)
 			i = 0;
 			j = 0;
 		}
-		else if (tmp->token == HEREDOC || tmp->token == TRUNC || tmp->token == INPUT || tmp->token == APPEND)
+		else if (tmp->token == HEREDOC || tmp->token == TRUNC
+			|| tmp->token == INPUT || tmp->token == APPEND)
 		{
 			cmd->tkn[k] = tmp->token;
 			cmd->tkn[k + 1] = 0;
@@ -88,7 +89,7 @@ void	first_to_cmd(t_data *data)
 			j++;
 			k++;
 		}
-		else
+		else if (tmp->token == WORD)
 		{
 			cmd->arg[i] = delete_quote(tmp->str);
 			cmd->tkn[k] = tmp->token;
@@ -101,6 +102,11 @@ void	first_to_cmd(t_data *data)
 			cmd->arg[i] = NULL;
 			cmd->file[j] = NULL;
 		}
+	}
+	if (tmp == NULL)
+	{
+		cmd->arg[i] = NULL;
+		cmd->file[j] = NULL;
 	}
 	print_lst_cmd(cmd);
 }
