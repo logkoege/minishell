@@ -6,25 +6,27 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/23 18:17:11 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:55:38 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void	check_all(t_cmd *cmd)
-// {
-// 	int i;
-// 	t_cmd *head;
+void	check_infile(t_cmd *exec)
+{
+	int i;
+	int j;
 
-// 	head = cmd;
-// 	i = 0;
-// 	head= head->next;
-// 	while(cmd)
-// 	{
-// 		if(cmd->next->tkn != 1)
-// 		{
-// 			if(cmd->arg[i])
-// 		}
-// 	}
-// }
+	i = 0;
+	j = 0;
+
+	while(exec->arg)
+	{
+		while(exec->arg[j])
+		{
+			if(exec->tkn[i] != 1)
+			{
+			}
+		}
+	}
+}

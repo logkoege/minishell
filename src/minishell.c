@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/22 16:26:17 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:20:10 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	main(int ac, char **av, char **envp)
 
 	
 	main_exec(&exec, &env, envp);
-	// builtin_env(envp);
-	// builtin_echo(&exec, 1);
-	// bultin_cd(&env, envp, "cd ..");
-	// builtin_pwd(envp);
+
 	
 	// while (1)
 	// {
