@@ -1,41 +1,24 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/02/23 19:47:54 by lloginov         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
-
 NAME = minishell
 CC = gcc
-CFLAGS = -g2 -Wall -Wextra  #-fsanitize=address #-Werror
-
-SRC =   src/minishell.c\
-		src/find_env.c\
-		src/utils.c\
-		src/builtin1.c\
-		src/builtin2.c\
-		src/error_handling.c\
-		src/chain_lists.c\
-		src/utils2.c\
-		src/ft_join.c\
-		src/pathfinder.c\
-		src/exec_minishell.c\
-		src/builtin_cd.c\
-		src/utils3.c\
+LFLAGS = -I/opt/homebrew/opt/readline/include
+LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
+CFLAGS = -Wall -Wextra -Werror -lreadline #-g -fsanitize=address
+SRC = main.c		\
+		utils.c		\
+		utils2.c	\
+		spliting.c	\
+		free_fonctions.c\
+		tokenizer.c	\
+		checker.c	\
+		chain_list.c\
+		signal.c	\
 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 clean:
 	rm -f $(OBJ)
