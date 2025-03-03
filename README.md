@@ -1,0 +1,2 @@
+# minishell
+exec 💯 ⚔️
