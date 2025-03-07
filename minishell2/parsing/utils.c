@@ -3,32 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:23:24 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:01:13 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-void	rdline(t_data *data)
+void	rdline(t_data *data, char **envp, t_env *env)
 {
 	char	*inpt;
 
 	while (1)
 	{
 		inpt = readline("minishell$ ");
+		if (inpt == NULL)
+			exit(1);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
-		start_split(data, inpt);
-		//setup_signals();
+		env = list_env(envp, &env);
+		if (start_split(data, inpt) == NULL)
+			continue ;
+		setup_signals();
 		add_history(inpt);
-		// printf("str = %s\n", data->first->str);
-		// printf("token = %d\n", data->first->token);
-		data->single_quote = false;
-		data->double_quote = false;
+		print_lst_first(data);
+		dollar_parser(data, env);
+		first_to_cmd(data);
 		free(inpt);
+		free_struct(data);
 		data->j = 0;
 	}
 }
@@ -49,8 +53,6 @@ void	init_var(t_data *data, int argc, char **argv)
 	(void)argv;
 	data->j = 0;
 	data->i = 0;
-	data->first = malloc(sizeof(t_first));
-	data->cmd = malloc(sizeof(t_cmd));
 	data->single_quote = false;
 	data->double_quote = false;
 }

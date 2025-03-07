@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:44:59 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/24 12:20:10 by lloginov         ###   ########.fr       */
+/*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
+/*   Updated: 2025/03/07 17:09:46 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_cmd exec;
-	t_env env;
-	(void)ac;
-	(void)av;
-	(void)envp;
+	t_data		data;
+	t_env		*env;
 
-	
-	main_exec(&exec, &env, envp);
-
-	
-	// while (1)
-	// {
-
-	// }
-	return(0);
+	data.first = NULL;
+	env = NULL;
+	setup_signals();
+	init_var(&data, argc, argv);
+	rdline(&data, envp, env);
+	//exec ici
+	free_all(&data);
+	return (0);
 }

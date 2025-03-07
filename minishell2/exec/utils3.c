@@ -6,15 +6,8 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:42:19 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/23 19:47:15 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:10:33 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	is_ws(char c)
-{
-	if ((c == ' ' ) || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}

@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chain_lists.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 18:51:55 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/06 17:26:25 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
+/*   Updated: 2025/03/07 17:30:20 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env	*list_env(char **envp)
+t_env	*list_env(char **envp, t_env **env)
 {
 	int		i;
-	t_env	*env;
 
-	env = NULL;
 	i = 0;
 	while (envp[i])
 	{
-		lstadd_back_env(&env, lst_new_env(envp[i]));
+		lstadd_back_env(env, lst_new_env(envp[i]));
 		i++;
 	}
-	return(env);
+	return (*env);
 }
 
 t_env	*lst_new_env(char *envp)
@@ -64,4 +62,19 @@ t_env	*lstlast_env(t_env *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+void	print_lst_first(t_data *data)
+{
+	t_first	*print;
+
+	print = data->first;
+	data->lst_size = 0;
+	while (print)
+	{
+		data->lst_size++;
+		//printf("str = %s\n", print->str);
+		//printf("token = %d\n", print->token);
+		print = print->next;
+	}
 }

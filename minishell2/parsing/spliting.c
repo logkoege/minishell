@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   spliting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:19:44 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*start_split(t_data *data, char *input)
 {
 	char	*str;
 
+	data->single_quote = false;
+	data->double_quote = false;
 	str = delete_space(data, input, 0);
-	//printf("str = %s\n", str);
 	if (token_is_valid(input, data) == 0)
 		return (NULL);
 	if (str == NULL)

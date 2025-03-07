@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/23 20:01:18 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:30:20 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_env    *find_env(t_cmd *exec, char **envp, t_env *env)
 {
 	(void)env;
     (void)exec;
-	env = list_env(envp);
+	env = list_env(envp, &env);
 
 	// bultin_cd(env, envp, "..");
 	return(env);

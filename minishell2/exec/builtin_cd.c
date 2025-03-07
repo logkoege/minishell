@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/26 13:16:45 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:37:13 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_dir_cd(char *dir)
 	k = 0;
 	if(!dir)
 		return(0);
-	while(dir[i] && dir[i-1] == "\\")
+	while(dir[i] && dir[i-1] == '\\')
 	{
 		if(is_ws(dir[i]) == 1)
 			k = 1;
@@ -37,7 +37,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 {
 	t_env *head;
 	head = env;
-	char *pwd;
+	// char *pwd;
 	char *old_pwd;
 
 	if(check_dir_cd(dir) == 1)

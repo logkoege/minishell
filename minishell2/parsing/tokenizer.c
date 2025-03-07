@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:17:05 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	tokenizer_utils(char *str, char n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == n)
@@ -32,7 +32,7 @@ int	tokenizer_utils(char *str, char n)
 
 int	tokenizer(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '|')
@@ -96,19 +96,24 @@ void	setup_tokeniser(t_data *data, char *input)
 		else
 		{
 			while (input[data->j] != '|' && input[data->j] != '>'
-				&& input[data->j] != '<' && input[data->j] != ' ' && input[data->j])
+				&& input[data->j] != '<'
+				&& input[data->j] != ' ' && input[data->j])
 			{
 				if (input[data->j] == '\"')
 				{
 					ssr[i++] = input[data->j++];
-					while (input[data->j++] != '\"')
+					while (input[data->j] != '\"')
 						ssr[i++] = input[data->j++];
+					ssr[i++] = '\"';
+					data->j++;
 				}
 				else if (input[data->j] == '\'')
 				{
 					ssr[i++] = input[data->j++];
-					while (input[data->j++] != '\'')
+					while (input[data->j] != '\'')
 						ssr[i++] = input[data->j++];
+					ssr[i++] = '\'';
+					data->j++;
 				}
 				else
 					ssr[i++] = input[data->j++];
@@ -118,6 +123,5 @@ void	setup_tokeniser(t_data *data, char *input)
 			data->j++;
 		ssr[i] = '\0';
 		lstadd_back(&data->first, lstnew(tokenizer(ssr), ssr));
-		free(ssr);
 	}
 }

@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 16:41:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/22 16:35:50 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/05 14:29:00 by logkoege          #+#    #+#             */
+/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*ft_sub(char *s, int start, int len)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	if (ft_strlen(s) < start)
-		return (ft_dup(""));
-	if (ft_strlen(s + start) < len)
-		len = ft_strlen(s + start);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	while (s[i])
-	{
-		if (i >= start && j < len)
-			str[j++] = s[i];
-		i++;
-	}
-	str[j] = '\0';
-	return (str);
-}
-
 
 char	*ft_chr(char *s, int c)
 {
@@ -66,32 +38,32 @@ char	*ft_dup(char *s1)
 		i++;
 	}
 	s2[i] = '\0';
-	// free(s1);
 	return (s2);
 }
-int ft_strlen(char *str)
+
+char	*ft_sub(char *s, int start, int len)
 {
-	int i;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
-	if(!str)
-		return(0);
-	while(str[i])
-		i++;
-	return(i);
-}
-
-int ft_strcmp(char *s1, char *s2)
-{
-	int i;
-
-	i = 0;
-
-	while(s2[i])
+	j = 0;
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_dup(""));
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (s[i])
 	{
-		if(s1[i]!= s2[i])
-			return(1);
+		if (i >= start && j < len)
+			str[j++] = s[i];
 		i++;
 	}
-	return(0);
+	str[j] = '\0';
+	return (str);
 }

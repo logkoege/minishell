@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/25 17:01:53 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:31:08 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	builtin_pwd(t_env *env)
 void	builtin_echo(t_cmd *exec, int nb)
 {
 
-	t_cmd *head;
+	// t_cmd *head;
+	nb++;
 	int i;
 	int comt;
 
