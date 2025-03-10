@@ -56,7 +56,7 @@ char	*delete_quote(char *str)
 	return (new);
 }
 
-void	first_to_cmd(t_data *data)
+t_cmd	*first_to_cmd(t_data *data)
 {
 	t_first	*tmp;
 	t_cmd	*cmd;
@@ -114,7 +114,8 @@ void	first_to_cmd(t_data *data)
 		cmd->arg[i] = NULL;
 		cmd->file[j] = NULL;
 	}
-	print_lst_cmd(cmd);
+	// print_lst_cmd(cmd);
+	return(cmd);
 }
 
 void	print_lst_cmd(t_cmd *cmd)

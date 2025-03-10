@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 18:01:13 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:28:37 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	rdline(t_data *data, char **envp, t_env *env)
 {
 	char	*inpt;
+	(void)envp;
 
 	while (1)
 	{
@@ -23,14 +24,14 @@ void	rdline(t_data *data, char **envp, t_env *env)
 			exit(1);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
-		env = list_env(envp, &env);
 		if (start_split(data, inpt) == NULL)
 			continue ;
 		setup_signals();
 		add_history(inpt);
 		print_lst_first(data);
 		dollar_parser(data, env);
-		first_to_cmd(data);
+		data->cmd = first_to_cmd(data);
+		env = main_exec(data, env);
 		free(inpt);
 		free_struct(data);
 		data->j = 0;

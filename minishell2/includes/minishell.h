@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/07 17:48:42 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:21:54 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_env
 	char			*all;
 	char			*before_eq;
 	char			*after_eq;
+	bool			equal;
 	struct s_env	*next;
 }	t_env;
 
@@ -145,7 +146,7 @@ t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 // last_chainlist.c
 char	*delete_quote(char *str);
-void	first_to_cmd(t_data *data);
+t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
 
 int					check_path(char *s1,  char *s2);
@@ -156,7 +157,7 @@ char 				*ft_getenv(char *str, t_env *env, int i);
 //builtin1
 void				builtin_env(t_env *env);
 void				builtin_pwd(t_env *env);
-void				builtin_echo(t_cmd *exec, int nb);
+void				builtin_echo(t_cmd *exec);
 t_env				*bultin_cd(t_env *env, char *dir);
 t_env				*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd);
 void				builtin_home(t_env *env);
@@ -164,6 +165,7 @@ t_env 				*builtin_cd_old_pwd(t_env *env);
 
 //buitlin2
 void	builtin_export(t_cmd *cmd, t_env *env);
+t_env *builtin_unset(t_env *env, char *unset);
 //innit var
 void	innit_var(t_cmd *cmd, t_env *env);
 
@@ -184,9 +186,7 @@ int ft_strlen(char *str);
 char				**ft_split(char *s, char c);
 
 //utils2
-char	*ft_dup(char *s1);
-char	*ft_chr(char *s, int c);
-char	*ft_sub(char *s, int start, int len);
+void ft_fprintf(char *str);
 int		ft_strcmp(char *s1, char *s2);
 
 //utils3
@@ -199,9 +199,10 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*find_path(t_env *env, char *cmd);
 
 //exec_minishell
-t_env	*main_exec(t_cmd *exec, t_env *env);
-void	check_arg(t_cmd *exec, t_env *env);
-int exec_1(t_cmd *exec, t_env *env);
+t_env	*main_exec(t_data *data, t_env *env);
+t_env *check_arg(t_cmd *cmd, t_env *env);
+t_env *exec_1(t_data *data, t_env *env);
+t_env	*exec_fils(t_data *data, t_env *env);
 
 
 #endif

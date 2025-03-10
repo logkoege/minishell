@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	env = NULL;
 	setup_signals();
 	init_var(&data, argc, argv);
+	env = list_env(envp, &env);
 	rdline(&data, envp, env);
 	//exec ici
 	free_all(&data);
