@@ -6,12 +6,11 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/07 17:37:13 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:55:04 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 int	check_dir_cd(char *dir)
 {
@@ -37,7 +36,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 {
 	t_env *head;
 	head = env;
-	// char *pwd;
+	char *pwd;
 	char *old_pwd;
 
 	if(check_dir_cd(dir) == 1)
@@ -47,15 +46,24 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	}
 	if(!dir)
 	{
-		if(chdir(ft_getenv("HOME", env, 3)) == 0)
-			printf("bien cngahge home \n");
+		pwd = ft_getenv("HOME", env, 3);
+		if(!pwd)
+		{
+			printf("bash: cd: HOME not set\n");
+			return(env);
+		}
+		if(chdir(pwd) == 0)
 		old_pwd = ft_getenv("PWD", env, 3);
 		env = builtin_change_pwd(env, old_pwd, ft_getenv("HOME", env, 3));
 	}
 	else if(dir[0] == '-')
 	{
-		printf("moins aqcui\n");
 		old_pwd = ft_getenv("OLDPWD", env, 3);
+		if(!old_pwd)
+		{
+			printf("bash: cd: OLDPWD not set\n");
+			return(env);
+		}
 		if(chdir(old_pwd) == 0)
 			printf("bien cngahge - \n");
 		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), ft_getenv("OLDPWD", env, 3));
