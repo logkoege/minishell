@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 15:08:09 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/22 21:52:38 by logkoege         ###   ########.fr       */
+/*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
+/*   Updated: 2025/03/13 14:26:06 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_env
 	char			*all;
 	char			*before_eq;
 	char			*after_eq;
+	bool			equal;
 	struct s_env	*next;
 }	t_env;
 
@@ -121,10 +122,14 @@ void	setup_signals(void);
 
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
-void	dollar_checker(t_first *tmp, t_env *env);
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote);
+void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
+void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
+
+// dollar2.c
+void	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
+char	*ft_itoa(int exit_code);
 
 // env.c
 t_env	*list_env(char **envp, t_env **env);
@@ -137,6 +142,8 @@ void	print_lst_first(t_data *data);
 char	*ft_chr(char *s, int c);
 char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
+char	*ft_dup_digit(char *s1, int dollar);
+int		is_digit(char c);
 
 // lst_cmd.c
 t_cmd	*lst_new_cmd(t_data *data);
@@ -145,7 +152,62 @@ t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 // last_chainlist.c
 char	*delete_quote(char *str);
-void	first_to_cmd(t_data *data);
+t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
+
+int					check_path(char *s1,  char *s2);
+t_env    			*find_env(t_cmd *exec, char **envp, t_env *env);
+char 				*ft_getenv(char *str, t_env *env, int i);
+
+
+//builtin1
+void				builtin_env(t_env *env);
+void				builtin_pwd(t_env *env);
+void				builtin_echo(t_cmd *exec);
+t_env				*bultin_cd(t_env *env, char *dir);
+t_env				*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd);
+void				builtin_home(t_env *env);
+t_env 				*builtin_cd_old_pwd(t_env *env);
+
+//buitlin2
+void	builtin_export(t_cmd *cmd, t_env *env);
+t_env *builtin_unset(t_env *env, char *unset);
+//innit var
+void	innit_var(t_cmd *cmd, t_env *env);
+
+//error_handling
+
+void    free_exit1(t_cmd *exec, char *pointer, char *msg);
+void	free_env(t_env *env);
+
+// // chain lists
+// t_env	*list_env(char **envp);
+// t_env	*lst_new_env(char *envp);
+// void	lstadd_back_env(t_env **lst, t_env *new);
+// t_env	*lstlast_env(t_env *lst);
+
+//utils.c
+int ft_strlen(char *str);
+char				**ft_split(char *s, char c);
+
+//utils2
+void ft_fprintf(char *str);
+int		ft_strcmp(char *s1, char *s2);
+
+//utils3
+int		is_ws(char c);
+
+//join
+char	*ft_strjoin(char *s1, char *s2);
+
+//pathfinder
+char	*find_path(t_env *env, char *cmd);
+
+//exec_minishell
+t_env	*main_exec(t_data *data, t_env *env);
+t_env *check_arg(t_cmd *cmd, t_env *env);
+t_env *exec_1(t_data *data, t_env *env);
+t_env	*exec_fils(t_data *data, t_env *env);
+
 
 #endif

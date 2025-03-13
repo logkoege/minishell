@@ -6,11 +6,11 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/25 14:14:26 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:23:54 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*delete_quote(char *str)
 {
@@ -56,7 +56,7 @@ char	*delete_quote(char *str)
 	return (new);
 }
 
-void	first_to_cmd(t_data *data)
+t_cmd	*first_to_cmd(t_data *data)
 {
 	t_first	*tmp;
 	t_cmd	*cmd;
@@ -115,6 +115,7 @@ void	first_to_cmd(t_data *data)
 		cmd->file[j] = NULL;
 	}
 	print_lst_cmd(cmd);
+	return(cmd);
 }
 
 void	print_lst_cmd(t_cmd *cmd)

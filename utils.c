@@ -6,31 +6,32 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/25 13:26:19 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:28:25 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	rdline(t_data *data, char **envp, t_env *env)
 {
 	char	*inpt;
 
+	(void)envp;
 	while (1)
 	{
 		inpt = readline("minishell$ ");
 		if (inpt == NULL)
 			exit(1);
+		add_history(inpt);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
-		env = list_env(envp, &env);
 		if (start_split(data, inpt) == NULL)
 			continue ;
 		setup_signals();
-		add_history(inpt);
 		print_lst_first(data);
 		dollar_parser(data, env);
-		first_to_cmd(data);
+		data->cmd = first_to_cmd(data);
+		//env = main_exec(data, env);
 		free(inpt);
 		free_struct(data);
 		data->j = 0;
@@ -51,6 +52,7 @@ void	init_var(t_data *data, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
+	data->exit_code = 255;
 	data->j = 0;
 	data->i = 0;
 	data->single_quote = false;

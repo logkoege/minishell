@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:20:51 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/22 21:50:08 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 t_cmd	*lst_new_cmd(t_data *data)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:08:01 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:09:46 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,7 +21,9 @@ int	main(int argc, char **argv, char **envp)
 	env = NULL;
 	setup_signals();
 	init_var(&data, argc, argv);
+	env = list_env(envp, &env);
 	rdline(&data, envp, env);
+	//exec ici
 	free_all(&data);
 	return (0);
 }

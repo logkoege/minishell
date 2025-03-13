@@ -6,11 +6,11 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:29:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/11 17:08:06 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:27:40 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*ft_chr(char *s, int c)
 {
@@ -41,6 +41,33 @@ char	*ft_dup(char *s1)
 	return (s2);
 }
 
+char	*ft_dup_digit(char *s1, int dollar)
+{
+	char	*s2;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	s2 = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!s2)
+		return (NULL);
+	while (s1[i])
+	{
+		if ((i == dollar) || (i == dollar + 1 && is_digit(s1[i])))
+			i++;
+		else
+		{
+			s2[j] = s1[i];
+			i++;
+			j++;
+		}
+	}
+	s2[j] = '\0';
+	printf("s2 = %s\n", s2);
+	return (s2);
+}
+
 char	*ft_sub(char *s, int start, int len)
 {
 	int		i;
@@ -66,4 +93,11 @@ char	*ft_sub(char *s, int start, int len)
 	}
 	str[j] = '\0';
 	return (str);
+}
+
+int	is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

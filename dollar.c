@@ -6,11 +6,11 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/02/22 22:04:55 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:09:42 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	dollar_parser(t_data *data, t_env *env)
 {
@@ -19,12 +19,13 @@ void	dollar_parser(t_data *data, t_env *env)
 	tmp = data->first;
 	while (tmp)
 	{
-		dollar_checker(tmp, env);
+		dollar_checker(tmp, env, data);
+		printf("aftertmp->str = %s\n", tmp->str);
 		tmp = tmp->next;
 	}
 }
 
-void	dollar_checker(t_first *tmp, t_env *env)
+void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 {
 	int	i;
 
@@ -45,7 +46,8 @@ void	dollar_checker(t_first *tmp, t_env *env)
 			{
 				if (tmp->str[i] == '$')
 				{
-					dollar_changer(tmp, i, env, true);
+					dollar_changer(tmp, i, env, true, data);
+					i = 0;
 				}
 				i++;
 			}
@@ -56,15 +58,20 @@ void	dollar_checker(t_first *tmp, t_env *env)
 			while (tmp->str[i] != '\0')
 			{
 				if (tmp->str[i] == '$')
-					dollar_changer(tmp, i, env, false);
+				{
+					dollar_changer(tmp, i, env, false, data);
+					i = 0;
+				}
 				i++;
 			}
 		}
+		if (tmp->str[i] == '\0')
+			break ;
 		i++;
 	}
 }
 
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote)
+void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
 {
 	t_env	*tenv2;
 	char	*str;
@@ -74,9 +81,13 @@ void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote)
 	if (tenv2 != NULL)
 	{
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str)
-					+ ft_strlen(tenv2->after_eq)));
-		//printf("tenv2 = %s\n", tenv2->after_eq);
+					+ ft_strlen(tenv2->after_eq) + 2));
 		replace_dollar(tmp, tenv2, str, i);
+	}
+	else if (tenv2 == NULL)
+	{
+		str = malloc(sizeof(char) * (ft_strlen(tmp->str) + 2));
+		remove_dollar(tmp, str, i, quote, data);
 	}
 }
 
@@ -95,8 +106,6 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 		i = t;
 		while (tenv->before_eq[j] == tmp->str[i] || tenv->before_eq[j] == '\0')
 		{
-			//printf("tenv->before_eq[j] = %c\n", tenv->before_eq[j]);
-			//printf("tmp->str[i] = %c\n", tmp->str[i]);
 			if (tenv->before_eq[j] == '\0')
 			{
 				if (quote == true && tmp->str[i] == '\"')
@@ -109,6 +118,8 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 			i++;
 			j++;
 		}
+		if (tenv->before_eq[j] == '\0' && tmp->str[i] == '$')
+			return (tenv);
 		tenv = tenv->next;
 	}
 	return (NULL);
@@ -116,8 +127,8 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i)
 {
-	int	j;
-	int	k;
+	int		j;
+	int		k;
 
 	j = 0;
 	k = 0;
@@ -139,7 +150,7 @@ void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i)
 		i++;
 		j++;
 	}
+	str[j] = '\0';
 	free(tmp->str);
 	tmp->str = str;
-	//printf("str = %s\n", str);
 }
