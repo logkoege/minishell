@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/10 16:21:54 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:20:32 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ typedef struct s_cmd
 	char			**arg;
 	bool			skip_cmd;
 	char			**file;
-	int				*tkn;
+	int				*tkn; 
 	t_first			*first;
 	struct s_cmd	*next;
+	int		fd_infile;
+	int		fd_outfile;
 }	t_cmd;
 
 typedef struct s_data
@@ -203,6 +205,9 @@ t_env	*main_exec(t_data *data, t_env *env);
 t_env *check_arg(t_cmd *cmd, t_env *env);
 t_env *exec_1(t_data *data, t_env *env);
 t_env	*exec_fils(t_data *data, t_env *env);
+
+//infile
+void	check_infile(t_cmd *cmd);
 
 
 #endif

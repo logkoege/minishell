@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 17:30:20 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:55:01 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_env	*lst_new_env(char *envp)
 	lst->after_eq = ft_chr(envp, '=') + 1;
 	lst->all = ft_dup(envp);
 	lst->next = NULL;
+	lst->equal = 1;
 	return (lst);
 }
 

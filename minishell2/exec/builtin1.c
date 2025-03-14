@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/10 14:55:35 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:37:50 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	builtin_env(t_env *env)
 
 	while(head)
 	{
-		printf("ENV : %s\n", head->all);
+		if(head->equal == 1)
+			printf("ENV : %s\n", head->all);
 		head = head->next;
 	}
 }

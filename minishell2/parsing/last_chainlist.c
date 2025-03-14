@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 17:46:39 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:29 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_cmd	*first_to_cmd(t_data *data)
 		cmd->arg[i] = NULL;
 		cmd->file[j] = NULL;
 	}
-	// print_lst_cmd(cmd);
+	print_lst_cmd(cmd);
 	return(cmd);
 }
 

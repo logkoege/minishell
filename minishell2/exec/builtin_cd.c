@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/10 15:55:04 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:10:14 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,7 @@ t_env	*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd)
 	int k;
 
 	k = 0;
-	if(!old_pwd)
-	{
-		fprintf(stderr, "eERRRO\n");
-		exit(1);
-	}
+	
 	while (head)
 	{
 		if (ft_strcmp(head->before_eq, "PWD") == 0)

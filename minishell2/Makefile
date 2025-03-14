@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/07 17:24:49 by lloginov         ###   ########.fr        #
+#    Updated: 2025/03/13 14:03:52 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC =	parsing/main.c		\
 		exec/exec_minishell.c\
 		exec/builtin_cd.c\
 		exec/utils3.c\
+		exec/check_in-outfile.c\
 
 OBJ = $(SRC:.c=.o)
 
