@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/13 15:20:32 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:25:27 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ typedef struct s_cmd
 	char			**arg;
 	bool			skip_cmd;
 	char			**file;
-	int				*tkn; 
+	int				*tkn;
 	t_first			*first;
+	int				fd_infile;
+	int				fd_outfile;
 	struct s_cmd	*next;
-	int		fd_infile;
-	int		fd_outfile;
 }	t_cmd;
 
 typedef struct s_data
@@ -124,10 +124,14 @@ void	setup_signals(void);
 
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
-void	dollar_checker(t_first *tmp, t_env *env);
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote);
+void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
+void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
+
+// dollar2.c
+void	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
+char	*ft_itoa(int exit_code);
 
 // env.c
 t_env	*list_env(char **envp, t_env **env);
@@ -140,6 +144,8 @@ void	print_lst_first(t_data *data);
 char	*ft_chr(char *s, int c);
 char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
+char	*ft_dup_digit(char *s1, int dollar);
+int		is_digit(char c);
 
 // lst_cmd.c
 t_cmd	*lst_new_cmd(t_data *data);
@@ -182,7 +188,6 @@ void	free_env(t_env *env);
 // void	lstadd_back_env(t_env **lst, t_env *new);
 // t_env	*lstlast_env(t_env *lst);
 
-
 //utils.c
 int ft_strlen(char *str);
 char				**ft_split(char *s, char c);
@@ -192,7 +197,7 @@ void ft_fprintf(char *str);
 int		ft_strcmp(char *s1, char *s2);
 
 //utils3
-int	is_ws(char c);
+int		is_ws(char c);
 
 //join
 char	*ft_strjoin(char *s1, char *s2);
@@ -205,6 +210,9 @@ t_env	*main_exec(t_data *data, t_env *env);
 t_env *check_arg(t_cmd *cmd, t_env *env);
 t_env *exec_1(t_data *data, t_env *env);
 t_env	*exec_fils(t_data *data, t_env *env);
+
+
+
 
 //infile
 void	check_infile(t_cmd *cmd);

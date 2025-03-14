@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/13 15:20:32 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:06:20 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ int	infiler(t_cmd *cmd, char *infile)
 	if(fd == -1)
 	{
 		printf("bash: %s: No such file or directory\n", infile);
-		return(1);
+		exit(1);
 	}
 
 	cmd->fd_infile = fd;
 
+	
 	return(0);
 }
 int outfiler(t_cmd *cmd, char *outfile)
@@ -44,17 +45,25 @@ int outfiler(t_cmd *cmd, char *outfile)
 void	check_infile(t_cmd *cmd)
 {
 	int i;
+	int j;
 
+	j = 0;
 	i = 0;
 
-	while(cmd->arg)
+	while(cmd)
 	{
 		while(cmd->tkn[i])
 		{
 			if(cmd->tkn[i] == INPUT)
-				infiler(cmd, cmd->file[i]);
+			{
+				infiler(cmd, cmd->file[j]);
+				j++;
+			}
 			else if(cmd->tkn[i] == TRUNC)
-				outfiler(cmd, cmd->file[i]);
+			{
+				outfiler(cmd, cmd->file[j]);
+				j++;
+			}
 			// else if(cmd->tkn[i] == APPEND)
 				// outfiler(cmd, cmd->file[i]);
 			

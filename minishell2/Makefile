@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/13 14:03:52 by lloginov         ###   ########.fr        #
+#    Updated: 2025/03/14 17:26:07 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	parsing/main.c		\
 		parsing/env.c		\
 		parsing/last_chainlist.c\
 		parsing/lst_cmd.c	\
+		parsing/dollar2.c\
 		exec/find_env.c\
 		exec/utils.c\
 		exec/builtin1.c\
@@ -44,6 +45,7 @@ SRC =	parsing/main.c		\
 		exec/builtin_cd.c\
 		exec/utils3.c\
 		exec/check_in-outfile.c\
+
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/13 14:43:25 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:55:45 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,19 @@ t_env	*exec_fils(t_data *data, t_env *env)
 	char *path;
 	t_env *tmp;
 
+	check_infile(data->cmd);
+	dup2(data->cmd->fd_infile, STDIN_FILENO);
+	if(data->cmd->fd_infile != 0)
+		close(data->cmd->fd_infile);
 	if(data->cmd->next)
 	{
 		dup2(data->pipe[1], 1);
 		close(data->pipe[0]);
 	}
+	dup2(data->cmd->fd_outfile, STDOUT_FILENO);
+	if(data->cmd->fd_outfile != 1)
+		close(data->cmd->fd_outfile);
 	tmp = check_arg(data->cmd, env);
-	check_infile(data->cmd);
 	if(tmp)
 		return(tmp);
 	path = find_path(env, data->cmd->arg[0]);

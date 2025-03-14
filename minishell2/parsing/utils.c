@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/10 18:28:37 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:08:08 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 void	rdline(t_data *data, char **envp, t_env *env)
 {
 	char	*inpt;
-	(void)envp;
 
+	(void)envp;
 	while (1)
 	{
 		inpt = readline("minishell$ ");
 		if (inpt == NULL)
 			exit(1);
+		add_history(inpt);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
 		if (start_split(data, inpt) == NULL)
 			continue ;
 		setup_signals();
-		add_history(inpt);
 		print_lst_first(data);
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
+		data->cmd->fd_infile = 0;
+		data->cmd->fd_outfile = 1;
 		env = main_exec(data, env);
 		free(inpt);
 		free_struct(data);
@@ -52,6 +54,7 @@ void	init_var(t_data *data, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
+	data->exit_code = 255;
 	data->j = 0;
 	data->i = 0;
 	data->single_quote = false;
