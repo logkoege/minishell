@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/13 14:23:54 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:53:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_cmd	*first_to_cmd(t_data *data)
 		{
 			cmd->arg[i] = NULL;
 			cmd->file[j] = NULL;
-			print_lst_cmd(cmd);
 			lstadd_back_cmd(&cmd, lst_new_cmd(data));
+			cmd = cmd->next;
 			k = 0;
 			i = 0;
 			j = 0;
@@ -98,24 +98,21 @@ t_cmd	*first_to_cmd(t_data *data)
 			cmd->arg[i + 1] = NULL;
 			cmd->tkn[k] = tmp->token;
 			cmd->tkn[k + 1] = 0;
+			cmd->file[j] = NULL;
 			i++;
 			k++;
 		}
-		if (tmp == NULL)
-		{
-			cmd->arg[i] = NULL;
-			cmd->file[j] = NULL;
-		}
-		else
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	if (tmp == NULL)
 	{
 		cmd->arg[i] = NULL;
 		cmd->file[j] = NULL;
+		cmd->tkn[k] = 0;
+		cmd->next = NULL;
 	}
 	print_lst_cmd(cmd);
-	return(cmd);
+	return (cmd);
 }
 
 void	print_lst_cmd(t_cmd *cmd)
@@ -127,10 +124,13 @@ void	print_lst_cmd(t_cmd *cmd)
 	k = 0;
 	i = 0;
 	j = 0;
+	while (cmd->prev)
+		cmd = cmd->prev;
 	while (cmd)
 	{
 		i = 0;
 		j = 0;
+		k = 0;
 		while (cmd->arg[i])
 		{
 			printf("arg[%d] = %s\n", i, cmd->arg[i]);
