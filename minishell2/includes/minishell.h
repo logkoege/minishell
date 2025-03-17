@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/14 17:25:27 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:29:08 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ t_env	*exec_fils(t_data *data, t_env *env);
 
 
 //infile
-void	check_infile(t_cmd *cmd);
+void	check_redirect(t_cmd *cmd);
 
 
 #endif

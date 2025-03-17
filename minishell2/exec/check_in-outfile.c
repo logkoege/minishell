@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 11:13:49 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:40:37 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int outfiler(t_cmd *cmd, char *outfile)
 	return(0);
 }
 
-void	check_infile(t_cmd *cmd)
+void	check_redirect(t_cmd *cmd)
 {
 	int i;
 	int j;
@@ -48,8 +48,8 @@ void	check_infile(t_cmd *cmd)
 	j = 0;
 	i = 0;
 
-	while(cmd)
-	{
+	// while(cmd)
+	// {
 		while(cmd->tkn[i])
 		{
 			if(cmd->tkn[i] == INPUT)
@@ -68,7 +68,14 @@ void	check_infile(t_cmd *cmd)
 
 			i++;
 		}
-		cmd = cmd->next;
-	}
+		// cmd = cmd->next;
+	// }
 	return;
 }
+
+// void	redirect(t_data *data, int fd_in, int fd_out)
+// {
+
+// 	dup2(fd_in, STDIN_FILENO);
+// 	dup2(fd_out, STDOUT_FILENO);
+// }
