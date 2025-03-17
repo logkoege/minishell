@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/17 22:37:52 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:58:02 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,12 @@ t_cmd	*first_to_cmd(t_data *data)
 			tmp = tmp->next;
 			cmd->file[j] = tmp->str;
 			cmd->file[j + 1] = NULL;
-			cmd->infile = 0;
-			cmd->outfile = 0;
 			j++;
 			k++;
 		}
 		else if (tmp->token == WORD)
 		{
+
 			cmd->arg[i] = delete_quote(tmp->str);
 			cmd->arg[i + 1] = NULL;
 			cmd->tkn[k] = tmp->token;
@@ -148,7 +147,7 @@ void	print_lst_cmd(t_cmd *cmd)
 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
 			k++;
 		}
-		printf("cmd : infile : %d : out %d\n", cmd->outfile, cmd->infile);
+		// printf("cmd : infile : %d : out %d\n", cmd->outfile, cmd->infile);
 		cmd = cmd->next;
 	}
 }

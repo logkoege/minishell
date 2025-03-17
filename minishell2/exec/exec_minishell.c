@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 22:32:26 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/17 23:11:56 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 	if(ft_strcmp(cmd->arg[0], "cd") == 0)
 	{
 		i++;
-		env = bultin_cd(env, cmd->arg[i]);
+		env = bultin_cd(env, cmd->arg[1]);
 	}
 	else if(ft_strcmp(cmd->arg[i], "pwd") == 0)
 		builtin_pwd(env);
@@ -44,6 +44,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 {
 	pid_t pid;
+	t_env *tmp;
 
 	(void)fd_pipe;
 	char *path;
@@ -79,15 +80,29 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 			dup2(data->cmd->fd_outfile, STDOUT_FILENO);
 			close(data->cmd->fd_outfile);
 		}
+		tmp = check_arg(data->cmd, env);
+		if(tmp)
+		{
+			close(data->cmd->fd_infile);
+			close(data->cmd->fd_outfile);
+			return(tmp);
+		}
 		env_s = env_to_str(env);
 		path = find_path(env, data->cmd->arg[0]);
 		if(!path)
 		{
 			printf("%s : command not found\n", data->cmd->arg[0]);
+			free(env_s);
+			free(path);
 			exit(1);
 		}
-		execve(path, data->cmd->arg, env_s);
-		
+		if(execve(path, data->cmd->arg, env_s) == 1)
+		{
+			free(path);
+			free(env_s);
+			printf("execve error \n");
+			exit(1);
+		}
 	}
 	else
 	{

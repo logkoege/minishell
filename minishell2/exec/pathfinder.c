@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/23 20:03:02 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 23:16:32 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ char	*find_path(t_env *env, char *cmd)
 		if(access(res, F_OK | X_OK) == 0)
 		{
 			printf("path = %s", res);
-			// free(pathjoin);
-			// free(split_path);
+			free(pathjoin);
+			free(split_path);
+			free(path);
 			return(res);
 		}
 		i++;
