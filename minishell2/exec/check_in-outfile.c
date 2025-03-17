@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 15:40:37 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:37:19 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	infiler(t_cmd *cmd, char *infile)
 	if(fd == -1)
 	{
 		printf("bash: %s: No such file or directory\n", infile);
-		exit(1);
+		return(1);
 	}
 
+	cmd->infile = 1;
 	cmd->fd_infile = fd;
 	return(0);
 }
@@ -36,6 +37,7 @@ int outfiler(t_cmd *cmd, char *outfile)
 		printf("bash: %s: No such file or directory\n", outfile);
 		return(1);
 	}
+	cmd->outfile = 1;
 	cmd->fd_outfile = fd;
 	return(0);
 }

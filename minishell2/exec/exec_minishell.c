@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 16:37:04 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:32:26 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,106 +40,99 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 	return(env);
 
 }
-t_env	*exec_alone(t_data *data,t_env *env)
-{
-	t_env *tmp;
-	char *path;
 
-	tmp = check_arg(data->cmd, env);
-	if(tmp)
-		return(tmp);
-	path = find_path(env, data->cmd->arg[0]);
-	if(!path)
-	{
-		ft_fprintf("command not found \n");
-		exit(127);
-	}
-	if(execve(path, data->cmd->arg, NULL) == -1)
-	{
-		ft_fprintf("execve\n");
-		free(path);
-		exit(EXIT_FAILURE);
-	}
-	return(env);
-}
-t_env	*exec_first(t_data *data, t_env *env)
-{
-	t_env *tmp;
-
-	tmp = check_arg(data->cmd, env);
-	if(tmp)
-		return(tmp);
-	// check_redirect(data->cmd);
-	// dup2(data->cmd->fd_infile, STDIN_FILENO);
-	// if(data->cmd->fd_infile != 0)
-	// 	close(data->cmd->fd_infile);
-	dup2(data->pipe[0], STDOUT_FILENO);
-	close(data->pipe[1]);
-	exec_alone(data, env);
-	return(env);
-
-}
-
-
-t_env *exec_1(t_data *data, t_env *env)
+t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 {
 	pid_t pid;
+
+	(void)fd_pipe;
+	char *path;
+	char **env_s;
+
 
 	pid = fork();
 	if(pid == -1)
 	{
-		printf("Erorr : pid exec\n");
-		return(env);
+		printf("Error : pid\n");
+		exit(1);
 	}
-	if(pid == 0  && data->cmd->next != NULL)
+	if(pid == 0)
 	{
-		printf("yes\n");
-		env = exec_first(data, env);
-		return(env);
-	}
-	pipe(data->pipe);
-	while(data->cmd)
-	{
-		if(pid == 0)
+		if(data->cmd->next)
 		{
-			env = exec_fils(data, env);
-			// exit(0);
+			dup2(data->cmd->fd_outfile, STDOUT_FILENO);
+			close(data->cmd->fd_outfile);
+			close(data->cmd->next->fd_infile);
 		}
-		else
+		if(data->cmd->prev)
 		{
-			waitpid(pid, 0, 0);
-
+			dup2(data->cmd->fd_infile, STDIN_FILENO);
+			close(data->cmd->fd_infile);
 		}
-		data->cmd = data->cmd->next;
-	}
-	close(data->pipe[0]);
-	close(data->pipe[1]);
-	return(env);
-}
-
-t_env	*exec_fils(t_data *data, t_env *env)
-{
-	t_env *tmp;
-
-	check_redirect(data->cmd);
-	dup2(data->cmd->fd_infile, STDIN_FILENO);
-	if(data->cmd->fd_infile != 0)
-		close(data->cmd->fd_infile);
-	if(data->cmd->next)
-	{
-		dup2(data->pipe[1], STDOUT_FILENO);
-		close(data->pipe[0]);
-		close(data->pipe[1]);
+		if(data->cmd->infile == 1)
+		{
+			dup2(data->cmd->fd_infile, STDIN_FILENO);
+			close(data->cmd->fd_infile);
+		}
+		else if(data->cmd->outfile == 1)
+		{
+			dup2(data->cmd->fd_outfile, STDOUT_FILENO);
+			close(data->cmd->fd_outfile);
+		}
+		env_s = env_to_str(env);
+		path = find_path(env, data->cmd->arg[0]);
+		if(!path)
+		{
+			printf("%s : command not found\n", data->cmd->arg[0]);
+			exit(1);
+		}
+		execve(path, data->cmd->arg, env_s);
+		
 	}
 	else
 	{
-		dup2(data->cmd->fd_outfile, STDOUT_FILENO);
-		if(data->cmd->fd_outfile != 1)
+		if(data->cmd->fd_infile != STDIN_FILENO)
+			close(data->cmd->fd_infile);
+		if(data->cmd->fd_outfile != STDOUT_FILENO)
 			close(data->cmd->fd_outfile);
+		data->cmd->pid = pid;
+		// close(data->cmd->fd_infile);
+		// close(data->cmd->fd_outfile);
 	}
-	tmp = exec_alone(data, env);
-	if(tmp != NULL)
-		return(tmp);
 	return(env);
 }
 
+t_env	*exec_1(t_data *data, t_env *env)
+{
+	int pipe_fd[2];
+	t_cmd *cmd_tmp;
+
+	cmd_tmp = data->cmd;
+	while(data->cmd)
+	{
+		if(data->cmd->next)
+		{
+			if(pipe(pipe_fd) == -1)
+			{
+				printf("Error : pipe\n");
+				exit(1);
+			}
+			data->cmd->next->fd_infile = pipe_fd[0];
+			data->cmd->fd_outfile = pipe_fd[1];
+		}
+		else
+		{
+			data->cmd->fd_outfile = STDOUT_FILENO;
+			// data->cmd->fd_infile = STDIN_FILENO;
+		}
+		check_redirect(data->cmd);
+		exec_fils(data, env, pipe_fd);
+		data->cmd = data->cmd->next;
+	}
+	while(cmd_tmp)
+	{
+		waitpid(cmd_tmp->pid, 0, 0);
+		cmd_tmp = cmd_tmp->next;
+	}
+	return(env);
+}

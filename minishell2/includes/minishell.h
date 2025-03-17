@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 19:39:26 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:32:03 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,11 @@ typedef struct s_cmd
 	char			**file;
 	int				*tkn;
 	t_first			*first;
+	bool			infile;
+	bool			outfile;
 	int				fd_infile;
 	int				fd_outfile;
+	pid_t			pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -196,6 +199,7 @@ char				**ft_split(char *s, char c);
 //utils2
 void ft_fprintf(char *str);
 int		ft_strcmp(char *s1, char *s2);
+char **env_to_str(t_env *env);
 
 //utils3
 int		is_ws(char c);
@@ -210,7 +214,7 @@ char	*find_path(t_env *env, char *cmd);
 t_env	*main_exec(t_data *data, t_env *env);
 t_env *check_arg(t_cmd *cmd, t_env *env);
 t_env *exec_1(t_data *data, t_env *env);
-t_env	*exec_fils(t_data *data, t_env *env);
+t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe);
 
 
 
