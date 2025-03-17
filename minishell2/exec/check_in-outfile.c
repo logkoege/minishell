@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/14 18:06:20 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:13:49 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	infiler(t_cmd *cmd, char *infile)
 	}
 
 	cmd->fd_infile = fd;
-
-	
 	return(0);
 }
 int outfiler(t_cmd *cmd, char *outfile)

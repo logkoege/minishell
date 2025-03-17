@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/14 18:55:45 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:20:26 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		env = builtin_unset(env, cmd->arg[1]);
 	else
 		return(NULL);
-	return(env);
+	// return(env);
+	exit(1);
 
 }
 

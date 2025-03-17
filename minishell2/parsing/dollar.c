@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/13 14:09:42 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:17:45 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	dollar_parser(t_data *data, t_env *env)
 	while (tmp)
 	{
 		dollar_checker(tmp, env, data);
-		printf("aftertmp->str = %s\n", tmp->str);
+		// printf("aftertmp->str = %s\n", tmp->str);
 		tmp = tmp->next;
 	}
 }
