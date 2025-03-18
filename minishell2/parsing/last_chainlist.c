@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_chainlist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/17 22:58:02 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:28:18 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_cmd	*first_to_cmd(t_data *data)
 		}
 		else if (tmp->token == WORD)
 		{
-
 			cmd->arg[i] = delete_quote(tmp->str);
 			cmd->arg[i + 1] = NULL;
 			cmd->tkn[k] = tmp->token;
@@ -114,7 +113,6 @@ t_cmd	*first_to_cmd(t_data *data)
 	}
 	while (cmd->prev)
 		cmd = cmd->prev;
-	//print_lst_cmd(cmd);
 	return (cmd);
 }
 
