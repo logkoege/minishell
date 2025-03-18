@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/17 11:17:45 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:14:19 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 				if (tmp->str[i] == '$')
 				{
 					dollar_changer(tmp, i, env, true, data);
-					i = 0;
+					i = -1;
 				}
 				i++;
 			}
@@ -60,7 +60,7 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 				if (tmp->str[i] == '$')
 				{
 					dollar_changer(tmp, i, env, false, data);
-					i = 0;
+					i = -1;
 				}
 				i++;
 			}
