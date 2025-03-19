@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 17:11:25 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:22:08 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,26 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		builtin_env(env);
 	else if(ft_strcmp(cmd->arg[i], "unset") == 0)
 		env = builtin_unset(env, cmd->arg[1]);
+	else if(ft_strcmp(cmd->arg[i], "exit") == 0)
+		builtin_exit(cmd);
 	else
 		return(NULL);
 	return(env);
 
+}
+
+int is_builtin(t_data *data, t_env *env)
+{
+	(void)env;
+	if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
+		return(1);
+	if(ft_strcmp(data->cmd->arg[0], "exit") == 0)
+		return(1);
+	if(ft_strcmp(data->cmd->arg[0], "export") == 0)
+		return(1);	
+	if(ft_strcmp(data->cmd->arg[0], "unset") == 0)
+		return(1);
+	return(0);
 }
 
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
@@ -106,9 +122,9 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	}
 	else
 	{
-		if(data->cmd->fd_infile != STDIN_FILENO)
+		if(data->cmd->fd_infile != STDIN_FILENO && data->cmd->fd_infile != -4242)
 			close(data->cmd->fd_infile);
-		if(data->cmd->fd_outfile != STDOUT_FILENO)
+		if(data->cmd->fd_outfile != STDOUT_FILENO && data->cmd->fd_outfile != -4242)
 			close(data->cmd->fd_outfile);
 		data->cmd->pid = pid;
 		// close(data->cmd->fd_infile);
@@ -125,6 +141,41 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while(data->cmd)
 	{
+		if(!data->cmd->next || !data->cmd->prev)
+		{
+			if(is_builtin(data, env))
+			{
+				check_redirect(data->cmd);
+				if(data->cmd->infile == 1)
+				{
+					dup2(data->cmd->fd_infile, STDIN_FILENO);
+					close(data->cmd->fd_infile);
+				}
+				else if(data->cmd->outfile == 1)
+				{
+					dup2(data->cmd->fd_outfile, STDOUT_FILENO);
+					close(data->cmd->fd_outfile);
+				}
+				env = check_arg(data->cmd, env);
+				return(env);
+			}
+		}
+		if(check_redirect(data->cmd) == 1)
+		{
+			if(data->cmd->next)
+			{
+				if(pipe(pipe_fd) == -1)
+				{
+					printf("Error : pipe\n");
+					exit(1);
+				}
+				data->cmd->next->fd_infile = pipe_fd[0];
+				data->cmd->fd_outfile = pipe_fd[1];
+				close(pipe_fd[1]);
+			}
+			data->cmd = data->cmd->next;
+			continue;
+		}		
 		if(data->cmd->next)
 		{
 			if(pipe(pipe_fd) == -1)
@@ -133,15 +184,17 @@ t_env	*exec_1(t_data *data, t_env *env)
 				exit(1);
 			}
 			data->cmd->next->fd_infile = pipe_fd[0];
-			data->cmd->fd_outfile = pipe_fd[1];
+			if(data->cmd->fd_outfile == -4242)
+				data->cmd->fd_outfile = pipe_fd[1];
+			else
+				close(pipe_fd[1]);
 		}
 		else
 		{
-			data->cmd->fd_outfile = STDOUT_FILENO;
+			// data->cmd->fd_outfile = STDOUT_FILENO;
 			// data->cmd->fd_infile = STDIN_FILENO;
 		}
-		check_redirect(data->cmd);
-		exec_fils(data, env, pipe_fd);
+		env = exec_fils(data, env, pipe_fd);
 		data->cmd = data->cmd->next;
 	}
 	while(cmd_tmp)

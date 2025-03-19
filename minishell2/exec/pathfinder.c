@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 16:41:39 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:26:06 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*find_path(t_env *env, char *cmd)
 	int i;
 
 	i = 0;
+	if(access(cmd, X_OK | F_OK) == 0)
+		return(cmd);
 	path = ft_getenv("PATH", env, 1);
 	split_path = ft_split(path, ':');	
 	if(!split_path)
@@ -71,6 +73,10 @@ char	*find_path(t_env *env, char *cmd)
 			return(res);
 		}
 		i++;
+		free(pathjoin);
+		free(res);
+		pathjoin = NULL;
+		res = NULL;
 	}
 	free(pathjoin);
 	free(res);

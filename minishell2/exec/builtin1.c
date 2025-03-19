@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 14:22:21 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:03:39 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	builtin_env(t_env *env)
 			printf("%s\n", head->all);
 		head = head->next;
 	}
+	exit(EXIT_SUCCESS);
 }
 
 void	builtin_pwd(t_env *env)
@@ -36,7 +37,11 @@ void	builtin_pwd(t_env *env)
 	if(pwd)
 		printf("%s\n", pwd);
 	else
+	{
 		printf("PWD error \n");
+		exit(EXIT_FAILURE);
+	}
+	exit(EXIT_SUCCESS);
 }
 
 void	builtin_echo(t_cmd *exec)
@@ -67,4 +72,5 @@ void	builtin_echo(t_cmd *exec)
 	}
 	if(comt != 1)
 		printf("\n");
+	exit(EXIT_SUCCESS);
 }

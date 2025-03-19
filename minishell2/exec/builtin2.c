@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:12:18 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/10 17:37:28 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:05:31 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	builtin_exit(t_cmd *cmd)
 {
 	(void)cmd;
 	// printf("%s\n", cmd->arg);
-	exit(0);
+	exit(EXIT_FAILURE);
 }
 
 t_env *builtin_unset(t_env *env, char *unset)
@@ -28,6 +28,8 @@ t_env *builtin_unset(t_env *env, char *unset)
 
 	tmp = env;
 	head = env;
+	if(!unset)
+		return(tmp);
 	if(ft_strcmp(env->before_eq, unset) == 0)
 	{
 		// env = env->next;

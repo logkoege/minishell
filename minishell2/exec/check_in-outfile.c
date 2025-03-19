@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 18:24:43 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 22:59:03 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	infiler(t_cmd *cmd, char *infile)
 		return(1);
 	}
 
+	if(cmd->infile)
+		close(cmd->fd_infile);
 	cmd->infile = 1;
 	cmd->fd_infile = fd;
 	return(0);
@@ -37,23 +39,63 @@ int outfiler(t_cmd *cmd, char *outfile)
 		printf("bash: %s: No such file or directory\n", outfile);
 		return(1);
 	}
+	if(cmd->outfile)
+		close(cmd->fd_outfile);
 	cmd->outfile = 1;
 	cmd->fd_outfile = fd;
 	return(0);
 }
 
-// void	appender(t_cmd *cmd, char *file)
-// {
-// 	int fd;
+int	appender(t_cmd *cmd, char *file)
+{
+	int fd;
 
-// }
-void	here_doocker(t_cmd *cmd, char *herdoc)
+	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if(fd == -1)
+	{
+		printf("bash: %s: No such file or directory\n", file);
+		return(1);
+	}
+	if(cmd->infile)
+		close(cmd->fd_infile);
+	cmd->infile = 1;
+	cmd->fd_infile = fd;
+	return(0);
+}
+int	here_doocker(t_cmd *cmd, char *herdoc)
 {
 	(void)cmd;
 	(void)herdoc;
+	int pipe_fd[2];
+	char *input;
+
+	if(pipe(pipe_fd) == -1)
+	{
+		printf("Error pipe heredoc\n");
+		return(1);
+	}
+	while(1)
+	{
+		input = readline(">");
+		if(input == NULL)
+			continue;
+		if(ft_strcmp(input, herdoc) == 0
+			&& ft_strlen(input) > 0)
+			break;
+		write(pipe_fd[1], input, ft_strlen(input));
+		write(pipe_fd[1], "\n", 1);
+
+	}
+	close(pipe_fd[1]);
+	if(cmd->infile)
+		close(cmd->fd_infile);
+	cmd->infile = 1;
+	cmd->fd_infile = pipe_fd[0];
+	
+	return(0);
 }
 
-void	check_redirect(t_cmd *cmd)
+int	check_redirect(t_cmd *cmd)
 {
 	int i;
 	int j;
@@ -67,12 +109,14 @@ void	check_redirect(t_cmd *cmd)
 		{
 			if(cmd->tkn[i] == INPUT)
 			{
-				infiler(cmd, cmd->file[j]);
+				if(infiler(cmd, cmd->file[j]) == 1)
+					return(1);
 				j++;
 			}
 			else if(cmd->tkn[i] == TRUNC)
 			{
-				outfiler(cmd, cmd->file[j]);
+				if(outfiler(cmd, cmd->file[j]) == 1)
+						return(1);
 				j++;
 			}
 			else if(cmd->tkn[i] == APPEND)
@@ -91,7 +135,7 @@ void	check_redirect(t_cmd *cmd)
 		}
 		// cmd = cmd->next;
 	// }
-	return;
+	return(0);
 }
 
 // void	redirect(t_data *data, int fd_in, int fd_out)

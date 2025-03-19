@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/17 22:48:33 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:34:01 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
 		// print_lst_cmd(data->cmd);
-		data->cmd->fd_infile = 0;
-		data->cmd->fd_outfile = 1;
+		data->cmd->fd_infile = -4242;
+		data->cmd->fd_outfile = -4242;
 		env = main_exec(data, env);
 		free(inpt);
 		free_struct(data);

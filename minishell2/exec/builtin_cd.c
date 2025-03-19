@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 13:40:54 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:14:19 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	char *pwd;
 	char *old_pwd;
 
-	if(check_dir_cd(dir) == 1)
-	{
-		printf("bash: cd: too many arguments\n");
-		return(env);	
-	}
+	// if(check_dir_cd(dir) == 1)
+	// {
+	// 	printf("bash: cd: too many arguments\n");
+	// 	return(env);	
+	// }
 	if(!dir)
 	{
 		pwd = ft_getenv("HOME", env, 3);
@@ -70,9 +70,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	}
 	else
 	{
-		if(chdir(dir) == 0)
-			printf("bien cngahge\n");
-		else
+		if(chdir(dir) != 0)
 			printf("cd: no such file or directory: %s\n", dir);
 		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(NULL, 0));
 	}

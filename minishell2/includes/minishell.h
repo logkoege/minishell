@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 12:23:09 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:34:01 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ t_env 				*builtin_cd_old_pwd(t_env *env);
 //buitlin2
 void	builtin_export(t_cmd *cmd, t_env *env);
 t_env *builtin_unset(t_env *env, char *unset);
+void	builtin_exit(t_cmd *cmd);
 //innit var
 void	innit_var(t_cmd *cmd, t_env *env);
 
@@ -222,7 +223,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe);
 
 
 //infile
-void	check_redirect(t_cmd *cmd);
+int	check_redirect(t_cmd *cmd);
 
 
 #endif
