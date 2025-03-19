@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/14 19:08:22 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:22:21 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,13 @@ void	builtin_pwd(t_env *env)
 {
 	char *pwd;
 	(void)env;
-	// while(env)
-	// {
-	// 	// printf("\n%s\n", env->all);
-	// 	if(ft_strcmp(env->before_eq, "PWD") == 0)
-	// 	{
-	// 		pwd = env->after_eq;
-	// 		break;
-	// 	}
-	// 	env = env->next;
-	// }
-	// if (pwd != NULL)
-	// 	printf("pwd : %s\n", pwd);
-	// else
-	// 	printf("Error : nopwd\n");
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
+	char buffer[4096];
+
+	pwd = getcwd(buffer, sizeof(buffer));
+	if(pwd)
+		printf("%s\n", pwd);
+	else
+		printf("PWD error \n");
 }
 
 void	builtin_echo(t_cmd *exec)

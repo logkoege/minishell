@@ -210,6 +210,7 @@ char	*ft_strjoin(char *s1, char *s2);
 
 //pathfinder
 char	*find_path(t_env *env, char *cmd);
+void	free_path(t_env *env, char **split);
 
 //exec_minishell
 t_env	*main_exec(t_data *data, t_env *env);

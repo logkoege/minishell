@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 22:37:19 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:24:43 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ int outfiler(t_cmd *cmd, char *outfile)
 	return(0);
 }
 
+// void	appender(t_cmd *cmd, char *file)
+// {
+// 	int fd;
+
+// }
+void	here_doocker(t_cmd *cmd, char *herdoc)
+{
+	(void)cmd;
+	(void)herdoc;
+}
+
 void	check_redirect(t_cmd *cmd)
 {
 	int i;
@@ -64,8 +75,16 @@ void	check_redirect(t_cmd *cmd)
 				outfiler(cmd, cmd->file[j]);
 				j++;
 			}
-			// else if(cmd->tkn[i] == APPEND)
-				// outfiler(cmd, cmd->file[i]);
+			else if(cmd->tkn[i] == APPEND)
+			{
+				// appender(cmd, cmd->file[i]);
+				// j++;
+			}
+			else if(cmd->tkn[i] == HEREDOC)
+			{
+				here_doocker(cmd, cmd->file[j]);
+				j++;
+			}
 			
 
 			i++;

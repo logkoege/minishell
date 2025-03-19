@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 23:11:56 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:11:25 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		i++;
 		env = bultin_cd(env, cmd->arg[1]);
 	}
-	else if(ft_strcmp(cmd->arg[i], "pwd") == 0)
+	else if(ft_strcmp(cmd->arg[0], "pwd") == 0)
 		builtin_pwd(env);
 	else if(ft_strcmp(cmd->arg[i], "echo") == 0)
 		builtin_echo(cmd);
@@ -92,14 +92,14 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 		if(!path)
 		{
 			printf("%s : command not found\n", data->cmd->arg[0]);
-			free(env_s);
+			free_path(env, env_s);
 			free(path);
 			exit(1);
 		}
 		if(execve(path, data->cmd->arg, env_s) == 1)
 		{
 			free(path);
-			free(env_s);
+			free_path(env, env_s);
 			printf("execve error \n");
 			exit(1);
 		}

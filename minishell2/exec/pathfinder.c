@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/17 23:16:32 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:41:39 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_path(t_env *env, char **split)
+{
+	int i;
+
+	(void)env;
+	i = 0;
+	if(!split)
+		return;
+	while(split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
 
 char	*find_path(t_env *env, char *cmd)
 {
@@ -23,19 +39,42 @@ char	*find_path(t_env *env, char *cmd)
 	i = 0;
 	path = ft_getenv("PATH", env, 1);
 	split_path = ft_split(path, ':');	
+	if(!split_path)
+	{
+		free(path);
+		return(NULL);
+	}
 	while(split_path[i])
 	{
+		if(i > 0 && pathjoin)
+			free(pathjoin);
 		pathjoin = ft_strjoin(split_path[i], "/");
+		if (!pathjoin)
+		{
+			free(path);
+			free_path(env, split_path);
+			return (NULL);
+		}
 		res = ft_strjoin(pathjoin, cmd);
+		if (!res) 
+		{
+			free(pathjoin);
+			free(path);
+			free_path(env, split_path);
+			return (NULL);
+		}
 		if(access(res, F_OK | X_OK) == 0)
 		{
-			printf("path = %s", res);
-			free(pathjoin);
-			free(split_path);
 			free(path);
+			free(pathjoin);
+			free_path(env, split_path);
 			return(res);
 		}
 		i++;
 	}
+	free(pathjoin);
+	free(res);
+	free(path);
+	free_path(env, split_path);
 	return(NULL);
 }

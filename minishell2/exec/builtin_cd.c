@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/13 12:10:14 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:40:54 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	if(check_dir_cd(dir) == 1)
 	{
 		printf("bash: cd: too many arguments\n");
-		return(env);
+		return(env);	
 	}
 	if(!dir)
 	{
@@ -112,7 +112,7 @@ t_env	*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd)
 	else
 	{
 		// printf("NOUVEAU head PWD : %s\n", ft_getenv("PWD", head));
-		printf("pwd changed\n");
+		// printf("pwd changed\n");
 		// printf("nouveau pwd : %s \n vieux pwd : %s\n", ft_getenv("PWD", env, 1), ft_getenv("OLDPWD", env, 1));
 	}
 	return(head);
