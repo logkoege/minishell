@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 23:14:19 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:23:17 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ t_env	*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd)
 			break;
 		head = head->next;
 	}
-	if(new_pwd == NULL)
-		printf("wrong\n");
-	else
-	{
+	// if(new_pwd == NULL)
+	// 	printf("wrong\n");
+	// else
+	// {
 		// printf("NOUVEAU head PWD : %s\n", ft_getenv("PWD", head));
 		// printf("pwd changed\n");
 		// printf("nouveau pwd : %s \n vieux pwd : %s\n", ft_getenv("PWD", env, 1), ft_getenv("OLDPWD", env, 1));
-	}
+	// }
 	return(head);
 }

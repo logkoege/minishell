@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 15:45:26 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:29:52 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,9 @@ t_env *builtin_unset(t_env *env, char *unset);
 void	builtin_exit(t_cmd *cmd);
 //innit var
 void	innit_var(t_cmd *cmd, t_env *env);
+
+//export
+t_env	*buitlin_export(t_env *env, t_cmd *cmd);
 
 //error_handling
 

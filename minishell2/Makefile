@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
+#    By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/20 14:41:20 by lloginov         ###   ########.fr        #
+#    Updated: 2025/03/20 22:28:12 by levaipro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC =	parsing/main.c		\
 		exec/builtin_cd.c\
 		exec/utils3.c\
 		exec/check_in-outfile.c\
+		exec/builtin_export.c\
 
 
 OBJ = $(SRC:.c=.o)
