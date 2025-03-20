@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 23:03:39 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:24:38 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	builtin_echo(t_cmd *exec)
 		printf("\n");
 		return;
 	}
-	if(ft_strcmp(exec->arg[1], "-n") == 0)
+	if(ft_strcmp_echo(exec->arg[1], "-n") == 0)
 	{
 		i++;
 		comt = 1;

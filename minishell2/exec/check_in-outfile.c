@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 22:59:03 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:06:27 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ int	appender(t_cmd *cmd, char *file)
 {
 	int fd;
 
-	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if(fd == -1)
 	{
 		printf("bash: %s: No such file or directory\n", file);
 		return(1);
 	}
-	if(cmd->infile)
-		close(cmd->fd_infile);
-	cmd->infile = 1;
-	cmd->fd_infile = fd;
+	if(cmd->outfile)
+		close(cmd->fd_outfile);
+	cmd->outfile = 1;
+	cmd->fd_outfile = fd;
 	return(0);
 }
 int	here_doocker(t_cmd *cmd, char *herdoc)
@@ -91,7 +91,6 @@ int	here_doocker(t_cmd *cmd, char *herdoc)
 		close(cmd->fd_infile);
 	cmd->infile = 1;
 	cmd->fd_infile = pipe_fd[0];
-	
 	return(0);
 }
 
@@ -121,12 +120,14 @@ int	check_redirect(t_cmd *cmd)
 			}
 			else if(cmd->tkn[i] == APPEND)
 			{
-				// appender(cmd, cmd->file[i]);
-				// j++;
+				if(appender(cmd, cmd->file[j]) == 1)
+					return(1);
+				j++;
 			}
 			else if(cmd->tkn[i] == HEREDOC)
 			{
-				here_doocker(cmd, cmd->file[j]);
+				if(here_doocker(cmd, cmd->file[j]) == 1)
+					return(1);
 				j++;
 			}
 			

@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:41:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/18 16:58:47 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:29:40 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,20 @@ char **env_to_str(t_env *env)
 	}
 	res[i] = NULL;
 	return(res);
+}
+int ft_strcmp_echo(char *s1, char *s2)
+{
+	int i;
+
+	i = 1;
+	
+	if(s1[1]!= s2[1])
+			return(1);
+	while(s1[i])
+	{
+		if(s1[i]!= s2[1] && s1[i] != 'e' && s1[i] != 'E')
+			return(1);
+		i++;
+	}
+	return(0);
 }

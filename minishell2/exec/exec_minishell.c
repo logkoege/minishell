@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 23:22:08 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:21:22 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ t_env	*exec_1(t_data *data, t_env *env)
 		}
 		else
 		{
-			// data->cmd->fd_outfile = STDOUT_FILENO;
+			if(data->cmd->outfile != 1)
+				data->cmd->fd_outfile = STDOUT_FILENO;
 			// data->cmd->fd_infile = STDIN_FILENO;
 		}
 		env = exec_fils(data, env, pipe_fd);

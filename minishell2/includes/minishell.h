@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 21:34:01 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:24:27 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ t_env				*bultin_cd(t_env *env, char *dir);
 t_env				*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd);
 void				builtin_home(t_env *env);
 t_env 				*builtin_cd_old_pwd(t_env *env);
+int 				ft_strcmp_echo(char *s1, char *s2);
 
 //buitlin2
 void	builtin_export(t_cmd *cmd, t_env *env);
