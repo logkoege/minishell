@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 14:21:22 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:00:29 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 int is_builtin(t_data *data, t_env *env)
 {
 	(void)env;
+	if(!data->cmd->arg[0])
+		return(0);
 	if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
 		return(1);
 	if(ft_strcmp(data->cmd->arg[0], "exit") == 0)
@@ -67,6 +69,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	char **env_s;
 
 
+	printf("infile : %d \n outfile : %d\n", data->cmd->fd_infile, data->cmd->fd_outfile);
 	pid = fork();
 	if(pid == -1)
 	{
@@ -184,16 +187,17 @@ t_env	*exec_1(t_data *data, t_env *env)
 				exit(1);
 			}
 			data->cmd->next->fd_infile = pipe_fd[0];
-			if(data->cmd->fd_outfile == -4242)
-				data->cmd->fd_outfile = pipe_fd[1];
-			else
+			if(data->cmd->outfile == 1)
 				close(pipe_fd[1]);
+			else
+				data->cmd->fd_outfile = pipe_fd[1];
 		}
 		else
 		{
 			if(data->cmd->outfile != 1)
 				data->cmd->fd_outfile = STDOUT_FILENO;
-			// data->cmd->fd_infile = STDIN_FILENO;
+			if(data->cmd->infile != 1)
+				data->cmd->fd_infile = STDIN_FILENO;
 		}
 		env = exec_fils(data, env, pipe_fd);
 		data->cmd = data->cmd->next;

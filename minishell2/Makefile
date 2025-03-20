@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+         #
+#    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/17 23:16:51 by levaipro         ###   ########.fr        #
+#    Updated: 2025/03/20 14:41:20 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 LFLAGS = -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
-CFLAGS = -Wall -Wextra -Werror -lreadline -g# -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -lreadline -g3 # -fsanitize=address
 
 SRC =	parsing/main.c		\
 		parsing/utils.c		\
