@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:20:51 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:26:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ t_cmd	*lst_new_cmd(t_data *data)
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
-	new->arg = malloc(sizeof(char *) * data->lst_size + 1);
-	new->tkn = malloc(sizeof(int) * data->lst_size + 1);
-	new->file = malloc(sizeof(char *) * (data->lst_size / 2) + 1);
+	new->arg = NULL;
+	new->arg = malloc(sizeof(char *) * (data->lst_size + 1));
+	new->tkn = malloc(sizeof(int) * (data->lst_size + 1));
+	new->file = malloc(sizeof(char *) * ((data->lst_size / 2) + 1));
 	new->tkn[0] = 0;
+	new->infile = 0;
+	new->outfile = 0;
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
@@ -48,6 +52,15 @@ t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new)
 		return (*lst);
 	}
 	last = lstlast_cmd(*lst);
+	new->prev = lstlast_cmd(*lst);
 	last->next = new;
 	return (last);
 }
+
+// t_cmd	*interm(t_cmd **cmd, t_data *data)
+// {
+// 	t_cmd	*tmp;
+	
+// 	tmp = cmd;
+// 	first_to_cmd(data);
+// }

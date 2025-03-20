@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/13 14:26:06 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:22:22 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,20 @@ typedef struct s_cmd
 	char			**file;
 	int				*tkn;
 	t_first			*first;
+	bool			infile;
+	bool			outfile;
+	int				fd_infile;
+	int				fd_outfile;
+	pid_t			pid;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_data
 {
 	t_first	*first;
 	t_cmd	*cmd;
+	t_env	*env;
 	int		pipe[2];
 	int		exit_code;
 	bool	single_quote;
@@ -95,7 +102,7 @@ void	free_all(t_data *data);
 void	free_struct(t_data *data);
 
 // spliting.c
-char	*start_split(t_data *data, char *input);
+int		start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
@@ -123,12 +130,12 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
+int		dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // dollar2.c
-void	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
+int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
 char	*ft_itoa(int exit_code);
 
 // env.c
@@ -193,6 +200,7 @@ char				**ft_split(char *s, char c);
 //utils2
 void ft_fprintf(char *str);
 int		ft_strcmp(char *s1, char *s2);
+char **env_to_str(t_env *env);
 
 //utils3
 int		is_ws(char c);
@@ -207,7 +215,13 @@ char	*find_path(t_env *env, char *cmd);
 t_env	*main_exec(t_data *data, t_env *env);
 t_env *check_arg(t_cmd *cmd, t_env *env);
 t_env *exec_1(t_data *data, t_env *env);
-t_env	*exec_fils(t_data *data, t_env *env);
+t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe);
+
+
+
+
+//infile
+void	check_redirect(t_cmd *cmd);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/13 14:09:42 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:42:45 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	dollar_parser(t_data *data, t_env *env)
 	while (tmp)
 	{
 		dollar_checker(tmp, env, data);
-		printf("aftertmp->str = %s\n", tmp->str);
 		tmp = tmp->next;
 	}
 }
@@ -46,8 +45,8 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 			{
 				if (tmp->str[i] == '$')
 				{
-					dollar_changer(tmp, i, env, true, data);
-					i = 0;
+					if (dollar_changer(tmp, i, env, true, data) == 0)
+						i = -1;
 				}
 				i++;
 			}
@@ -59,8 +58,8 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 			{
 				if (tmp->str[i] == '$')
 				{
-					dollar_changer(tmp, i, env, false, data);
-					i = 0;
+					if (dollar_changer(tmp, i, env, false, data) == 0)
+						i = -1;
 				}
 				i++;
 			}
@@ -71,7 +70,7 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 	}
 }
 
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
+int	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
 {
 	t_env	*tenv2;
 	char	*str;
@@ -87,8 +86,10 @@ void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
 	else if (tenv2 == NULL)
 	{
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str) + 2));
-		remove_dollar(tmp, str, i, quote, data);
+		if (remove_dollar(tmp, str, i, quote, data) == 1)
+			return (1);
 	}
+	return (0);
 }
 
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
