@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:29:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/18 12:05:43 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:31:03 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*ft_dup(char *s1)
 		i++;
 	}
 	s2[i] = '\0';
+	// free(s1);
 	return (s2);
 }
 
@@ -64,7 +65,6 @@ char	*ft_dup_digit(char *s1, int dollar)
 		}
 	}
 	s2[j] = '\0';
-	//printf("s2 = %s\n", s2);
 	return (s2);
 }
 

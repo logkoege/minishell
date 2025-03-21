@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 22:31:20 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:32:53 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	char **env_s;
 
 
-	printf("infile : %d \n outfile : %d\n", data->cmd->fd_infile, data->cmd->fd_outfile);
+	// printf("infile : %d \n outfile : %d\n", data->cmd->fd_infile, data->cmd->fd_outfile);
 	pid = fork();
 	if(pid == -1)
 	{

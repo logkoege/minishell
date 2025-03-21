@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 22:29:52 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:29:34 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	free_all(t_data *data);
 void	free_struct(t_data *data);
 
 // spliting.c
-char	*start_split(t_data *data, char *input);
+int		start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
@@ -130,12 +130,12 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
-void	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
+int		dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // dollar2.c
-void	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
+int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
 char	*ft_itoa(int exit_code);
 
 // env.c

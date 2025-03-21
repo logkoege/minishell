@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/17 19:39:19 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:27:16 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **envp)
 	init_var(&data, argc, argv);
 	env = list_env(envp, &env);
 	rdline(&data, envp, env);
-	//exec ici
 	free_all(&data);
 	return (0);
 }

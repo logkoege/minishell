@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 23:17:07 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/21 00:18:09 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,31 @@ void	print_export(char **export)
 	}
 	
 }
+void	free_export(char **export)
+{
+	int i;
+
+	i = 0;
+	while(export[i])
+	{
+		free(export[i]);
+		i++;
+	}
+	free(export);
+}
+// int	is_eauql(char *arg)
+// {
+// 	int i;
+
+// 	i = 0;
+
+// 	while(arg[i])
+// 	{
+// 		if(arg[i] == "=")
+// 			return(i);
+// 	}
+// 	return(0);
+// }
 
 t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 {
@@ -116,8 +141,11 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 	}
 	else
 	{
-		
+		lstadd_back_env(&env, lst_new_env(cmd->arg[1]));
+
 	}
+	printf("aaaa\n");
+	free_export(export);
 	return(env);
 }
 

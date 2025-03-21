@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 14:52:14 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:14:15 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		add_history(inpt);
 		if (!inpt || inpt[0] == '\0')
 			continue ;
-		if (start_split(data, inpt) == NULL)
+		if (start_split(data, inpt) == 0)
 			continue ;
 		setup_signals();
 		print_lst_first(data);
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
-		print_lst_cmd(data->cmd);
-		data->cmd->fd_infile = -4242;
-		data->cmd->fd_outfile = -4242;
+		//print_lst_cmd(data->cmd);
+		data->cmd->fd_infile = 0;
+		data->cmd->fd_outfile = 1;
 		env = main_exec(data, env);
 		free(inpt);
 		free_struct(data);
