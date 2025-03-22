@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 23:29:34 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:16:12 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define INPUT		4	// <
 # define APPEND		5	// >>
 # define HEREDOC	6	// <<
+
+// extern int exit_code;
 
 typedef struct s_env
 {
@@ -185,7 +187,7 @@ void	builtin_exit(t_cmd *cmd);
 void	innit_var(t_cmd *cmd, t_env *env);
 
 //export
-t_env	*buitlin_export(t_env *env, t_cmd *cmd);
+t_env 	*buitlin_export(t_env *env, t_cmd *cmd);
 
 //error_handling
 
@@ -223,7 +225,8 @@ t_env *check_arg(t_cmd *cmd, t_env *env);
 t_env *exec_1(t_data *data, t_env *env);
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe);
 
-
+//export
+int	is_eauql(char *arg);
 
 
 //infile

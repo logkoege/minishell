@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 14:22:23 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:40:39 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 	else if(ft_strcmp(cmd->arg[i], "exit") == 0)
 		builtin_exit(cmd);
 	else if(ft_strcmp(cmd->arg[i], "export") == 0)
-		buitlin_export(env, cmd);
+		env = buitlin_export(env, cmd);
 	else
 		return(NULL);
 	return(env);

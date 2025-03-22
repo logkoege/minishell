@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/18 16:14:15 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:47:27 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
+	if(!str)
+		return(0);
 	while (str[i])
 		i++;
 	return (i);
@@ -53,6 +55,7 @@ int	ft_strlen(char *str)
 
 void	init_var(t_data *data, int argc, char **argv)
 {
+	// exit_code = 0;
 	(void)argc;
 	(void)argv;
 	data->exit_code = 0;

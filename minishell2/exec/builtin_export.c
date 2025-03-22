@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/21 18:56:13 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:19:58 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ char 	**malloc_export(t_env *env)
 		env = env->next;
 		i++;
 	}
+	// printf("i = %d", i);
 	env = env_1;
-	export = malloc(sizeof(char *) * (i + 1));
+	export = malloc(sizeof(char *) * (i + 2));
 	if(!export)
 	{
 		printf("export malloc error \n");
@@ -81,7 +82,7 @@ int	is_eauql(char *arg)
 	while(arg[i])
 	{
 		if(arg[i] == '=')
-			return(i + 1);
+			return(i);
 		i++;
 	}
 	return(0);
@@ -145,43 +146,14 @@ void	free_export(char **export)
 	export = NULL;
 }
 
-
-t_env	*lst_new_env2(char *envp)
-{
-	t_env	*lst;
-
-	lst = malloc(sizeof(t_env));
-	if (!lst)
-		return (NULL);
-	if(is_eauql(envp) == 0)
-	{
-		lst->before_eq = ft_dup(envp);
-		lst->after_eq = NULL;
-		lst->all = ft_dup(envp);
-		lst->equal = 0;
-	}
-	else
-	{
-		lst->before_eq = ft_sub(envp, 0, ft_strlen(envp) - ft_strlen(ft_chr(envp, '=')));
-		lst->after_eq = ft_chr(envp, '=') + 1;
-		printf("lst after : %s\n", lst->after_eq);
-		if(lst->after_eq == NULL)
-			lst->equal = 0;
-		else
-			lst->equal = 1;
-		lst->all = ft_dup(envp);
-		lst->next = NULL;
-	}
-	return (lst);
-}
-int check_export(char *arg)
+int check_export(char *arg, t_env *env)
 {
 	int i;
 	int eq;
 
 	i = 0;
 	eq = is_eauql(arg);
-	
+	eq++;
 	if(is_digit(arg[1]) == 1)
 		return(1);
 	while(i != eq)
@@ -190,6 +162,8 @@ int check_export(char *arg)
 			return(1);
 		i++;
 	}
+	if(ft_getenv(arg, env, 1) != NULL)
+		return(2);
 	return(0);
 }
 
@@ -199,7 +173,10 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 	char **export;
 	// (void)export;
 	// i = 0;
+	// t_env *exprt;
+	// exprt = env;
 	(void)env;
+	
 	
 	if(cmd->arg[1] == NULL)
 	{
@@ -210,15 +187,25 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 	}
 	else
 	{
-		if(check_export(cmd->arg[1]) == 1)
+		if(check_export(cmd->arg[1], env) == 1)
 		{
 			errno = EINVAL;
 			perror("export ");
 			return(env);
 		}
-		lstadd_back_env(&env, lst_new_env(cmd->arg[1]));
+		else if(check_export(cmd->arg[1], env) == 2)
+			return(env);
+		else
+			lstadd_back_env(&env, lst_new_env(cmd->arg[1]));
+		
 		
 	}
+	// env = exprt;
+	// while(exprt)
+	// {
+	// 	printf("before : %s\n after : %s\n all : %s\n", exprt->before_eq, exprt->after_eq, exprt->all);
+	// 	exprt = exprt->next;
+	// }
 
 	// printf("aaaa\n");
 	return(env);
