@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 15:53:35 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:47:13 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	infiler(t_cmd *cmd, char *infile)
 	fd = open(infile, O_RDONLY);
 	if(fd == -1)
 	{
-		printf("bash: %s: No such file or directory\n", infile);
+		errno = EINVAL;
+		perror("No such file or directory\n");
+		// exit_code = 2;
 		return(1);
 	}
 
@@ -36,7 +38,9 @@ int outfiler(t_cmd *cmd, char *outfile)
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(fd == -1)
 	{
-		printf("bash: %s: No such file or directory\n", outfile);
+		errno = EINVAL;
+		perror(": No such file or directory\n");
+		// exit_code = 2;
 		return(1);
 	}
 	if(cmd->outfile)
@@ -53,7 +57,9 @@ int	appender(t_cmd *cmd, char *file)
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if(fd == -1)
 	{
-		printf("bash: %s: No such file or directory\n", file);
+		errno = EINVAL;
+		perror("No such file or directory\n");
+		// exit_code = 2;
 		return(1);
 	}
 	if(cmd->outfile)
@@ -71,7 +77,9 @@ int	here_doocker(t_cmd *cmd, char *herdoc)
 
 	if(pipe(pipe_fd) == -1)
 	{
-		printf("Error pipe heredoc\n");
+		errno = EINVAL;
+		perror("Error pipe heredoc\n");
+		// exit_code = 2;
 		return(1);
 	}
 	while(1)

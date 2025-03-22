@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 14:24:38 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:52:32 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	builtin_pwd(t_env *env)
 		printf("PWD error \n");
 		exit(EXIT_FAILURE);
 	}
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void	builtin_echo(t_cmd *exec)

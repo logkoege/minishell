@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:41:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 14:29:40 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:18:30 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_strcmp(char *s1, char *s2)
 
 	i = 0;
 
-	while(s1[i])
+	while(s2[i])
 	{
 		if(s1[i]!= s2[i])
 			return(1);

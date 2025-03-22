@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 23:32:53 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:22:23 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 	if(ft_strcmp(cmd->arg[0], "cd") == 0)
 	{
 		i++;
+		if(cmd->arg[2])
+		{
+			write(2, "bash : cd : too many argumrents\n"
+				, ft_strlen("bash : cd : too many argumrents\n"));
+			// exit_code = 1;
+			return(env);
+		}
 		env = bultin_cd(env, cmd->arg[1]);
 	}
 	else if(ft_strcmp(cmd->arg[0], "pwd") == 0)
@@ -76,6 +83,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	if(pid == -1)
 	{
 		printf("Error : pid\n");
+		// exit_code = 1;
 		exit(1);
 	}
 	if(pid == 0)
@@ -115,13 +123,15 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 			printf("%s : command not found\n", data->cmd->arg[0]);
 			free_path(env, env_s);
 			free(path);
-			exit(1);
+			// exit_code = 127;
+			exit(127);
 		}
 		if(execve(path, data->cmd->arg, env_s) == 1)
 		{
 			free(path);
 			free_path(env, env_s);
 			printf("execve error \n");
+			// exit_code = 1;
 			exit(1);
 		}
 	}
@@ -146,6 +156,8 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while(data->cmd)
 	{
+		// printf("infile : %d \n", data->cmd->fd_infile);
+		// printf("outfile : %d", data->cmd->fd_outfile);
 		if(!data->cmd->next || !data->cmd->prev)
 		{
 			if(is_builtin(data, env))
@@ -198,16 +210,19 @@ t_env	*exec_1(t_data *data, t_env *env)
 		{
 			if(data->cmd->outfile != 1)
 				data->cmd->fd_outfile = STDOUT_FILENO;
-			if(data->cmd->infile != 1)
+			if(data->cmd->infile != 1 && !data->cmd->prev)
 				data->cmd->fd_infile = STDIN_FILENO;
 		}
 		env = exec_fils(data, env, pipe_fd);
 		data->cmd = data->cmd->next;
 	}
+	// int status;
 	while(cmd_tmp)
 	{
-		waitpid(cmd_tmp->pid, 0, 0);
-		cmd_tmp = cmd_tmp->next;
+		waitpid(cmd_tmp->pid, NULL, 0);
+		// if (WIFEXITED(status))
+        // exit_code = WEXITSTATUS(status);
+    	cmd_tmp = cmd_tmp->next;
 	}
 	return(env);
 }

@@ -6,31 +6,32 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/20 23:23:17 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:39:09 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_dir_cd(char *dir)
-{
-	int i;
-	int k;
+// int	check_dir_cd(char *dir)
+// {
+// 	int i;
+// 	int k;
 
-	i = 0;
-	k = 0;
-	if(!dir)
-		return(0);
-	while(dir[i] && dir[i-1] == '\\')
-	{
-		if(is_ws(dir[i]) == 1)
-			k = 1;
-		else if(is_ws(dir[i]) != 1 && k == 1)
-			return(1);
-		i++;
-	}
-	return(0);
-}
+// 	i = 0;
+// 	k = 0;
+// 	if(!dir)
+// 		return(0);
+	
+// 		while(dir[i] && dir[i-1] == '\\')
+// 	{
+// 		if(is_ws(dir[i]) == 1)
+// 			k = 1;
+// 		else if(is_ws(dir[i]) != 1 && k == 1)
+// 			return(1);
+// 		i++;
+// 	}
+// 	return(0);
+// }
 
 t_env	*bultin_cd(t_env *env, char *dir)
 {
@@ -49,7 +50,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 		pwd = ft_getenv("HOME", env, 3);
 		if(!pwd)
 		{
-			printf("bash: cd: HOME not set\n");
+			perror("bash: cd: HOME not set\n");
 			return(env);
 		}
 		if(chdir(pwd) == 0)
@@ -61,17 +62,16 @@ t_env	*bultin_cd(t_env *env, char *dir)
 		old_pwd = ft_getenv("OLDPWD", env, 3);
 		if(!old_pwd)
 		{
-			printf("bash: cd: OLDPWD not set\n");
+			perror("bash: cd: OLDPWD not set\n");
 			return(env);
 		}
-		if(chdir(old_pwd) == 0)
-			printf("bien cngahge - \n");
+		chdir(old_pwd);
 		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), ft_getenv("OLDPWD", env, 3));
 	}
 	else
 	{
 		if(chdir(dir) != 0)
-			printf("cd: no such file or directory: %s\n", dir);
+			perror("no such file or directory\n");
 		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(NULL, 0));
 	}
 	env = head;
