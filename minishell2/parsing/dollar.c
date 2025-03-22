@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 17:42:45 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:34:15 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
 	char	*str;
 
 	i++;
-	tenv2 = dollar_cmp(tmp, env, i, quote);
+	tenv2 = dollar_cmp(tmp, env, i);
 	if (tenv2 != NULL)
 	{
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str)
@@ -92,7 +92,7 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data)
 	return (0);
 }
 
-t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i)
 {
 	t_env	*tenv;
 	int		j;
@@ -109,9 +109,11 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote)
 		{
 			if (tenv->before_eq[j] == '\0')
 			{
-				if (quote == true && tmp->str[i] == '\"')
-					return (tenv);
-				else if ((tmp->str[i] == '\0' || tmp->str[i] == ' '))
+				// if (quote == false && tmp->str[i] == '\"')
+				// {
+				// 	return (tenv);
+				// }
+				if ((tmp->str[i] == '\0' || tmp->str[i] == ' ') || tmp->str[i] == '\"')
 					return (tenv);
 				else
 					break ;
