@@ -133,7 +133,7 @@ void	setup_signals(void);
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
 int		dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
-t_env	*dollar_cmp(t_first *tmp, t_env *env, int i);
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // dollar2.c

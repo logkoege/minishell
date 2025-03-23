@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 17:39:35 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:37:07 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	free_path(t_env *env, char **split)
 		return;
 	while(split[i])
 	{
-		free(split[i]);
+		if(split[i])
+			free(split[i]);
 		i++;
 	}
-	free(split);
+	if(split)
+		free(split);
 }
 
 char	*find_path(t_env *env, char *cmd)
@@ -62,27 +64,36 @@ char	*find_path(t_env *env, char *cmd)
 		res = ft_strjoin(pathjoin, cmd);
 		if (!res) 
 		{
-			free(pathjoin);
-			free(path);
+			if(pathjoin)
+				free(pathjoin);
+			if(path)
+				free(path);
 			free_path(env, split_path);
 			return (NULL);
 		}
 		if(access(res, F_OK | X_OK) == 0)
 		{
-			free(path);
-			free(pathjoin);
+			// if(path)
+				// free(path);
+			if(pathjoin)
+				free(pathjoin);
 			free_path(env, split_path);
 			return(res);
 		}
 		i++;
-		free(pathjoin);
-		free(res);
+		if(pathjoin)
+			free(pathjoin);
+		if(res)
+			free(res);
 		pathjoin = NULL;
 		res = NULL;
 	}
-	free(pathjoin);
-	free(res);
-	free(path);
+	if(pathjoin)
+		free(pathjoin);
+	if(res)
+		free(res);
+	if(path)
+		free(path);
 	free_path(env, split_path);
 	return(NULL);
 }

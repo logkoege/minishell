@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:20:51 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:26:28 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:15:58 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd	*lst_new_cmd(t_data *data)
 	new->tkn[0] = 0;
 	new->infile = 0;
 	new->outfile = 0;
+	new->pid = -2024;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

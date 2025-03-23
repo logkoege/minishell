@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 17:40:39 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:47:55 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	(void)fd_pipe;
 	char *path;
 	char **env_s;
+	int i;
+	i = 0;
 
-
-	// printf("infile : %d \n outfile : %d\n", data->cmd->fd_infile, data->cmd->fd_outfile);
 	pid = fork();
 	if(pid == -1)
 	{
@@ -88,6 +88,13 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	}
 	if(pid == 0)
 	{
+		while(data->cmd->arg[i])
+		{
+			if(data->cmd->arg[i][0] == '\0')
+				i++;
+			else
+				break;
+		}
 		if(data->cmd->next)
 		{
 			dup2(data->cmd->fd_outfile, STDOUT_FILENO);
@@ -117,18 +124,21 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 			return(tmp);
 		}
 		env_s = env_to_str(env);
-		path = find_path(env, data->cmd->arg[0]);
+		if(!data->cmd->arg[i])
+			i++;
+		path = find_path(env, data->cmd->arg[i]);
 		if(!path)
 		{
-			printf("%s : command not found\n", data->cmd->arg[0]);
+			printf("%s : command not found\n", data->cmd->arg[i]);
 			free_path(env, env_s);
-			free(path);
+			// free(path);
 			// exit_code = 127;
 			exit(127);
 		}
 		if(execve(path, data->cmd->arg, env_s) == 1)
 		{
-			free(path);
+			if(path)
+				free(path);
 			free_path(env, env_s);
 			printf("execve error \n");
 			// exit_code = 1;
@@ -156,8 +166,7 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while(data->cmd)
 	{
-		// printf("infile : %d \n", data->cmd->fd_infile);
-		// printf("outfile : %d", data->cmd->fd_outfile);
+		
 		if(!data->cmd->next || !data->cmd->prev)
 		{
 			if(is_builtin(data, env))
@@ -219,10 +228,11 @@ t_env	*exec_1(t_data *data, t_env *env)
 	// int status;
 	while(cmd_tmp)
 	{
-		waitpid(cmd_tmp->pid, NULL, 0);
+		if(cmd_tmp->pid)
+			waitpid(cmd_tmp->pid, NULL, 0);
 		// if (WIFEXITED(status))
-        // exit_code = WEXITSTATUS(status);
-    	cmd_tmp = cmd_tmp->next;
+		// exit_code = WEXITSTATUS(status);
+		cmd_tmp = cmd_tmp->next;
 	}
 	return(env);
 }
