@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:25:01 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/23 23:12:11 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_cmd	*first_to_cmd(t_data *data)
 			cmd->tkn[k] = tmp->token;
 			cmd->tkn[k + 1] = 0;
 			tmp = tmp->next;
-			cmd->file[j] = tmp->str;
+			cmd->file[j] = delete_quote(tmp->str);
 			cmd->file[j + 1] = NULL;
 			j++;
 			k++;
