@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/21 16:47:13 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:39:54 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	infiler(t_cmd *cmd, char *infile)
 	{
 		errno = EINVAL;
 		perror("No such file or directory\n");
-		// exit_code = 2;
+		g_exit_code = 1;
 		return(1);
 	}
 
@@ -40,7 +40,7 @@ int outfiler(t_cmd *cmd, char *outfile)
 	{
 		errno = EINVAL;
 		perror(": No such file or directory\n");
-		// exit_code = 2;
+		g_exit_code = 1;
 		return(1);
 	}
 	if(cmd->outfile)
@@ -59,7 +59,7 @@ int	appender(t_cmd *cmd, char *file)
 	{
 		errno = EINVAL;
 		perror("No such file or directory\n");
-		// exit_code = 2;
+		g_exit_code = 1;
 		return(1);
 	}
 	if(cmd->outfile)
@@ -79,7 +79,7 @@ int	here_doocker(t_cmd *cmd, char *herdoc)
 	{
 		errno = EINVAL;
 		perror("Error pipe heredoc\n");
-		// exit_code = 2;
+		g_exit_code = 1;
 		return(1);
 	}
 	while(1)

@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 01:15:07 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:16:16 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		{
 			write(2, "bash : cd : too many argumrents\n"
 				, ft_strlen("bash : cd : too many argumrents\n"));
-			// exit_code = 1;
+			g_exit_code = 1;
 			return(env);
 		}
 		env = bultin_cd(env, cmd->arg[1]);
@@ -48,6 +48,7 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		env = buitlin_export(env, cmd);
 	else
 		return(NULL);
+	// g_exit_code = 0;
 	return(env);
 
 }
@@ -125,7 +126,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 		{
 			close(data->cmd->fd_infile);
 			close(data->cmd->fd_outfile);
-			exit(0);
+			exit(g_exit_code);
 		}
 		env_s = env_to_str(env);
 		// if(!data->cmd->arg[i])
@@ -133,20 +134,22 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 		path = find_path(env, data->cmd->arg[i]);
 		if(!path)
 		{
-			printf("%s : command not found\n", data->cmd->arg[i]);
+			ft_putstr_fd("command not found\n", 2);
 			free_path(env, env_s);
 			// free(path);
-			// exit_code = 127;
-			exit(127);
+			g_exit_code = 127;
+			exit(g_exit_code);
 		}
+		// else
+		// 	printf("%s\n", path);
 		if(execve(path, data->cmd->arg, env_s) == 1)
 		{
 			if(path)
 				free(path);
 			free_path(env, env_s);
 			printf("execve error \n");
-			// exit_code = 1;
-			exit(1);
+			g_exit_code = 126;
+			exit(g_exit_code);
 		}
 	}
 	else
@@ -176,7 +179,11 @@ t_env	*exec_1(t_data *data, t_env *env)
 			// printf("YES\n");
 			if(is_builtin(data, env))
 			{
-				check_redirect(data->cmd);
+				if(check_redirect(data->cmd) == 1)
+				{
+					g_exit_code = 1;
+					return(env);
+				}
 				if(data->cmd->infile == 1)
 				{
 					dup2(data->cmd->fd_infile, STDIN_FILENO);
@@ -195,6 +202,7 @@ t_env	*exec_1(t_data *data, t_env *env)
 		{
 			if(data->cmd->next)
 			{
+				g_exit_code = 1;
 				if(pipe(pipe_fd) == -1)
 				{
 					printf("Error : pipe\n");
@@ -231,12 +239,15 @@ t_env	*exec_1(t_data *data, t_env *env)
 		data->cmd = data->cmd->next;
 	}
 	int status;
-	while(cmd_tmp)
+	while (cmd_tmp)
 	{
-		if(cmd_tmp->pid)
-			waitpid(cmd_tmp->pid, NULL, 0);
-		if (WIFEXITED(status))
-		g_exit_code = WEXITSTATUS(status);
+		if (waitpid(cmd_tmp->pid, &status, 0) != -1) // Vérifie si le processus est terminé
+		{
+			if (WIFEXITED(status))
+				g_exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_exit_code = 128 + WTERMSIG(status); // Capture des signaux comme Ctrl+C
+		}
 		cmd_tmp = cmd_tmp->next;
 	}
 

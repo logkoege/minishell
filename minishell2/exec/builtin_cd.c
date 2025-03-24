@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/21 16:39:09 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:02:05 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 		pwd = ft_getenv("HOME", env, 3);
 		if(!pwd)
 		{
+			g_exit_code = 1;
 			perror("bash: cd: HOME not set\n");
 			return(env);
 		}
@@ -62,6 +63,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 		old_pwd = ft_getenv("OLDPWD", env, 3);
 		if(!old_pwd)
 		{
+			g_exit_code = 1;
 			perror("bash: cd: OLDPWD not set\n");
 			return(env);
 		}
@@ -71,7 +73,11 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	else
 	{
 		if(chdir(dir) != 0)
+		{
+			g_exit_code = 1;
 			perror("no such file or directory\n");
+			return(env);
+		}
 		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(NULL, 0));
 	}
 	env = head;

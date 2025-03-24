@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 00:17:04 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:11:42 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,25 +145,64 @@ void	free_export(char **export)
 	free(export);
 	export = NULL;
 }
+t_env *unset_export(t_env *env, char *cmd)
+{
+	char *unset;
+
+	if(is_eauql(cmd) == 0)
+		return(env);
+	unset = ft_sub(cmd, 0, ft_strlen(cmd) - ft_strlen(ft_chr(cmd, '=')));
+	env = builtin_unset(env , unset);
+	lstadd_back_env(&env, lst_new_env(cmd));
+	return(env);
+}
 
 int check_export(char *arg, t_env *env)
 {
 	int i;
 	int eq;
+	char *env_check;
 
 	i = 0;
 	eq = is_eauql(arg);
+	if(eq != 0)
+		env_check = ft_dup(ft_sub(arg, 0, ft_strlen(arg)
+		- ft_strlen(ft_chr(arg, '='))));
+	else
+	{
+		while(arg[i])
+		{
+			if(arg[i] == '.' || arg[i] == '-')
+			{
+				g_exit_code = 1;
+				return(1);
+			}
+			i++;
+		}
+		env_check = ft_dup(arg);
+	}
 	eq++;
-	if(is_digit(arg[1]) == 1)
+	if(is_digit(arg[1]) == 1 || arg[1] == '=')
+	{
+		free(env_check);
 		return(1);
+	}
+	i = 0;
 	while(i != eq)
 	{
 		if(arg[i] == '.' || arg[i] == '-')
+		{
+			free(env_check);
 			return(1);
+		}
 		i++;
 	}
-	if(ft_getenv(arg, env, 1) != NULL)
+	if(ft_getenv(env_check, env, 1) != NULL)
+	{
+		free(env_check);
 		return(2);
+	}
+	free(env_check);
 	return(0);
 }
 
@@ -191,10 +230,14 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 		{
 			errno = EINVAL;
 			perror("export ");
+			g_exit_code = 1;
 			return(env);
 		}
 		else if(check_export(cmd->arg[1], env) == 2)
+		{
+			unset_export(env, cmd->arg[1]);
 			return(env);
+		}
 		else
 			lstadd_back_env(&env, lst_new_env(cmd->arg[1]));
 		

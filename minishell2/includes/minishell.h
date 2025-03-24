@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 01:30:14 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:49:26 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ char **env_to_str(t_env *env);
 
 //utils3
 int		is_ws(char c);
+void	ft_putstr_fd(char *s, int fd);
 
 //join
 char	*ft_strjoin(char *s1, char *s2);

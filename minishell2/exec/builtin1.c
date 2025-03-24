@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 14:49:07 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:04:54 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	builtin_pwd(t_env *env)
 		printf("PWD error \n");
 		exit(EXIT_FAILURE);
 	}
-	exit(1);
+	g_exit_code = 0;
+	exit(g_exit_code);
 }
 
 void	builtin_echo(t_cmd *exec)
@@ -53,6 +54,7 @@ void	builtin_echo(t_cmd *exec)
 
 	comt = 0;
 	i = 1;
+
 	if(!exec->arg[1])
 	{
 		printf("\n");
@@ -63,7 +65,7 @@ void	builtin_echo(t_cmd *exec)
 		i++;
 		comt = 1;
 	}
-	while(exec->tkn[i] == 1)
+	while(exec->arg[i])
 	{
 		printf("%s", exec->arg[i]);
 		if(exec->arg[i + 1] != NULL)

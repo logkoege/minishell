@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fonctions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:33:57 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:18:40 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_all(t_data *data)
 		data->env = data->env->next;
 		free(tmp3->before_eq);
 		free(tmp3->after_eq);
+		free(tmp3->all);
 		free(tmp3);
 	}
 	free_structs(data);

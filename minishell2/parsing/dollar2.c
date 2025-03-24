@@ -56,6 +56,7 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 
 	j = 0;
 	c = 0;
+	(void)data;
 	str2 = malloc(sizeof(char) * 6);
 	while (j < i - 1)
 	{
@@ -64,7 +65,7 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 	}
 	if (tmp2->str[i] == '?')
 	{
-		str2 = ft_itoa(data->exit_code);
+		str2 = ft_itoa(g_exit_code);
 		while (str2[c])
 			str[j++] = str2[c++];
 		i++;
