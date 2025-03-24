@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/23 23:09:08 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/24 01:30:14 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define APPEND		5	// >>
 # define HEREDOC	6	// <<
 
-// extern int exit_code;
+extern int g_exit_code;
 
 typedef struct s_env
 {
@@ -146,6 +146,7 @@ t_env	*lst_new_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 t_env	*lstlast_env(t_env *lst);
 void	print_lst_first(t_data *data);
+int ft_atoi(char *str);
 
 // utils3.c
 char	*ft_chr(char *s, int c);

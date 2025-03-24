@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 20:47:55 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 01:15:07 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ int is_builtin(t_data *data, t_env *env)
 	if(ft_strcmp(data->cmd->arg[0], "exit") == 0)
 		return(1);
 	if(ft_strcmp(data->cmd->arg[0], "export") == 0)
-		return(1);	
+	{
+		if(data->cmd->arg[1] == NULL)
+			return(0);
+		return(1);
+	}
 	if(ft_strcmp(data->cmd->arg[0], "unset") == 0)
 		return(1);
 	return(0);
@@ -121,11 +125,11 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 		{
 			close(data->cmd->fd_infile);
 			close(data->cmd->fd_outfile);
-			return(tmp);
+			exit(0);
 		}
 		env_s = env_to_str(env);
-		if(!data->cmd->arg[i])
-			i++;
+		// if(!data->cmd->arg[i])
+		// 	i++;
 		path = find_path(env, data->cmd->arg[i]);
 		if(!path)
 		{
@@ -166,9 +170,10 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while(data->cmd)
 	{
-		
-		if(!data->cmd->next || !data->cmd->prev)
+
+		if(!data->cmd->next && !data->cmd->prev)
 		{
+			// printf("YES\n");
 			if(is_builtin(data, env))
 			{
 				check_redirect(data->cmd);
@@ -225,14 +230,15 @@ t_env	*exec_1(t_data *data, t_env *env)
 		env = exec_fils(data, env, pipe_fd);
 		data->cmd = data->cmd->next;
 	}
-	// int status;
+	int status;
 	while(cmd_tmp)
 	{
 		if(cmd_tmp->pid)
 			waitpid(cmd_tmp->pid, NULL, 0);
-		// if (WIFEXITED(status))
-		// exit_code = WEXITSTATUS(status);
+		if (WIFEXITED(status))
+		g_exit_code = WEXITSTATUS(status);
 		cmd_tmp = cmd_tmp->next;
 	}
+
 	return(env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/23 16:38:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/24 00:16:27 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_env	*lst_new_env(char *envp)
 	if (is_eauql(envp) == 0)
 	{
 		//printf("equal\n");
-		lst->before_eq = lst->all;
 		lst->all = ft_dup(envp);
+		lst->before_eq = lst->all;
 		lst->after_eq = NULL;
 		lst->equal = 0;
 		lst->next = NULL;
@@ -44,8 +44,9 @@ t_env	*lst_new_env(char *envp)
 	}
 	lst->before_eq = ft_sub(envp, 0, ft_strlen(envp)
 			- ft_strlen(ft_chr(envp, '=')));
-	lst->after_eq = ft_chr(envp, '=') + 1;
+	lst->after_eq = ft_dup(ft_chr(envp, '=') + 1);
 	lst->equal = 1;
+	// printf("afet eq : %s\n", lst->after_eq);
 	lst->all = ft_dup(envp);
 	lst->next = NULL;
 	return (lst);

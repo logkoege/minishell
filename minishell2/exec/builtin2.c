@@ -6,19 +6,57 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:12:18 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 23:05:31 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 01:09:48 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int exit_check(char *str)
+{
+    int i;
 
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] != '-' && str[i] != '+' && is_digit(str[i]) != 1)
+			return(1);
+		i++;
+    }
+	return(0);
+}
 
 void	builtin_exit(t_cmd *cmd)
 {
 	(void)cmd;
-	// printf("%s\n", cmd->arg);
-	exit(EXIT_FAILURE);
+	int status;
+	int i;
+
+	i = 0;
+	while(cmd->arg[i])
+		i++;
+	if(i > 2)
+	{
+		write(2, "exit : too many arguments\n", ft_strlen("exit : too many arguments\n"));
+		g_exit_code = 1;
+		exit(g_exit_code);
+	}
+
+	if(cmd->arg[1] == NULL)
+		exit(g_exit_code);
+	else
+	{
+		status = ft_atoi(cmd->arg[1]);
+		if(exit_check(cmd->arg[1]) == 1)
+		{
+			write(2, "exit : numeric argument required\n", ft_strlen("exit : numeric argument required\n"));
+			g_exit_code = 2;
+			exit(g_exit_code);
+		}
+		else
+			g_exit_code = status;
+	}
+	exit(g_exit_code);
 }
 
 t_env *builtin_unset(t_env *env, char *unset)

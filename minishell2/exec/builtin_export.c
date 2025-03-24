@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 17:19:58 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/24 00:17:04 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char 	**malloc_export(t_env *env)
 	}
 	// printf("i = %d", i);
 	env = env_1;
-	export = malloc(sizeof(char *) * (i + 2));
+	export = malloc(sizeof(char *) * (i + 1));
 	if(!export)
 	{
 		printf("export malloc error \n");
@@ -201,11 +201,7 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 		
 	}
 	// env = exprt;
-	// while(exprt)
-	// {
-	// 	printf("before : %s\n after : %s\n all : %s\n", exprt->before_eq, exprt->after_eq, exprt->all);
-	// 	exprt = exprt->next;
-	// }
+	
 
 	// printf("aaaa\n");
 	return(env);

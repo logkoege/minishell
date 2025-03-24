@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:01:35 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/19 23:20:09 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/23 23:49:42 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	result = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (!result)
 		return (NULL);
-	ft_strlcaca(result, s1, len_s1 + len_s2 + 1);
-	ft_strlcaca(result + len_s1, s2, len_s2 + 1);
+	strlcpy(result, s1, len_s1 + len_s2 + 1);
+	strlcpy(result + len_s1, s2, len_s2 + 1);
 	return (result);
 }
