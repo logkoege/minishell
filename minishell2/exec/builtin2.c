@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:12:18 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/25 16:52:30 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:19:17 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,22 @@ t_env *builtin_unset(t_env *env, char *unset)
 	{
 		// printf("env->all : %s\n", env->all);
 		
-		free(env->all);
-		free(env->before_eq);
-		free(env->after_eq);
+		if(env->all)
+			free(env->all);
+		if(env->before_eq)
+			free(env->before_eq);
+		if(env->after_eq)
+			free(env->after_eq);
+		// free(env);
 		env->all = NULL;
+		env->equal = 0;
 		env->before_eq = NULL;
 		env->after_eq = NULL;
 		// env = head;
-		env = env->next;
-		return(env);
+		head = env->next;
+		free(env);
+		// env = env->next;
+		return(head);
 	}
 	else
 	{
@@ -89,13 +96,19 @@ t_env *builtin_unset(t_env *env, char *unset)
 		{
 			if(ft_strcmp(env->before_eq, unset) == 0)
 			{
-				free(env->all);
-				free(env->before_eq);
-				free(env->after_eq);
+				if(env->all)
+					free(env->all);
+				if(env->before_eq)
+					free(env->before_eq);
+				if(env->after_eq)
+					free(env->after_eq);
 				env->all = NULL;
 				env->before_eq = NULL;
+				env->equal = 0;
 				env->after_eq = NULL;
 				head->next = env->next;
+				free(env);
+				break;
 			}
 			env = env->next;
 			head = head->next;

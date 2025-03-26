@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/25 11:21:40 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:37:02 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ t_env *check_arg(t_cmd *cmd, t_env *env)
 		env = buitlin_export(env, cmd);
 	else
 		return(NULL);
-	// g_exit_code = 0;
+	if(cmd->prev || cmd->next)
+		exit(g_exit_code);
 	return(env);
 
 }
@@ -174,7 +175,11 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while(data->cmd)
 	{
-
+		if(!data->cmd->arg[0])
+		{
+			data->cmd = data->cmd->next;
+			continue;
+		}
 		if(!data->cmd->next && !data->cmd->prev)
 		{
 			// printf("YES\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 16:02:01 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:43:09 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	infiler(t_cmd *cmd, char *infile)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		errno = EINVAL;
-		perror("No such file or directory\n");
+		ft_putstr_fd(infile, 2);
+		ft_putstr_fd(" : No such file or directory", 2);
 		g_exit_code = 1;
 		return (1);
 	}
@@ -37,8 +37,8 @@ int	outfiler(t_cmd *cmd, char *outfile)
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		errno = EINVAL;
-		perror(": No such file or directory\n");
+		ft_putstr_fd(outfile, 2);
+		ft_putstr_fd(" : No such file or directory", 2);
 		g_exit_code = 1;
 		return (1);
 	}
@@ -56,8 +56,8 @@ int	appender(t_cmd *cmd, char *file)
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		errno = EINVAL;
-		perror("No such file or directory\n");
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(" : No such file or directory", 2);
 		g_exit_code = 1;
 		return (1);
 	}
@@ -81,8 +81,8 @@ int	here_doocker(t_cmd *cmd, char *herdoc)
 
 	if(pipe(pipe_fd) == -1)
 	{
-		errno = EINVAL;
-		perror("Error pipe heredoc\n");
+		
+		ft_putstr_fd("Pipe heredoc error\n", 2);
 		g_exit_code = 1;
 		return(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 19:02:05 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:35:26 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	head = env;
 	char *pwd;
 	char *old_pwd;
+	char buffer[4096];
 
 	// if(check_dir_cd(dir) == 1)
 	// {
@@ -78,7 +79,7 @@ t_env	*bultin_cd(t_env *env, char *dir)
 			perror("no such file or directory\n");
 			return(env);
 		}
-		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(NULL, 0));
+		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(buffer, sizeof(buffer)));
 	}
 	env = head;
 	return(head);

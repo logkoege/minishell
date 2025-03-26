@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/25 17:30:51 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:39:11 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ int check_export(char *arg, t_env *env)
 
 	i = 0;
 	eq = is_eauql(arg);
+	if(arg[0] == '=')
+		return(1);
 	if(eq != 0)
 		env_check = ft_sub(arg, 0, ft_strlen(arg)
 		- ft_strlen(ft_chr(arg, '=')));

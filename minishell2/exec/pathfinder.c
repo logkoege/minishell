@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/25 13:15:40 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 20:48:04 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*find_path(t_env *env, char *cmd)
 	
 	if(!cmd)
 		return(NULL);
-	i = 0;
 	if(access(cmd, X_OK | F_OK) == 0)
 		return(cmd);
+	i = 0;
 	path = ft_getenv("PATH", env, 1);
 	if(!path)
 		return(NULL);
