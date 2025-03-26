@@ -6,13 +6,13 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/26 12:23:25 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:00:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int g_exit_code;
+int	g_exit_code;
 
 int	main(int argc, char **argv, char **envp)
 {

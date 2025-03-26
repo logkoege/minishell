@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/18 16:09:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:00:18 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,15 @@ int	pipe_utils(char *input)
 		return (0);
 	}
 	return (1);
+}
+
+void	signal_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		close(0);
+		g_exit_code = 99;
+	}
 }

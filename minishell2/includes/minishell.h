@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 11:57:33 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:02:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int		check_invalid_combinations(char *input, t_data *data);
 
 // free_fonctions.c
 void	free_structs(t_data *data);
-void	free_all(t_data *data, t_env *env)
-;
+void	free_all(t_data *data, t_env *env);
 void	free_struct(t_data *data);
 
 // spliting.c
@@ -120,6 +119,7 @@ int		token_is_valid(char *input, t_data *data);
 int		quote_not_closed(t_data *data);
 int		skip_quote(char *input, t_data *data);
 int		pipe_utils(char *input);
+void	signal_heredoc(int sig);
 
 // tokenizer.c
 int		tokenizer(char *str);
