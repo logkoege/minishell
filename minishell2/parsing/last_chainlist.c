@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/23 23:12:11 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:45:23 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,22 @@ t_cmd	*first_to_cmd(t_data *data)
 		else if (tmp->token == WORD)
 		{
 			cmd->arg[i] = delete_quote(tmp->str);
-			cmd->arg[i + 1] = NULL;
-			cmd->tkn[k] = tmp->token;
-			cmd->tkn[k + 1] = 0;
-			cmd->file[j] = NULL;
-			i++;
-			k++;
+			if (cmd->arg[i][0] != '\0')
+			{
+				cmd->arg[i + 1] = NULL;
+				cmd->tkn[k] = tmp->token;
+				cmd->tkn[k + 1] = 0;
+				cmd->file[j] = NULL;
+				i++;
+				k++;
+			}
+			else
+			{
+				cmd->arg[i] = NULL;
+				free(cmd->arg[i]);
+				cmd->file[k] = 0;
+			}
+				
 		}
 		tmp = tmp->next;
 	}

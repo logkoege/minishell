@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/25 16:37:27 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:24:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_env	*lst_new_env(char *envp)
 		return (NULL);
 	if (is_eauql(envp) == 0)
 	{
-		//printf("equal\n");
 		lst->all = ft_dup(envp);
 		lst->before_eq = ft_dup(envp);
 		lst->after_eq = NULL;
@@ -46,7 +45,6 @@ t_env	*lst_new_env(char *envp)
 			- ft_strlen(ft_chr(envp, '=')));
 	lst->after_eq = ft_dup(ft_chr(envp, '=') + 1);
 	lst->equal = 1;
-	// printf("afet eq : %s\n", lst->after_eq);
 	lst->all = ft_dup(envp);
 	lst->next = NULL;
 	return (lst);

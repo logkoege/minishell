@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:20:51 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:26:28 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:24:53 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,3 @@ t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new)
 	last->next = new;
 	return (last);
 }
-
-// t_cmd	*interm(t_cmd **cmd, t_data *data)
-// {
-// 	t_cmd	*tmp;
-	
-// 	tmp = cmd;
-// 	first_to_cmd(data);
-// }
