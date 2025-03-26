@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 19:11:42 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:30:51 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_env *unset_export(t_env *env, char *cmd)
 		return(env);
 	unset = ft_sub(cmd, 0, ft_strlen(cmd) - ft_strlen(ft_chr(cmd, '=')));
 	env = builtin_unset(env , unset);
+	free(unset);
 	lstadd_back_env(&env, lst_new_env(cmd));
 	return(env);
 }
@@ -166,8 +167,8 @@ int check_export(char *arg, t_env *env)
 	i = 0;
 	eq = is_eauql(arg);
 	if(eq != 0)
-		env_check = ft_dup(ft_sub(arg, 0, ft_strlen(arg)
-		- ft_strlen(ft_chr(arg, '='))));
+		env_check = ft_sub(arg, 0, ft_strlen(arg)
+		- ft_strlen(ft_chr(arg, '=')));
 	else
 	{
 		while(arg[i])
@@ -235,7 +236,7 @@ t_env	*buitlin_export(t_env *env, t_cmd *cmd)
 		}
 		else if(check_export(cmd->arg[1], env) == 2)
 		{
-			unset_export(env, cmd->arg[1]);
+			env = unset_export(env, cmd->arg[1]);
 			return(env);
 		}
 		else

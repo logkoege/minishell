@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:12:18 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 01:09:48 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:52:30 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ t_env *builtin_unset(t_env *env, char *unset)
 		return(tmp);
 	if(ft_strcmp(env->before_eq, unset) == 0)
 	{
-		// env = env->next;
+		// printf("env->all : %s\n", env->all);
+		
 		free(env->all);
+		free(env->before_eq);
+		free(env->after_eq);
 		env->all = NULL;
 		env->before_eq = NULL;
 		env->after_eq = NULL;
@@ -87,6 +90,8 @@ t_env *builtin_unset(t_env *env, char *unset)
 			if(ft_strcmp(env->before_eq, unset) == 0)
 			{
 				free(env->all);
+				free(env->before_eq);
+				free(env->after_eq);
 				env->all = NULL;
 				env->before_eq = NULL;
 				env->after_eq = NULL;

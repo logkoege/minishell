@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 19:16:16 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:21:40 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 		path = find_path(env, data->cmd->arg[i]);
 		if(!path)
 		{
-			ft_putstr_fd("command not found\n", 2);
+			ft_putstr_fd(data->cmd->arg[i], 2);
+			ft_putstr_fd(" : command not found\n", 2);
 			free_path(env, env_s);
 			// free(path);
 			g_exit_code = 127;
