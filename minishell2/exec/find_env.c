@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/07 17:30:20 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:21:44 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,12 @@ int check_path(char *s1,  char *s2)
   return(0);
 }
 
-// void    read_token(t_cmd *exec)
-// {
-//     int i;
-
-//     i = 0;
-
-
-// }
-
 t_env    *find_env(t_cmd *exec, char **envp, t_env *env)
 {
 	(void)env;
     (void)exec;
 	env = list_env(envp, &env);
 
-	// bultin_cd(env, envp, "..");
 	return(env);
 }
 

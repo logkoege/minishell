@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 21:43:09 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:20:27 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,40 +121,34 @@ int	check_redirect(t_cmd *cmd)
 	j = 0;
 	i = 0;
 
-	// while(cmd)
-	// {
-		while(cmd->tkn[i])
+	while(cmd->tkn[i])
+	{
+		if(cmd->tkn[i] == INPUT)
 		{
-			if(cmd->tkn[i] == INPUT)
-			{
-				if(infiler(cmd, cmd->file[j]) == 1)
-					return(1);
-				j++;
-			}
-			else if(cmd->tkn[i] == TRUNC)
-			{
-				if(outfiler(cmd, cmd->file[j]) == 1)
-						return(1);
-				j++;
-			}
-			else if(cmd->tkn[i] == APPEND)
-			{
-				if(appender(cmd, cmd->file[j]) == 1)
-					return(1);
-				j++;
-			}
-			else if(cmd->tkn[i] == HEREDOC)
-			{
-				if(here_doocker(cmd, cmd->file[j]) == 1)
-					return(1);
-				j++;
-			}
-			
-
-			i++;
+			if(infiler(cmd, cmd->file[j]) == 1)
+				return(1);
+			j++;
 		}
-		// cmd = cmd->next;
-	// }
+		else if(cmd->tkn[i] == TRUNC)
+		{
+			if(outfiler(cmd, cmd->file[j]) == 1)
+					return(1);
+			j++;
+		}
+		else if(cmd->tkn[i] == APPEND)
+		{
+			if(appender(cmd, cmd->file[j]) == 1)
+				return(1);
+			j++;
+		}
+		else if(cmd->tkn[i] == HEREDOC)
+		{
+			if(here_doocker(cmd, cmd->file[j]) == 1)
+				return(1);
+			j++;
+		}
+		i++;
+	}
 	return(0);
 }
 

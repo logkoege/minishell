@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/24 19:04:54 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:52:57 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ void	builtin_pwd(t_env *env)
 	exit(g_exit_code);
 }
 
+void	write_echo(t_cmd *exec, int i)
+{
+	while(exec->arg[i])
+	{
+		printf("%s", exec->arg[i]);
+		if(exec->arg[i + 1] != NULL)
+			printf(" ");
+		i++;
+	}
+}
+
 void	builtin_echo(t_cmd *exec)
 {
 
@@ -65,13 +76,7 @@ void	builtin_echo(t_cmd *exec)
 		i++;
 		comt = 1;
 	}
-	while(exec->arg[i])
-	{
-		printf("%s", exec->arg[i]);
-		if(exec->arg[i + 1] != NULL)
-			printf(" ");
-		i++;
-	}
+	write_echo(exec, i);
 	if(comt != 1)
 		printf("\n");
 	exit(EXIT_SUCCESS);

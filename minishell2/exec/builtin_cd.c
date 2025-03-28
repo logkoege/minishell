@@ -6,32 +6,48 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 20:35:26 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:09:41 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// int	check_dir_cd(char *dir)
-// {
-// 	int i;
-// 	int k;
+t_env *cd_home(t_env *env)
+{
+	char *pwd;
+	char *old_pwd;
 
-// 	i = 0;
-// 	k = 0;
-// 	if(!dir)
-// 		return(0);
-	
-// 		while(dir[i] && dir[i-1] == '\\')
-// 	{
-// 		if(is_ws(dir[i]) == 1)
-// 			k = 1;
-// 		else if(is_ws(dir[i]) != 1 && k == 1)
-// 			return(1);
-// 		i++;
-// 	}
-// 	return(0);
-// }
+	pwd = ft_getenv("HOME", env, 3);
+	if(!pwd)
+	{
+		g_exit_code = 1;
+		perror("bash: cd: HOME not set\n");
+		return(env);
+	}
+	if(chdir(pwd) == 0)
+	old_pwd = ft_dup(ft_getenv("PWD", env, 3));
+	pwd = ft_dup(ft_getenv("HOME", env, 3));
+	env = builtin_change_pwd(env, old_pwd, pwd);
+	return(env);
+}
+
+t_env *cd_old_pwd(t_env *env)
+{
+	char *old_pwd;
+	char  *pwd;
+	old_pwd = ft_getenv("OLDPWD", env, 3);
+	if(!old_pwd)
+	{
+		g_exit_code = 1;
+		perror("bash: cd: OLDPWD not set\n");
+		return(env);
+	}
+	chdir(old_pwd);
+	old_pwd = ft_dup(ft_getenv("PWD", env, 3));
+	pwd = ft_dup(ft_getenv("OLDPWD", env, 3));
+	env = builtin_change_pwd(env, old_pwd, pwd);
+	return(env);
+}
 
 t_env	*bultin_cd(t_env *env, char *dir)
 {
@@ -41,84 +57,59 @@ t_env	*bultin_cd(t_env *env, char *dir)
 	char *old_pwd;
 	char buffer[4096];
 
-	// if(check_dir_cd(dir) == 1)
-	// {
-	// 	printf("bash: cd: too many arguments\n");
-	// 	return(env);	
-	// }
 	if(!dir)
-	{
-		pwd = ft_getenv("HOME", env, 3);
-		if(!pwd)
-		{
-			g_exit_code = 1;
-			perror("bash: cd: HOME not set\n");
-			return(env);
-		}
-		if(chdir(pwd) == 0)
-		old_pwd = ft_getenv("PWD", env, 3);
-		env = builtin_change_pwd(env, old_pwd, ft_getenv("HOME", env, 3));
-	}
+		env = cd_home(env);
 	else if(dir[0] == '-')
-	{
-		old_pwd = ft_getenv("OLDPWD", env, 3);
-		if(!old_pwd)
-		{
-			g_exit_code = 1;
-			perror("bash: cd: OLDPWD not set\n");
-			return(env);
-		}
-		chdir(old_pwd);
-		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), ft_getenv("OLDPWD", env, 3));
-	}
+		env = cd_old_pwd(env);
 	else
 	{
 		if(chdir(dir) != 0)
 		{
 			g_exit_code = 1;
-			perror("no such file or directory\n");
+			perror("bash : cd ");
 			return(env);
 		}
-		env = builtin_change_pwd(env, ft_getenv("PWD", env, 3), getcwd(buffer, sizeof(buffer)));
+		pwd = ft_dup(getcwd(buffer, sizeof(buffer)));
+		old_pwd = ft_dup(ft_getenv("PWD", env, 3));
+		env = builtin_change_pwd(env, old_pwd, pwd);
 	}
 	env = head;
 	return(head);
 }
+int old_pwd_s(t_env *head, int k, char *old_pwd)
+{
+	free(head->all);
+	head->all = NULL;
+	head->all =	ft_strjoin("OLDPWD=", old_pwd);
+	free(head->after_eq);
+	head->after_eq = ft_dup(old_pwd);
+	return(k++);
+}
 
 t_env	*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd)
 {
-	t_env *head = env;
-	int k;
+	t_env *head;
 
+	head = env;
+	int k;
 	k = 0;
-	
 	while (head)
 	{
 		if (ft_strcmp(head->before_eq, "PWD") == 0)
 		{
 			free(head->all);
 			head->all =	ft_strjoin("PWD=", new_pwd);
-			head->after_eq = new_pwd;
+			free(head->after_eq);
+			head->after_eq = ft_dup(new_pwd);
 			k++;
 		}
 		else if (ft_strcmp(head->before_eq, "OLDPWD") == 0)
-		{
-			free(head->all);
-			head->all =	ft_strjoin("OLDPWD=", old_pwd);
-			head->after_eq = old_pwd;
-			k++;
-		}
+			k+= old_pwd_s(head, k, old_pwd);
 		if(k == 2)
 			break;
 		head = head->next;
 	}
-	// if(new_pwd == NULL)
-	// 	printf("wrong\n");
-	// else
-	// {
-		// printf("NOUVEAU head PWD : %s\n", ft_getenv("PWD", head));
-		// printf("pwd changed\n");
-		// printf("nouveau pwd : %s \n vieux pwd : %s\n", ft_getenv("PWD", env, 1), ft_getenv("OLDPWD", env, 1));
-	// }
-	return(head);
+	free(old_pwd);
+	free(new_pwd);
+	return(env);
 }

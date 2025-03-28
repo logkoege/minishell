@@ -6,7 +6,7 @@
 #    By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/28 14:26:04 by levaipro         ###   ########.fr        #
+#    Updated: 2025/03/27 13:03:14 by levaipro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC =	parsing/main.c		\
 		exec/find_env.c\
 		exec/utils.c\
 		exec/builtin1.c\
-		exec/builtin_unset.c\
+		exec/builtin2.c\
 		exec/error_handling.c\
 		exec/chain_lists.c\
 		exec/utils2.c\
@@ -48,11 +48,6 @@ SRC =	parsing/main.c		\
 		exec/builtin_export.c\
 		exec/main_exec.c\
 		exec/exec_fils.c\
-		exec/builtin_exit.c\
-		exec/export_utils.c\
-		exec/export_utils2.c\
-		exec/redirect_exec.c\
-		exec/execute_pipes.c
 
 OBJ = $(SRC:.c=.o)
 

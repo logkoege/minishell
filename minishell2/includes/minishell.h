@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 16:02:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:25:47 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,14 +182,31 @@ t_env 				*builtin_cd_old_pwd(t_env *env);
 int 				ft_strcmp_echo(char *s1, char *s2);
 
 //buitlin2
-void	builtin_export(t_cmd *cmd, t_env *env);
 t_env *builtin_unset(t_env *env, char *unset);
 void	builtin_exit(t_cmd *cmd);
 //innit var
 void	innit_var(t_cmd *cmd, t_env *env);
 
+t_env	*builtin_export(t_env *env, t_cmd *cmd);
 //export
-t_env 	*buitlin_export(t_env *env, t_cmd *cmd);
+// t_env 	*buitlin_export(t_env *env, t_cmd *cmd);
+int is_builtin(t_data *data, t_env *env);
+
+//export_utils
+
+int	ft_strcmxport(char *s1, char *s2);
+char	*malloc_export_eq(char *export, t_env *env);
+int	get_export_size(t_env *env);
+char	**malloc_export(t_env *env);
+int	is_eauql(char *arg);
+
+//export_utils2
+void	sort_export(char **export, t_env *env);
+void	print_export(char **export);
+void	free_export(char **export);
+t_env	*unset_export(t_env *env, char *cmd);
+int	export_syntax(char *arg, int i);
+
 
 //error_handling
 
@@ -234,6 +251,22 @@ int	is_eauql(char *arg);
 
 //infile
 int	check_redirect(t_cmd *cmd);
+
+//redirect_exec
+void	set_redirects(t_data *data);
+void	env_exit(t_data *data);
+void	path_error(t_data *data, t_env *env, char **env_s);
+void	execve_exit(t_env *env, char *path, char **env_s);
+void	redirect_pere(t_data *data, pid_t pid);
+
+
+//execute pipes
+
+t_env	*exec_solo_builtin(t_data *data, t_env *env);
+void	redirect_error(t_data *data, int pipe_fd[2]);
+void	create_pipe(t_data *data, int pipe_fd[2]);
+void	no_pipe_redirect(t_data *data);
+void	waiting_pid(t_cmd *cmd_tmp);
 
 
 #endif

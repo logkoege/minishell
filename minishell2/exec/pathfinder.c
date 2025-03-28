@@ -6,9 +6,11 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/26 20:48:04 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:21:30 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 #include "../includes/minishell.h"
 
@@ -18,84 +20,45 @@ void	free_path(t_env *env, char **split)
 
 	(void)env;
 	i = 0;
-	if(!split)
+	if (!split)
 		return;
-	while(split[i])
-	{
-		if(split[i])
-			free(split[i]);
-		i++;
-	}
-	if(split)
-		free(split);
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+void	free_end(t_env *env, char *p, char **sp, char *pj, char *r)
+{
+	if (pj)
+		free(pj);
+	if (r)
+		free(r);
+	if (p)
+		free(p);
+	free_path(env, sp);
 }
 
 char	*find_path(t_env *env, char *cmd)
 {
-	char *path;
-	char **split_path;
-	char *pathjoin;
-	char *res;
-	int i;
-	
-	if(!cmd)
-		return(NULL);
-	if(access(cmd, X_OK | F_OK) == 0)
-		return(cmd);
-	i = 0;
-	path = ft_getenv("PATH", env, 1);
-	if(!path)
-		return(NULL);
-	split_path = ft_split(path, ':');	
-	if(!split_path)
+	char	*p;
+	char	**sp;
+	char	*pj;
+	char	*r;
+	int		i;
+
+	if (!cmd || access(cmd, X_OK | F_OK) == 0)
+		return (cmd);
+	if (!(p = ft_getenv("PATH", env, 1)) || !(sp = ft_split(p, ':')))
+		return (free(p), NULL);
+	i = -1;
+	while (sp[++i])
 	{
-		free(path);
-		return(NULL);
+		if ((pj = ft_strjoin(sp[i], "/")) && (r = ft_strjoin(pj, cmd))
+			&& access(r, F_OK | X_OK) == 0)
+			return (free_end(env, p, sp, NULL, NULL), r);
+		free(pj);
+		free(r);
 	}
-	while(split_path[i])
-	{
-		if(i > 0 && pathjoin)
-			free(pathjoin);
-		pathjoin = ft_strjoin(split_path[i], "/");
-		if (!pathjoin)
-		{
-			free(path);
-			free_path(env, split_path);
-			return (NULL);
-		}
-		res = ft_strjoin(pathjoin, cmd);
-		if (!res) 
-		{
-			if(pathjoin)
-				free(pathjoin);
-			if(path)
-				free(path);
-			free_path(env, split_path);
-			return (NULL);
-		}
-		if(access(res, F_OK | X_OK) == 0)
-		{
-			// if(path)
-				// free(path);
-			if(pathjoin)
-				free(pathjoin);
-			free_path(env, split_path);
-			return(res);
-		}
-		i++;
-		if(pathjoin)
-			free(pathjoin);
-		if(res)
-			free(res);
-		pathjoin = NULL;
-		res = NULL;
-	}
-	if(pathjoin)
-		free(pathjoin);
-	if(res)
-		free(res);
-	if(path)
-		free(path);
-	free_path(env, split_path);
-	return(NULL);
+	return (free_end(env, p, sp, NULL, NULL), NULL);
 }
+
