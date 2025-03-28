@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/28 14:23:14 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:30:20 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,16 @@ void	create_pipe(t_data *data, int pipe_fd[2])
 		data->cmd->fd_outfile = pipe_fd[1];
 }
 
-void	no_pipe_redirect(t_data *data)
+void	sinal_shell(int signal)
 {
-	if (data->cmd->outfile != 1)
-		data->cmd->fd_outfile = STDOUT_FILENO;
-	if (data->cmd->infile != 1 && !data->cmd->prev)
-		data->cmd->fd_infile = STDIN_FILENO;
+	if(signal == SIGINT)
+		ft_putstr_fd("", 1);
 }
 
 void	waiting_pid(t_cmd *cmd_tmp)
 {
 	int	status;
-
+	signal(SIGINT, &sinal_shell);
 	while (cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)

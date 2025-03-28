@@ -6,11 +6,19 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 11:50:06 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/28 14:23:14 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:12:05 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	no_pipe_redirect(t_data *data)
+{
+	if (data->cmd->outfile != 1)
+		data->cmd->fd_outfile = STDOUT_FILENO;
+	if (data->cmd->infile != 1 && !data->cmd->prev)
+		data->cmd->fd_infile = STDIN_FILENO;
+}
 
 void	pipe_info(t_data *data, int pipe_fd[2])
 {
