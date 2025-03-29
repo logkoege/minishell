@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/29 21:19:33 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 21:26:39 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, t_data *data)
 		{
 			if (tenv->before_eq[j] == '\0')
 			{
-				if (tmp->str[i] == '\0' || tmp->str[i] == ' '
-					|| tmp->str[i] == '\"'
+				if (tmp->str[i] == '\0' || tmp->str[i] == '\"'
 					|| (is_digit(tmp->str[i]) == 0 && is_alpha(tmp->str[i]) == 0 && data->quote == true))
 					return (tenv);
 				break ;
