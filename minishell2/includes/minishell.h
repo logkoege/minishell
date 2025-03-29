@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/29 02:53:58 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:00:21 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define APPEND		5	// >>
 # define HEREDOC	6	// <<
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 typedef struct s_env
 {
@@ -84,6 +84,8 @@ typedef struct s_data
 	int		lst_size;
 	int		j;
 	int		i;
+	bool	quote;
+	int		c;
 }	t_data;
 
 // chain_list.c
@@ -108,7 +110,7 @@ int		start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
-void	rdline(t_data *data, char **envp, t_env *env);
+void	rdline(t_data *data, t_env *env);
 int		ft_strlen(char *str);
 void	init_var(t_data *data, int argc, char **argv);
 int		is_ws(char c);
@@ -133,12 +135,12 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
-int		dollar_changer(t_first *tmp, int i, t_env *env, bool quote, t_data *data);
-t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, bool quote);
+int		dollar_changer(t_first *tmp, int i, t_env *env, t_data *data);
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // dollar2.c
-int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data);
+int		remove_dollar(t_first *tmp2, char *str, int i, t_data *data);
 char	*ft_itoa(int exit_code);
 
 // env.c
@@ -147,7 +149,7 @@ t_env	*lst_new_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 t_env	*lstlast_env(t_env *lst);
 void	print_lst_first(t_data *data);
-int ft_atoi(char *str);
+int		ft_atoi(char *str);
 
 // utils3.c
 char	*ft_chr(char *s, int c);

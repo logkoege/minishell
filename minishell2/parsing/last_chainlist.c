@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/26 14:45:23 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:00:46 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ t_cmd	*first_to_cmd(t_data *data)
 				free(cmd->arg[i]);
 				cmd->file[k] = 0;
 			}
-				
 		}
 		tmp = tmp->next;
 	}
@@ -155,7 +154,6 @@ void	print_lst_cmd(t_cmd *cmd)
 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
 			k++;
 		}
-		// printf("cmd : infile : %d : out %d\n", cmd->outfile, cmd->infile);
 		cmd = cmd->next;
 	}
 }

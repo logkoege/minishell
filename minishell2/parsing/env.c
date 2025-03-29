@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/26 12:24:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:58:29 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_env	*lst_new_env(char *envp)
 		lst->after_eq = NULL;
 		lst->equal = 0;
 		lst->next = NULL;
-		return(lst);
+		return (lst);
 	}
 	lst->before_eq = ft_sub(envp, 0, ft_strlen(envp)
 			- ft_strlen(ft_chr(envp, '=')));
@@ -78,13 +78,13 @@ void	print_lst_first(t_data *data)
 {
 	t_first	*print;
 
+	data->cmd->fd_infile = 0;
+	data->cmd->fd_outfile = 1;
 	print = data->first;
 	data->lst_size = 0;
 	while (print)
 	{
 		data->lst_size++;
-		//printf("str = %s\n", print->str);
-		//printf("token = %d\n", print->token);
 		print = print->next;
 	}
 }

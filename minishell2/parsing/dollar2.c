@@ -48,7 +48,7 @@ char	*ft_itoa(int exit_code)
 	return (result);
 }
 
-int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
+int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
 {
 	int		c;
 	int		j;
@@ -97,13 +97,13 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 		free(str);
 		return (0);
 	}
-	else if (quote == true && tmp2->str[i] == '\"')
+	else if (data->quote == true && tmp2->str[i] == '\"')
 	{
 		tmp2->str = ft_dup(tmp2->str);
 		free(str);
 		return (1);
 	}
-	else if ((quote == false) && (tmp2->str[i] == '\"' || tmp2->str[i] == '\''))
+	else if ((data->quote == false) && (tmp2->str[i] == '\"' || tmp2->str[i] == '\''))
 	{
 		tmp2->str = ft_dup(tmp2->str);
 		free(str);

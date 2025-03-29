@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/26 16:00:28 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:27:56 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	setup_signals();
 	init_var(&data, argc, argv);
 	env = list_env(envp, &env);
-	rdline(&data, envp, env);
+	rdline(&data, env);
 	free_all(&data, env);
 	return (g_exit_code);
 }
