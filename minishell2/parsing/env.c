@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:46:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/29 18:58:29 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 21:14:04 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	print_lst_first(t_data *data)
 {
 	t_first	*print;
 
-	data->cmd->fd_infile = 0;
-	data->cmd->fd_outfile = 1;
 	print = data->first;
 	data->lst_size = 0;
 	while (print)

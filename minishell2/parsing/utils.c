@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/29 18:55:43 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 21:16:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	rdline(t_data *data, t_env *env)
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
 		// print_lst_cmd(data->cmd);
+		data->cmd->fd_infile = 0;
+		data->cmd->fd_outfile = 1;
 		cmd_head = data->cmd;
 		env = main_exec(data, env);
 		free(inpt);
