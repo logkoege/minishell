@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/29 18:56:49 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:38:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 			{
 				if (tmp->str[i] == '$')
 				{
-					data->quote = false;
+					data->quote = true;
 					if (dollar_changer(tmp, i, env, data) == 0)
 						i = -1;
 				}
@@ -78,7 +78,7 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, t_data *data)
 	char	*str;
 
 	i++;
-	tenv2 = dollar_cmp(tmp, env, i);
+	tenv2 = dollar_cmp(tmp, env, i, data);
 	if (tenv2 != NULL)
 	{
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str)
@@ -94,7 +94,7 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, t_data *data)
 	return (0);
 }
 
-t_env	*dollar_cmp(t_first *tmp, t_env *env, int i)
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, t_data *data)
 {
 	t_env	*tenv;
 	int		j;
@@ -111,7 +111,9 @@ t_env	*dollar_cmp(t_first *tmp, t_env *env, int i)
 		{
 			if (tenv->before_eq[j] == '\0')
 			{
-				if (!is_digit(tmp->str[i]))
+				if (tmp->str[i] == '\0' || tmp->str[i] == ' '
+					|| tmp->str[i] == '\"'
+					|| (tmp->str[i] == '\'' && data->quote == true))
 					return (tenv);
 				break ;
 			}

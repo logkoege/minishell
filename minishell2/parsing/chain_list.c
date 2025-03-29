@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chain_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:29:42 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:16:46 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ t_first	*lstlast(t_first *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+int	is_alpha(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
 }

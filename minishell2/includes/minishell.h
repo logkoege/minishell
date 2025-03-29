@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/29 19:00:21 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:37:39 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	setup_signals(void);
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
 int		dollar_changer(t_first *tmp, int i, t_env *env, t_data *data);
-t_env	*dollar_cmp(t_first *tmp, t_env *env, int i);
+t_env	*dollar_cmp(t_first *tmp, t_env *env, int i, t_data *data);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 
 // dollar2.c
@@ -167,6 +167,8 @@ t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 char	*delete_quote(char *str);
 t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
+int		is_alpha(char c);
+
 
 int					check_path(char *s1,  char *s2);
 t_env    			*find_env(t_cmd *exec, char **envp, t_env *env);
