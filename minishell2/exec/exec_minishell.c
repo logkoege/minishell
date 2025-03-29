@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 14:18:46 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/29 02:51:12 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,54 +18,54 @@ t_env *main_exec(t_data *data, t_env *env)
 	return(env);
 }
 
-t_env *check_arg(t_cmd *cmd, t_env *env)
+t_env	*check_arg(t_cmd *cmd, t_env *env)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	if(ft_strcmp(cmd->arg[0], "cd") == 0)
+	if (ft_strcmp(cmd->arg[0], "cd") == 0)
 	{
 		i++;
-		while(cmd->arg[i])
+		while (cmd->arg[i])
 			i++;
-		if(i > 2)
+		if (i > 2)
 		{
-			write(2, "bash : cd : too many argumrents\n"
+			write (2, "bash : cd : too many argumrents\n"
 				, ft_strlen("bash : cd : too many argumrents\n"));
 			g_exit_code = 1;
-			return(env);
+			return (env);
 		}
 		env = bultin_cd(env, cmd->arg[1]);
 	}
-	else if(ft_strcmp(cmd->arg[0], "pwd") == 0)
+	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
 		builtin_pwd(env);
-	else if(ft_strcmp(cmd->arg[i], "echo") == 0)
+	else if (ft_strcmp(cmd->arg[i], "echo") == 0)
 		builtin_echo(cmd);
-	else if(ft_strcmp(cmd->arg[i], "env") == 0)
+	else if (ft_strcmp(cmd->arg[i], "env") == 0)
 		builtin_env(env);
-	else if(ft_strcmp(cmd->arg[i], "unset") == 0)
+	else if (ft_strcmp(cmd->arg[i], "unset") == 0)
 		env = builtin_unset(env, cmd->arg[1]);
-	else if(ft_strcmp(cmd->arg[i], "exit") == 0)
+	else if (ft_strcmp(cmd->arg[i], "exit") == 0)
 		builtin_exit(cmd);
-	else if(ft_strcmp(cmd->arg[i], "export") == 0)
+	else if (ft_strcmp(cmd->arg[i], "export") == 0)
 		env = builtin_export(env, cmd);
 	else
-		return(NULL);
-	if(cmd->prev || cmd->next)
+		return (NULL);
+	if (cmd->prev || cmd->next)
 		exit(g_exit_code);
-	return(env);
-
+	return (env);
 }
 
-int is_builtin(t_data *data, t_env *env)
+int	is_builtin(t_data *data, t_env *env)
 {
 	(void)env;
-	if(!data->cmd->arg[0])
-		return(0);
-	if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
-		return(1);
-	if(ft_strcmp(data->cmd->arg[0], "exit") == 0)
-		return(1);
-	if(ft_strcmp(data->cmd->arg[0], "export") == 0)
+	if (!data->cmd->arg[0])
+		return (0);
+	if (ft_strcmp(data->cmd->arg[0], "cd") == 0)
+		return (1);
+	if (ft_strcmp(data->cmd->arg[0], "exit") == 0)
+		return (1);
+	if (ft_strcmp(data->cmd->arg[0], "export") == 0)
 	{
 		if(data->cmd->arg[1] == NULL)
 			return(0);

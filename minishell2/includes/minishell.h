@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 14:25:47 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/29 02:53:58 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		check_invalid_combinations(char *input, t_data *data);
 // free_fonctions.c
 void	free_structs(t_data *data);
 void	free_all(t_data *data, t_env *env);
-void	free_struct(t_data *data);
+void	free_struct(t_data *data, t_cmd *cmd);
 
 // spliting.c
 int		start_split(t_data *data, char *input);

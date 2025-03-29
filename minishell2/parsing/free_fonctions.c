@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fonctions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/27 14:19:23 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/29 02:55:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	free_all(t_data *data, t_env *env)
 	free_structs(data);
 }
 
-void	free_struct(t_data *data)
+void	free_struct(t_data *data, t_cmd *cmd)
 {
 	t_first	*tmp;
 	t_cmd	*tmp2;
 	int		i;
 
-	while (data->cmd)
+	while (cmd)
 	{
 		i = 0;
-		tmp2 = data->cmd;
-		data->cmd = data->cmd->next;
+		tmp2 = cmd;
+		cmd = cmd->next;
 		while (tmp2->arg[i])
 		{
 			free(tmp2->arg[i]);
