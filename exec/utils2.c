@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:41:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/22 13:18:30 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:01:45 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char **env_to_str(t_env *env)
 		i++;
 		tmp = tmp->next;
 	}
-	res = malloc(sizeof(char **) * (i + 1));
+	res = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while(env)
 	{

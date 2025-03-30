@@ -6,7 +6,7 @@
 /*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 12:21:30 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:04:41 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ void	free_path(t_env *env, char **split)
 	if (!split)
 		return;
 	while (split[i])
-		free(split[i++]);
+	{
+		free(split[i]);
+		split[i] = NULL;
+		i++;
+	}
+	split = NULL;
 	free(split);
 }
 
