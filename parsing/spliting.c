@@ -6,24 +6,26 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/31 16:19:44 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:14:24 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-char	*start_split(t_data *data, char *input)
+int	start_split(t_data *data, char *input)
 {
 	char	*str;
 
+	data->single_quote = false;
+	data->double_quote = false;
 	str = delete_space(data, input, 0);
-	//printf("str = %s\n", str);
 	if (token_is_valid(input, data) == 0)
-		return (NULL);
+		return (0);
 	if (str == NULL)
-		return (NULL);
+		return (0);
 	setup_tokeniser(data, str);
-	return (str);
+	free(str);
+	return (1);
 }
 
 char	*delete_space(t_data *data, char *input, int j)
@@ -51,6 +53,9 @@ char	*delete_space(t_data *data, char *input, int j)
 		str[j - 1] = '\0';
 	str[j] = '\0';
 	if (quote_not_closed(data) == 0)
+	{
+		free(str);
 		return (NULL);
+	}
 	return (str);
 }

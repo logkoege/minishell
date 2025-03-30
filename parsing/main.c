@@ -6,19 +6,26 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 01:13:19 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:00:28 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+int	g_exit_code;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data		data;
+	t_env		*env;
 
-	(void)envp;
+	data.first = NULL;
+	env = NULL;
+	g_exit_code = 0;
+	setup_signals();
 	init_var(&data, argc, argv);
-	rdline(&data);
-	free_all(&data);
-	return (0);
+	env = list_env(envp, &env);
+	rdline(&data, envp, env);
+	free_all(&data, env);
+	return (g_exit_code);
 }

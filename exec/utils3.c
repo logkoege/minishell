@@ -3,18 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:42:19 by lloginov          #+#    #+#             */
-/*   Updated: 2025/02/23 19:47:15 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:29:21 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	is_ws(char c)
+
+int	ft_atoi(char *str)
 {
-	if ((c == ' ' ) || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
+	int	i;
+	int	sign;
+	int	number;
+
+	i = 0;
+	sign = 1;
+	number = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -sign;
+		i++;
+	}
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		number = number * 10 + (str[i] - 48);
+		i++;
+	}
+	return (number * sign);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s && fd)
+	{
+		while (s[i])
+		{
+			ft_putchar_fd(s[i], fd);
+			i++;
+		}
+	}
 }

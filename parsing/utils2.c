@@ -6,11 +6,11 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/01/29 17:15:28 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:28:39 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	token_is_valid(char *input, t_data *data)
 {
@@ -53,6 +53,7 @@ int	skip_quote(char *input, t_data *data)
 		i++;
 		while (input[i] && input[i] != '\'')
 			i++;
+		i++;
 	}
 	else if (input[i] == '\"' && !data->single_quote)
 	{
@@ -60,6 +61,7 @@ int	skip_quote(char *input, t_data *data)
 		i++;
 		while (input[i] && input[i] != '\"')
 			i++;
+		i++;
 	}
 	return (i);
 }
@@ -77,4 +79,15 @@ int	pipe_utils(char *input)
 		return (0);
 	}
 	return (1);
+}
+
+void	signal_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		close(0);
+		g_exit_code = 99;
+	}
 }
