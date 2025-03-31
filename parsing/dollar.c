@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 10:16:13 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:44:33 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, t_data *data)
 	}
 	else if (tenv2 == NULL)
 	{
-		printf("1\n");
 		str = malloc(sizeof(char) * (ft_strlen(tmp->str) + 2));
 		if (remove_dollar(tmp, str, i, data) == 1)
 			return (1);
