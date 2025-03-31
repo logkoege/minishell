@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/28 17:30:20 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 08:21:28 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sinal_shell(int signal)
 void	waiting_pid(t_cmd *cmd_tmp)
 {
 	int	status;
-	signal(SIGINT, &sinal_shell);
+	// signal(SIGINT, &sinal_shell);
 	while (cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)
