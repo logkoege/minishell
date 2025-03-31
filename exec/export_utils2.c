@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:11:44 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/28 14:16:40 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 08:56:55 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 void	sort_export(char **export, t_env *env)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 11:50:06 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/30 17:17:33 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 08:54:26 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_env	*exec_1(t_data *data, t_env *env)
 		env = exec_fils(data, env, pipe_fd);
 		data->cmd = data->cmd->next;
 	}
-	// printf("exit code :: %d\n", g_exit_code);
 	waiting_pid(cmd_tmp);
 	return (env);
 }

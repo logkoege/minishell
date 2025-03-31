@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_join.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:01:35 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 12:20:27 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 08:54:55 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	ft_strlcaca(char *dest, char *src, int destsize)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*result;
-	int	len_s1;
-	int	len_s2;
+	int		len_s1;
+	int		len_s2;
 
 	if (!s1 && !s2)
 		return (ft_dup(""));

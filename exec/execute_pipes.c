@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 08:21:28 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:19:52 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ void	create_pipe(t_data *data, int pipe_fd[2])
 
 void	sinal_shell(int signal)
 {
-	if(signal == SIGINT)
+	if (signal == SIGINT)
 		ft_putstr_fd("", 1);
 }
 
 void	waiting_pid(t_cmd *cmd_tmp)
 {
 	int	status;
-	// signal(SIGINT, &sinal_shell);
+
 	while (cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)
@@ -84,4 +84,5 @@ void	waiting_pid(t_cmd *cmd_tmp)
 		}
 		cmd_tmp = cmd_tmp->next;
 	}
+	signal(SIGINT, &sinal_shell);
 }

@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:02:31 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 08:16:23 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:44:05 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	is_dir(t_data *data)
 {
 	struct stat	statbuf;
 
-	stat(data->cmd->arg[0], &statbuf);
+	if (stat(data->cmd->arg[0], &statbuf) == -1)
+		return (0);
 	if (S_ISDIR(statbuf.st_mode))
 	{
 		ft_putstr_fd("bash: ", 2);
@@ -43,9 +44,9 @@ void	main_exec_fils(t_data *data, t_env *env)
 	env_s = env_to_str(env);
 	path = find_path(env, data->cmd->arg[0]);
 	if (!path)
-		path_error(data, env, env_s);
+		path_error(data, env_s);
 	if (execve(path, data->cmd->arg, env_s) == 1)
-		execve_exit(env, path, env_s);
+		execve_exit(path, env_s);
 }
 
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
@@ -62,7 +63,7 @@ t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)
 	}
 	if (pid == 0)
 		main_exec_fils(data, env);
-	else
-		redirect_pere(data, pid);
+	signal(SIGINT, SIG_IGN);
+	redirect_daddy(data, pid);
 	return (env);
 }

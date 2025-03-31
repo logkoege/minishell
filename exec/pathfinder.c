@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/30 17:04:41 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:49:06 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 
 #include "../includes/minishell.h"
 
-void	free_path(t_env *env, char **split)
+void	free_path(char **split)
 {
-	int i;
+	int	i;
 
-	(void)env;
 	i = 0;
 	if (!split)
-		return;
+		return ;
 	while (split[i])
 	{
 		free(split[i]);
-		split[i] = NULL;
 		i++;
 	}
-	split = NULL;
 	free(split);
 }
 
-void	free_end(t_env *env, char *p, char **sp, char *pj, char *r)
+void	free_end(char *p, char **sp, char *pj, char *r)
 {
 	if (pj)
 		free(pj);
@@ -40,7 +37,7 @@ void	free_end(t_env *env, char *p, char **sp, char *pj, char *r)
 		free(r);
 	if (p)
 		free(p);
-	free_path(env, sp);
+	free_path(sp);
 }
 
 char	*find_path(t_env *env, char *cmd)
@@ -53,17 +50,21 @@ char	*find_path(t_env *env, char *cmd)
 
 	if (!cmd || access(cmd, X_OK | F_OK) == 0)
 		return (cmd);
-	if (!(p = ft_getenv("PATH", env, 1)) || !(sp = ft_split(p, ':')))
+	p = ft_getenv("PATH", env, 1);
+	if (!p)
+		return (NULL);
+	sp = ft_split (p, ':');
+	if (!sp)
 		return (free(p), NULL);
 	i = -1;
 	while (sp[++i])
 	{
-		if ((pj = ft_strjoin(sp[i], "/")) && (r = ft_strjoin(pj, cmd))
-			&& access(r, F_OK | X_OK) == 0)
-			return (free_end(env, p, sp, NULL, NULL), r);
+		pj = ft_strjoin(sp[i], "/");
+		r = ft_strjoin(pj, cmd);
+		if (access(r, F_OK | X_OK) == 0)
+			return (free_end(p, sp, NULL, NULL), r);
 		free(pj);
 		free(r);
 	}
-	return (free_end(env, p, sp, NULL, NULL), NULL);
+	return (free_end(p, sp, NULL, NULL), NULL);
 }
-

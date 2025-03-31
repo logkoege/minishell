@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/30 17:04:17 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:02:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ char	*delete_quote(char *str)
 				j++;
 			}
 			i++;
+		}
+		if (str[i] == '\0')
+		{
+			new[j] = '\0';
+			return (new);
 		}
 		if (str[i] == '\"')
 		{
@@ -95,10 +100,7 @@ t_cmd	*first_to_cmd(t_data *data)
 				k++;
 			}
 			else
-			{
-				cmd->file[j] = NULL;
 				free(cmd->file[j]);
-			}
 		}
 		else if (tmp->token == WORD)
 		{
@@ -112,10 +114,7 @@ t_cmd	*first_to_cmd(t_data *data)
 				k++;
 			}
 			else
-			{
-				cmd->arg[i] = NULL;
 				free(cmd->arg[i]);
-			}
 			cmd->file[j] = NULL;
 		}
 		tmp = tmp->next;
@@ -161,7 +160,6 @@ void	print_lst_cmd(t_cmd *cmd)
 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
 			k++;
 		}
-		// printf("cmd : infile : %d : out %d\n", cmd->outfile, cmd->infile);
 		cmd = cmd->next;
 	}
 }
