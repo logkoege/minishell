@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/31 08:55:02 by logkoege          #+#    #+#             */
+/*   Updated: 2025/03/31 10:45:09 by logkoege         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
@@ -48,7 +59,7 @@ char	*ft_itoa(int exit_code)
 	return (result);
 }
 
-int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
+int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
 {
 	int		c;
 	int		j;
@@ -56,7 +67,7 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 
 	j = 0;
 	c = 0;
-	str2 = malloc(sizeof(char) * 6);
+	(void)data;
 	while (j < i - 1)
 	{
 		str[j] = tmp2->str[j];
@@ -64,7 +75,7 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 	}
 	if (tmp2->str[i] == '?')
 	{
-		str2 = ft_itoa(data->exit_code);
+		str2 = ft_itoa(g_exit_code);
 		while (str2[c])
 			str[j++] = str2[c++];
 		i++;
@@ -92,25 +103,39 @@ int	remove_dollar(t_first *tmp2, char *str, int i, bool quote, t_data *data)
 	}
 	else if (is_digit(tmp2->str[i]))
 	{
-		tmp2->str = ft_dup_digit(tmp2->str, i - 1);
+		free(str);
+		str = ft_dup_digit(tmp2->str, i - 1);
+		free(tmp2->str);
+		tmp2->str = ft_dup_digit(str, i - 1);
 		free(str);
 		return (0);
 	}
-	else if (quote == true && tmp2->str[i] == '\"')
+	else if (data->quote == true && tmp2->str[i] == '\"')
 	{
-		tmp2->str = ft_dup(tmp2->str);
+		free(str);
+		str = ft_dup(tmp2->str);
+		free(tmp2->str);
+		tmp2->str = ft_dup(str);
 		free(str);
 		return (1);
 	}
-	else if ((quote == false) && (tmp2->str[i] == '\"' || tmp2->str[i] == '\''))
+	else if ((data->quote == false) && (tmp2->str[i] == '\"'
+			|| tmp2->str[i] == '\''))
 	{
-		tmp2->str = ft_dup(tmp2->str);
+		free(str);
+		str = ft_dup(tmp2->str);
+		free(tmp2->str);
+		tmp2->str = ft_dup(str);
 		free(str);
 		return (1);
 	}
-	else if ((tmp2->str[i] == ' ' || tmp2->str[i] == '\0' || tmp2->str[i] == '\"'))
+	else if ((tmp2->str[i] == ' ' || tmp2->str[i] == '\0'
+			|| tmp2->str[i] == '\"'))
 	{
-		tmp2->str = ft_dup(tmp2->str);
+		free(str);
+		str = ft_dup(tmp2->str);
+		free(tmp2->str);
+		tmp2->str = ft_dup(str);
 		free(str);
 		return (1);
 	}

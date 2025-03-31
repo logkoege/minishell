@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   innit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 15:11:21 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/18 15:27:16 by logkoege         ###   ########.fr       */
+/*   Created: 2025/02/03 18:48:33 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/23 18:14:09 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	innit_var(t_cmd *cmd, t_env *env)
 {
-	t_data		data;
-	t_env		*env;
+	cmd->arg = NULL;
+	cmd->file = NULL;
+	cmd->tkn = 0;
+	
 
-	data.first = NULL;
-	env = NULL;
-	setup_signals();
-	init_var(&data, argc, argv);
-	env = list_env(envp, &env);
-	rdline(&data, envp, env);
-	free_all(&data);
-	return (0);
 }

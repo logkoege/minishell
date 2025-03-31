@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 15:11:07 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
+/*   Created: 2025/02/03 14:21:58 by lloginov          #+#    #+#             */
+/*   Updated: 2025/02/22 17:43:45 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_signal(int sig)
+void    free_exit1(t_cmd *exec, char *pointer, char *msg)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n ", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		printf("Quit: 3\n");
-		exit(0);
-	}
+    (void)exec;
+    if(pointer)
+        free(pointer);
+    printf("%s", msg);
 }
 
-void	setup_signals(void)
+void	free_env(t_env *env)
 {
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, SIG_IGN);
+	while(env)
+	{
+		free(env->after_eq);
+		free(env->all);
+		free(env->before_eq);
+		env = env->next;
+	}
 }

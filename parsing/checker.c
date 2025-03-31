@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:04:45 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:32:48 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	check_pipe(char *input, t_data *data)
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
+		if (i >= ft_strlen(input))
+			return (1);
 		if (input[i] == '|')
 		{
 			i++;
@@ -47,6 +49,8 @@ int	check_double_redirect(char *input, t_data *data)
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
+		if (i >= ft_strlen(input))
+			return (1);
 		if ((input[i] == '>' && input[i + 1] == '>')
 			|| (input[i] == '<' && input[i + 1] == '<'))
 		{
@@ -74,6 +78,8 @@ int	check_other(char *input, t_data *data)
 	while (input[++i])
 	{
 		i += skip_quote(&input[i], data);
+		if (i >= ft_strlen(input))
+			return (1);
 		if ((input[i] == '>' || input[i] == '<')
 			&& (input[i + 1] != '>' && input[i + 1] != '<'))
 		{
@@ -101,6 +107,8 @@ int	check_invalid_combinations(char *input, t_data *data)
 	while (input[i])
 	{
 		i += skip_quote(&input[i], data);
+		if (i >= ft_strlen(input))
+			return (1);
 		if (((input[i] == '>') && (input[i + 1] == '<'))
 			|| ((input[i] == '<') && (input[i + 1] == '>')))
 		{

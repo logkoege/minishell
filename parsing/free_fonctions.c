@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:33:57 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 02:55:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,33 @@ void	free_structs(t_data *data)
 	free(data);
 }
 
-void	free_all(t_data *data)
+void	free_all(t_data *data, t_env *env)
 {
 	t_env	*tmp3;
 
-	while (data->env)
+	while (env)
 	{
-		tmp3 = data->env;
-		data->env = data->env->next;
+		tmp3 = env;
+		env = env->next;
 		free(tmp3->before_eq);
 		free(tmp3->after_eq);
+		free(tmp3->all);
 		free(tmp3);
 	}
 	free_structs(data);
 }
 
-void	free_struct(t_data *data)
+void	free_struct(t_data *data, t_cmd *cmd)
 {
 	t_first	*tmp;
 	t_cmd	*tmp2;
 	int		i;
 
-	while (data->cmd)
+	while (cmd)
 	{
 		i = 0;
-		tmp2 = data->cmd;
-		data->cmd = data->cmd->next;
+		tmp2 = cmd;
+		cmd = cmd->next;
 		while (tmp2->arg[i])
 		{
 			free(tmp2->arg[i]);

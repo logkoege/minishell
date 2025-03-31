@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/07 16:49:53 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/03/31 10:30:18 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ void	setup_tokeniser(t_data *data, char *input)
 	int		i;
 
 	i = 0;
+	data->j = 0;
 	while (input[data->j])
 	{
 		i = 0;
 		ssr = malloc(sizeof(char) * (ft_strlen(input) + 1));
+		printf("len inpt = %d adress %p \n", ft_strlen(input), ssr);
 		if (input[data->j] == '|')
 		{
 			ssr[i++] = '|';
@@ -122,6 +124,7 @@ void	setup_tokeniser(t_data *data, char *input)
 		if (input[data->j] == ' ')
 			data->j++;
 		ssr[i] = '\0';
+		printf("ssr = %s\n", ssr);
 		lstadd_back(&data->first, lstnew(tokenizer(ssr), ssr));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/20 18:25:01 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 11:25:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,30 @@ t_cmd	*first_to_cmd(t_data *data)
 			cmd->tkn[k] = tmp->token;
 			cmd->tkn[k + 1] = 0;
 			tmp = tmp->next;
-			cmd->file[j] = tmp->str;
-			cmd->file[j + 1] = NULL;
-			j++;
-			k++;
+			cmd->file[j] = delete_quote(tmp->str);
+			if (cmd->file[j][0] != '\0')
+			{
+				cmd->file[j + 1] = NULL;
+				j++;
+				k++;
+			}
+			else
+				free(cmd->file[j]);
 		}
 		else if (tmp->token == WORD)
 		{
 			cmd->arg[i] = delete_quote(tmp->str);
-			cmd->arg[i + 1] = NULL;
-			cmd->tkn[k] = tmp->token;
-			cmd->tkn[k + 1] = 0;
+			if (cmd->arg[i][0] != '\0')
+			{
+				cmd->arg[i + 1] = NULL;
+				cmd->tkn[k] = tmp->token;
+				cmd->tkn[k + 1] = 0;
+				i++;
+				k++;
+			}
+			else
+				free(cmd->arg[i]);
 			cmd->file[j] = NULL;
-			i++;
-			k++;
 		}
 		tmp = tmp->next;
 	}
@@ -145,7 +155,6 @@ void	print_lst_cmd(t_cmd *cmd)
 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
 			k++;
 		}
-		// printf("cmd : infile : %d : out %d\n", cmd->outfile, cmd->infile);
 		cmd = cmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/18 16:14:15 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 11:19:58 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	rdline(t_data *data, char **envp, t_env *env)
 {
 	char	*inpt;
+	t_cmd	*cmd_head;
 
 	(void)envp;
 	while (1)
@@ -31,12 +32,10 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		print_lst_first(data);
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
-		//print_lst_cmd(data->cmd);
-		data->cmd->fd_infile = 0;
-		data->cmd->fd_outfile = 1;
+		cmd_head = data->cmd;
 		env = main_exec(data, env);
 		free(inpt);
-		free_struct(data);
+		free_struct(data, cmd_head);
 		data->j = 0;
 	}
 }
@@ -46,6 +45,8 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
