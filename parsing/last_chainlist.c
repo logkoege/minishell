@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 11:25:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:02:59 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ char	*delete_quote(char *str)
 				j++;
 			}
 			i++;
+		}
+		if (str[i] == '\0')
+		{
+			new[j] = '\0';
+			return (new);
 		}
 		if (str[i] == '\"')
 		{
