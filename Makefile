@@ -6,7 +6,7 @@
 #    By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/03/31 19:02:33 by logkoege         ###   ########.fr        #
+#    Updated: 2025/03/31 20:22:35 by logkoege         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,10 @@ SRC =	parsing/main.c		\
 		parsing/last_chainlist.c\
 		parsing/lst_cmd.c	\
 		parsing/dollar2.c\
-		parsing/dollar3.c\
-		parsing/token2.c\
 		exec/find_env.c\
 		exec/utils.c\
 		exec/builtin1.c\
 		exec/builtin_unset.c\
-		exec/error_handling.c\
-		exec/chain_lists.c\
 		exec/utils2.c\
 		exec/ft_join.c\
 		exec/pathfinder.c\
@@ -54,7 +50,8 @@ SRC =	parsing/main.c		\
 		exec/export_utils.c\
 		exec/export_utils2.c\
 		exec/redirect_exec.c\
-		exec/execute_pipes.c
+		exec/execute_pipes.c\
+		exec/here_doc.c\
 
 OBJ = $(SRC:.c=.o)
 

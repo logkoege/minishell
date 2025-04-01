@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 15:46:16 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/29 02:55:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_all(t_data *data, t_env *env)
 
 void	free_struct(t_data *data, t_cmd *cmd)
 {
+	t_first	*tmp;
 	t_cmd	*tmp2;
 	int		i;
 
@@ -59,15 +60,9 @@ void	free_struct(t_data *data, t_cmd *cmd)
 		free(tmp2->tkn);
 		free(tmp2);
 	}
-	free2(data);
-}
-
-void	free2(t_data *data)
-{
-	t_first	*tmp;
-
 	while (data->first)
 	{
+		i = 0;
 		tmp = data->first;
 		data->first = data->first->next;
 		free(tmp->str);

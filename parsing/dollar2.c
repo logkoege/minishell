@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 08:55:02 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 19:01:52 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:33:11 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,63 +61,73 @@ char	*ft_itoa(int exit_code)
 
 int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
 {
+	int		c;
 	int		j;
-	int		result;
-	char	*old_str;
-	char	*tmp;
+	char	*str2;
 
-	j = copy_prefix(tmp2, str, i);
-	data->new_str = NULL;
-	if (handle_dollar_cases(tmp2, &i, data) == 0)
+	j = 0;
+	c = 0;
+	(void)data;
+	while (j < i - 1)
 	{
-		handle_special_case(str, &j, data);
-		tmp = tmp2->str;
-		tmp2->str = ft_dupp(tmp, j, data);
-		free(tmp);
+		str[j] = tmp2->str[j];
+		j++;
+	}
+	if (tmp2->str[i] == '?')
+	{
+		str2 = ft_itoa(g_exit_code);
+		while (str2[c])
+			str[j++] = str2[c++];
+		i++;
+		while (tmp2->str[i])
+			str[j++] = tmp2->str[i++];
+		str[j] = '\0';
+		free(tmp2->str);
+		tmp2->str = str;
+		free(str2);
+		return (0);
+	}
+	else if (tmp2->str[i] == '$')
+	{
+		str2 = ft_itoa(getpid());
+		while (str2[c])
+			str[j++] = str2[c++];
+		i++;
+		while (tmp2->str[i])
+			str[j++] = tmp2->str[i++];
+		str[j] = '\0';
+		free(tmp2->str);
+		tmp2->str = str;
+		free(str2);
+		return (0);
+	}
+	else if (is_digit(tmp2->str[i]))
+	{
+		free(str);
+		str = ft_dup_digit(tmp2->str, i - 1);
+		free(tmp2->str);
+		tmp2->str = ft_dup_digit(str, i - 1);
+		free(str);
+		return (0);
+	}
+	else if (tmp2->str[i] == '\"' || tmp2->str[i] == '\'' || tmp2->str[i] == ' ' || tmp2->str[i] == '\0')
+	{
 		free(str);
 		return (1);
 	}
-	result = handle_digit_or_quote(tmp2, i, data);
-	if (result != -1)
-		return (result);
-	copy_remaining_str(tmp2, str, &i, &j);
-	str[j] = '\0';
-	old_str = tmp2->str;
-	tmp2->str = ft_dup(str);
-	free(old_str);
-	free(str);
-	return (1);
-}
-
-char	*ft_dupp(char *str, int j, t_data *data)
-{
-	char	*s2;
-	int		i;
-	int		k;
-
-	k = 0;
-	i = 0;
-	s2 = malloc(sizeof(char) * (ft_strlen(str) + 7));
-	if (!s2)
-		return (NULL);
-	while (j - 1 > i)
+	while (tmp2->str[i] != '$' && tmp2->str[i] != ' ' && tmp2->str[i] != '\0'
+		&& tmp2->str[i] != '\"')
 	{
-		s2[i] = str[i];
 		i++;
 	}
-	while (data->new_str[k])
+	while (tmp2->str[i])
 	{
-		s2[i] = data->new_str[k];
-		i++;
-		k++;
-	}
-	j++;
-	while (str[j])
-	{
-		s2[i] = str[j];
+		str[j] = tmp2->str[i];
 		i++;
 		j++;
 	}
-	s2[i] = '\0';
-	return (s2);
+	str[j] = '\0';
+	free(tmp2->str);
+	tmp2->str = str;
+	return (0);
 }

@@ -6,35 +6,11 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 17:47:53 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:28:45 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static void	handle_single_quote(char *str, int *i, int *j, char *new)
-{
-	(*i)++;
-	while (str[*i] != '\'')
-	{
-		new[*j] = str[*i];
-		(*i)++;
-		(*j)++;
-	}
-	(*i)++;
-}
-
-static void	handle_double_quote(char *str, int *i, int *j, char *new)
-{
-	(*i)++;
-	while (str[*i] != '\"')
-	{
-		new[*j] = str[*i];
-		(*i)++;
-		(*j)++;
-	}
-	(*i)++;
-}
 
 char	*delete_quote(char *str)
 {
@@ -48,9 +24,32 @@ char	*delete_quote(char *str)
 	while (str[i])
 	{
 		if (str[i] == '\'')
-			handle_single_quote(str, &i, &j, new);
-		else if (str[i] == '\"')
-			handle_double_quote(str, &i, &j, new);
+		{
+			i++;
+			while (str[i] != '\'')
+			{
+				new[j] = str[i];
+				i++;
+				j++;
+			}
+			i++;
+		}
+		if (str[i] == '\0')
+		{
+			new[j] = '\0';
+			return (new);
+		}
+		if (str[i] == '\"')
+		{
+			i++;
+			while (str[i] != '\"')
+			{
+				new[j] = str[i];
+				i++;
+				j++;
+			}
+			i++;
+		}
 		else
 		{
 			new[j] = str[i];
@@ -130,4 +129,37 @@ t_cmd	*first_to_cmd(t_data *data)
 	while (cmd->prev)
 		cmd = cmd->prev;
 	return (cmd);
+}
+
+void	print_lst_cmd(t_cmd *cmd)
+{
+	int		i;
+	int		j;
+	int		k;
+
+	k = 0;
+	i = 0;
+	j = 0;
+	while (cmd)
+	{
+		i = 0;
+		j = 0;
+		k = 0;
+		while (cmd->arg[i])
+		{
+			printf("arg[%d] = %s\n", i, cmd->arg[i]);
+			i++;
+		}
+		while (cmd->file[j])
+		{
+			printf("file[%d] = %s\n", j, cmd->file[j]);
+			j++;
+		}
+		while (cmd->tkn[k])
+		{
+			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
+			k++;
+		}
+		cmd = cmd->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:48 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 16:58:46 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:14:24 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	start_split(t_data *data, char *input)
 
 	data->single_quote = false;
 	data->double_quote = false;
-	str = delete_space(data, input);
+	str = delete_space(data, input, 0);
 	if (token_is_valid(input, data) == 0)
 		return (0);
 	if (str == NULL)
@@ -28,90 +28,28 @@ int	start_split(t_data *data, char *input)
 	return (1);
 }
 
-// char	*delete_space(t_data *data, char *input, int j)
-// {
-// 	char	*str;
-// 	int		i;
-
-// 	i = -1;
-// 	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
-// 	while (input[++i])
-// 	{
-// 		if (input[i] == '\'' && !data->double_quote)
-// 			data->single_quote = !data->single_quote;
-// 		else if (input[i] == '"' && !data->single_quote)
-// 			data->double_quote = !data->double_quote;
-// 		if (input[i] >= 9 && input[i] <= 13
-// 			&& !data->single_quote && !data->double_quote)
-// 			input[i] = ' ';
-// 		if (input[i] != ' ' || data->single_quote
-// 			|| data->double_quote || (j > 0 && str[j - 1] != ' '))
-// 			str[j++] = input[i];
-// 	}
-// 	if (j > 0 && str[j - 1] == ' '
-// 		&& !data->single_quote && !data->double_quote)
-// 		str[j - 1] = '\0';
-// 	str[j] = '\0';
-// 	if (quote_not_closed(data) == 0)
-// 	{
-// 		free(str);
-// 		return (NULL);
-// 	}
-// 	return (str);
-// }
-
-void	update_quote_state(t_data *data, char c)
+char	*delete_space(t_data *data, char *input, int j)
 {
-	if (c == '\'' && !data->double_quote)
-		data->single_quote = !data->single_quote;
-	else if (c == '"' && !data->single_quote)
-		data->double_quote = !data->double_quote;
-}
+	char	*str;
+	int		i;
 
-void	normalize_spaces(t_data *data, char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
+	i = -1;
+	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
+	while (input[++i])
 	{
-		if (input[i] >= 9 && input[i] <= 13 && !data->single_quote
-			&& !data->double_quote)
+		if (input[i] == '\'' && !data->double_quote)
+			data->single_quote = !data->single_quote;
+		else if (input[i] == '"' && !data->single_quote)
+			data->double_quote = !data->double_quote;
+		if (input[i] >= 9 && input[i] <= 13
+			&& !data->single_quote && !data->double_quote)
 			input[i] = ' ';
-		i++;
-	}
-}
-
-int	copy_non_space_chars(t_data *data, char *input, char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (input[i])
-	{
-		update_quote_state(data, input[i]);
 		if (input[i] != ' ' || data->single_quote
 			|| data->double_quote || (j > 0 && str[j - 1] != ' '))
 			str[j++] = input[i];
-		i++;
 	}
-	return (j);
-}
-
-char	*delete_space(t_data *data, char *input)
-{
-	char	*str;
-	int		j;
-
-	str = (char *)malloc(sizeof(char) * (inputlen(input) + 1));
-	if (!str)
-		return (NULL);
-	normalize_spaces(data, input);
-	j = copy_non_space_chars(data, input, str);
-	if (j > 0 && str[j - 1] == ' ' && !data->single_quote
-		&& !data->double_quote)
+	if (j > 0 && str[j - 1] == ' '
+		&& !data->single_quote && !data->double_quote)
 		str[j - 1] = '\0';
 	str[j] = '\0';
 	if (quote_not_closed(data) == 0)

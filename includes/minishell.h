@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 18:51:42 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:26:47 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_data
 	int		lst_size;
 	int		j;
 	int		i;
-	char	*new_str;
 }	t_data;
 
 // chain_list.c
@@ -104,12 +103,10 @@ int		check_invalid_combinations(char *input, t_data *data);
 void	free_structs(t_data *data);
 void	free_all(t_data *data, t_env *env);
 void	free_struct(t_data *data, t_cmd *cmd);
-void	free2(t_data *data);
 
-char	*ft_dupp(char *str, int j, t_data *data);
 // spliting.c
 int		start_split(t_data *data, char *input);
-char	*delete_space(t_data *data, char *input);
+char	*delete_space(t_data *data, char *input, int j);
 
 // utils.c
 void	rdline(t_data *data, char **envp, t_env *env);
@@ -145,13 +142,6 @@ void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
 int		remove_dollar(t_first *tmp2, char *str, int i, t_data *data);
 char	*ft_itoa(int exit_code);
 
-// dollar3.c
-int		copy_prefix(t_first *tmp2, char *str, int i);
-void	handle_special_case(char *str, int *j, t_data *data);
-int		handle_digit_or_quote(t_first *tmp2, int i, t_data *data);
-int		handle_dollar_cases(t_first *tmp2, int *i, t_data *data);
-void	copy_remaining_str(t_first *tmp2, char *str, int *i, int *j);
-
 // env.c
 t_env	*list_env(char **envp, t_env **env);
 t_env	*lst_new_env(char *envp);
@@ -177,51 +167,47 @@ char	*delete_quote(char *str);
 t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
 
-int					check_path(char *s1,  char *s2);
-t_env    			*find_env(t_cmd *exec, char **envp, t_env *env);
-char 				*ft_getenv(char *str, t_env *env, int i);
+int		check_path(char *s1, char *s2);
+t_env	*find_env(t_cmd *exec, char **envp, t_env *env);
+char	*ft_getenv(char *str, t_env *env, int i);
 
+// builtin1
+void	builtin_env(t_env *env);
+void	builtin_pwd(t_env *env);
+void	builtin_echo(t_cmd *exec);
+t_env	*bultin_cd(t_env *env, char *dir);
+t_env	*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd);
+void	builtin_home(t_env *env);
+t_env	*builtin_cd_old_pwd(t_env *env);
+int		ft_strcmp_echo(char *s1, char *s2);
 
-//builtin1
-void				builtin_env(t_env *env);
-void				builtin_pwd(t_env *env);
-void				builtin_echo(t_cmd *exec);
-t_env				*bultin_cd(t_env *env, char *dir);
-t_env				*builtin_change_pwd(t_env *env, char *old_pwd, char *new_pwd);
-void				builtin_home(t_env *env);
-t_env 				*builtin_cd_old_pwd(t_env *env);
-int 				ft_strcmp_echo(char *s1, char *s2);
-
-//buitlin2
-t_env *builtin_unset(t_env *env, char *unset);
+// buitlin2
+t_env	*builtin_unset(t_env *env, char *unset);
 void	builtin_exit(t_cmd *cmd);
-//innit var
+// innit var
 void	innit_var(t_cmd *cmd, t_env *env);
 
 t_env	*builtin_export(t_env *env, t_cmd *cmd);
-//export
+// export
 // t_env 	*buitlin_export(t_env *env, t_cmd *cmd);
-int is_builtin(t_data *data, t_env *env);
+int		is_builtin(t_data *data, t_env *env);
 
-//export_utils
-
-int	ft_strcmxport(char *s1, char *s2);
+// export_utils
+int		ft_strcmxport(char *s1, char *s2);
 char	*malloc_export_eq(char *export, t_env *env);
-int	get_export_size(t_env *env);
+int		get_export_size(t_env *env);
 char	**malloc_export(t_env *env);
-int	is_eauql(char *arg);
+int		is_eauql(char *arg);
 
-//export_utils2
+// export_utils2
 void	sort_export(char **export, t_env *env);
 void	print_export(char **export);
 void	free_export(char **export);
 t_env	*unset_export(t_env *env, char *cmd);
-int	export_syntax(char *arg, int i);
+int		export_syntax(char *arg, int i);
 
-
-//error_handling
-
-void    free_exit1(t_cmd *exec, char *pointer, char *msg);
+// error_handling
+void	free_exit1(t_cmd *exec, char *pointer, char *msg);
 void	free_env(t_env *env);
 
 // // chain lists
@@ -230,54 +216,53 @@ void	free_env(t_env *env);
 // void	lstadd_back_env(t_env **lst, t_env *new);
 // t_env	*lstlast_env(t_env *lst);
 
-//utils.c
-int ft_strlen(char *str);
-char				**ft_split(char *s, char c);
+// utils.c
+int		ft_strlen(char *str);
+char	**ft_split(char *s, char c);
 
-//utils2
-void ft_fprintf(char *str);
+// utils2
+void	ft_fprintf(char *str);
 int		ft_strcmp(char *s1, char *s2);
-char **env_to_str(t_env *env);
+char	**env_to_str(t_env *env);
 
-//utils3
+// utils3
 int		is_ws(char c);
 void	ft_putstr_fd(char *s, int fd);
 
-//join
+// join
 char	*ft_strjoin(char *s1, char *s2);
 
-//pathfinder
+// pathfinder
 char	*find_path(t_env *env, char *cmd);
-void	free_path(t_env *env, char **split);
+void	free_path(char **split);
 
-//exec_minishell
+// exec_minishell
 t_env	*main_exec(t_data *data, t_env *env);
-t_env *check_arg(t_cmd *cmd, t_env *env);
-t_env *exec_1(t_data *data, t_env *env);
+t_env	*check_arg(t_cmd *cmd, t_env *env);
+t_env	*exec_1(t_data *data, t_env *env);
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe);
 
-//export
-int	is_eauql(char *arg);
+// export
+int		is_eauql(char *arg);
 
+// infile
+int		check_redirect(t_cmd *cmd);
 
-//infile
-int	check_redirect(t_cmd *cmd);
-
-//redirect_exec
+// redirect_exec
 void	set_redirects(t_data *data);
 void	env_exit(t_data *data);
-void	path_error(t_data *data, t_env *env, char **env_s);
-void	execve_exit(t_env *env, char *path, char **env_s);
-void	redirect_pere(t_data *data, pid_t pid);
+void	path_error(t_data *data, char **env_s);
+void	execve_exit(char *path, char **env_s);
+void	redirect_daddy(t_data *data, pid_t pid);
 
+// heredoc
+int		here_doocker(t_cmd *cmd, char *herdoc);
 
-//execute pipes
-
+// execute pipes
 t_env	*exec_solo_builtin(t_data *data, t_env *env);
 void	redirect_error(t_data *data, int pipe_fd[2]);
 void	create_pipe(t_data *data, int pipe_fd[2]);
 void	no_pipe_redirect(t_data *data);
 void	waiting_pid(t_cmd *cmd_tmp);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 09:19:27 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:39:34 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sinal_shell(int signal)
 void	waiting_pid(t_cmd *cmd_tmp)
 {
 	int	status;
-	//signal(SIGINT, &sinal_shell);
+
 	while (cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)
@@ -84,4 +84,5 @@ void	waiting_pid(t_cmd *cmd_tmp)
 		}
 		cmd_tmp = cmd_tmp->next;
 	}
+	signal(SIGINT, &sinal_shell);
 }

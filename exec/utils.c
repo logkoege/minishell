@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:40:50 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 12:23:21 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 09:05:31 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strdup(char *src)
 int	count_words(char *str, char c)
 {
 	int	i;
-	int		mot;
+	int	mot;
 
 	i = 0;
 	mot = 0;
@@ -75,10 +75,10 @@ int	world_len(char *str, char c)
 
 char	**ft_split(char *s, char c)
 {
-	int	j;
-	int	word_count;
-	int	i;
-	int	word_len;
+	int		j;
+	int		word_count;
+	int		i;
+	int		word_len;
 	char	**ptr;
 
 	word_count = count_words(s, c);

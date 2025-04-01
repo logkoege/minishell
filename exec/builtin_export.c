@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:47:20 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/28 14:16:40 by levaipro         ###   ########.fr       */
+/*   Updated: 2025/03/31 08:13:20 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 int	check2_export(char *arg, int eq, char *env_check, t_env *env)
 {
@@ -41,7 +40,8 @@ int	check_export(char *arg, t_env *env)
 	if (arg[0] == '=')
 		return (1);
 	if (eq != 0)
-		env_check = ft_sub(arg, 0, ft_strlen(arg) - ft_strlen(ft_chr(arg, '=')));
+		env_check = ft_sub(arg, 0, ft_strlen(arg)
+				- ft_strlen(ft_chr(arg, '=')));
 	else
 	{
 		if (export_syntax(arg, i) == 1)

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:10:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/31 17:44:02 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:18:48 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	dollar_parser(t_data *data, t_env *env)
 {
 	t_first	*tmp;
 
-	if (!data->first)
-		return ;
 	tmp = data->first;
 	while (tmp)
 	{
@@ -33,43 +31,44 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 	i = 0;
 	while (tmp->str[i])
 	{
-		if (tmp->str[i] == '\'')
+		if (tmp->str[i] == '\'' && tmp->str[i + 1] != '\0')
 		{
 			i++;
 			while (tmp->str[i] && tmp->str[i] != '\'')
 				i++;
-			if (tmp->str[i] == '\'')
-				i++;
+			i++;
 		}
-		else if (tmp->str[i] == '\"')
+		if (tmp->str[i] == '\"')
 		{
 			i++;
-			while (tmp->str[i] && tmp->str[i] != '\"')
+			while (tmp->str[i] != '\"' && tmp->str[i] != '\0')
 			{
 				if (tmp->str[i] == '$')
 				{
 					data->quote = true;
-					if (dollar_changer(tmp, i, env, data) == 1)
+					if (dollar_changer(tmp, i, env, data) == 0)
 						i = -1;
 				}
 				i++;
 			}
-			if (tmp->str[i] == '\"')
-				i++;
+			i++;
 		}
-		else
+		else if (tmp->str[i] != '\'' && tmp->str[i] != '\0')
 		{
-			while (tmp->str[i] && tmp->str[i] != '\'' && tmp->str[i] != '\"')
+			while (tmp->str[i] != '\0')
 			{
 				if (tmp->str[i] == '$')
 				{
 					data->quote = false;
-					if (dollar_changer(tmp, i, env, data) == 1)
+					if (dollar_changer(tmp, i, env, data) == 0)
 						i = -1;
 				}
 				i++;
 			}
 		}
+		if (tmp->str[i] == '\0')
+			break ;
+		i++;
 	}
 }
 
@@ -88,7 +87,7 @@ int	dollar_changer(t_first *tmp, int i, t_env *env, t_data *data)
 	}
 	else if (tenv2 == NULL)
 	{
-		str = malloc(sizeof(char) * (ft_strlen(tmp->str) + 6));
+		str = malloc(sizeof(char) * (ft_strlen(tmp->str) + 2));
 		if (remove_dollar(tmp, str, i, data) == 1)
 			return (1);
 	}
@@ -142,7 +141,11 @@ void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i)
 		j++;
 	}
 	while (tenv2->after_eq[k])
-		str[j++] = tenv2->after_eq[k++];
+	{
+		str[j] = tenv2->after_eq[k];
+		j++;
+		k++;
+	}
 	i = i + ft_strlen(tenv2->before_eq);
 	while (tmp->str[i])
 	{
