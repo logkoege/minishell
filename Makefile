@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 LFLAGS = -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
-CFLAGS = -Wall -Wextra -Werror -lreadline -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
 
 SRC =	parsing/main.c		\
 		parsing/utils.c		\

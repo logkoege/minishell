@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 08:55:02 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/01 14:33:11 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:59:48 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,15 @@ int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
 	else if (tmp2->str[i] == '\"' || tmp2->str[i] == '\'' || tmp2->str[i] == ' ' || tmp2->str[i] == '\0')
 	{
 		free(str);
+		str = ft_dup(tmp2->str);
+		free(tmp2->str);
+		tmp2->str = ft_dup(str);
+		free(str);
 		return (1);
 	}
+	i++;
 	while (tmp2->str[i] != '$' && tmp2->str[i] != ' ' && tmp2->str[i] != '\0'
-		&& tmp2->str[i] != '\"')
+		&& tmp2->str[i] != '\"' && tmp2->str[i] != '\'')
 	{
 		i++;
 	}
