@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 18:47:47 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:52:51 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_env	*cd_home(t_env *env)
 	{
 		ft_putstr_fd("bash : cd : cannot acces home\n", 2);
 		g_exit_code = 1;
-		return(env);
+		return (env);
 	}
 	pwd = ft_dup(ft_getenv("HOME", env, 3));
 	env = builtin_change_pwd(env, old_pwd, pwd);
@@ -49,11 +49,11 @@ t_env	*cd_old_pwd(t_env *env)
 		perror("bash: cd: OLDPWD not set\n");
 		return (env);
 	}
-	if(chdir(old_pwd) != 0)
+	if (chdir(old_pwd) != 0)
 	{
 		g_exit_code = 1;
 		perror("bash : cd ");
-		return(env);
+		return (env);
 	}
 	old_pwd = ft_dup(ft_getenv("PWD", env, 3));
 	pwd = ft_dup(ft_getenv("OLDPWD", env, 3));
