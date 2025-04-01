@@ -67,6 +67,7 @@ void	sinal_shell(int signal)
 {
 	if (signal == SIGINT)
 		ft_putstr_fd("", 1);
+	
 }
 
 void	waiting_pid(t_cmd *cmd_tmp)
@@ -84,5 +85,5 @@ void	waiting_pid(t_cmd *cmd_tmp)
 		}
 		cmd_tmp = cmd_tmp->next;
 	}
-	signal(SIGINT, &sinal_shell);
+	signal(SIGINT, &handle_signal);
 }

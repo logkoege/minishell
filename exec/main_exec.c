@@ -36,7 +36,7 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while (data->cmd)
 	{
-		if (!data->cmd->arg[0])
+		if (!data->cmd->arg[0] && !data->cmd->file[0])
 		{
 			data->cmd = data->cmd->next;
 			continue ;
@@ -54,5 +54,6 @@ t_env	*exec_1(t_data *data, t_env *env)
 		data->cmd = data->cmd->next;
 	}
 	waiting_pid(cmd_tmp);
+
 	return (env);
 }

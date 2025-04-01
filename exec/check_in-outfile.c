@@ -91,6 +91,7 @@ int	redirect2(t_cmd *cmd, int i, int j)
 	}
 	else if (cmd->tkn[i] == HEREDOC)
 	{
+		printf("aaaa\n");
 		if (here_doocker(cmd, cmd->file[j]) == 1)
 			return (-424242);
 		j++;
