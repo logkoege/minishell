@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:07:36 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/01 20:31:24 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:30:52 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ int	token_is_valid(char *input, t_data *data)
 	return (1);
 }
 
-int	quote_not_closed(t_data *data)
+int	quote_not_closed(t_data *data, char *str)
 {
 	if (data->single_quote)
 	{
 		data->single_quote = false;
 		printf("quote not closed\n");
+		free(str);
 		return (0);
 	}
 	if (data->double_quote)
 	{
 		data->double_quote = false;
 		printf("doublequote not closed\n");
+		free(str);
 		return (0);
 	}
 	return (1);

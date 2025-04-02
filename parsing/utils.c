@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/02 17:15:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:54:07 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	rdline(t_data *data, char **envp, t_env *env)
 			continue ;
 		if (start_split(data, inpt) == 0)
 			continue ;
+		free(inpt);
 		setup_signals();
 		print_lst_first(data);
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
 		cmd_head = data->cmd;
+		print_lst_cmd(data->cmd);
 		env = main_exec(data, env);
-		free(inpt);
 		free_struct(data, cmd_head);
 		data->j = 0;
 	}
@@ -61,6 +62,10 @@ void	init_var(t_data *data, int argc, char **argv)
 	data->i = 0;
 	data->single_quote = false;
 	data->double_quote = false;
+	data->t = 0;
+	data->a = 0;
+	data->f = 0;
+	data->sob = 0;
 }
 
 int	is_ws(char c)

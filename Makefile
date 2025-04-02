@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+         #
+#    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 13:47:34 by lloginov          #+#    #+#              #
-#    Updated: 2025/04/01 18:47:21 by logkoege         ###   ########.fr        #
+#    Updated: 2025/04/02 20:21:45 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 LFLAGS = -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
-CFLAGS = -Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -lreadline -g3 #-fsanitize=address
 
 SRC =	parsing/main.c		\
 		parsing/utils.c		\
@@ -32,6 +32,10 @@ SRC =	parsing/main.c		\
 		parsing/last_chainlist.c\
 		parsing/lst_cmd.c	\
 		parsing/dollar2.c\
+		parsing/token2.c\
+		parsing/dollar3.c\
+		parsing/dollar_utils.c\
+		parsing/last_utils.c\
 		exec/find_env.c\
 		exec/utils.c\
 		exec/builtin1.c\

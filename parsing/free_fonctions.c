@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_fonctions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/03/29 02:55:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:25:52 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_structs(t_data *data)
-{
-	free(data);
-}
 
 void	free_all(t_data *data, t_env *env)
 {
@@ -30,39 +25,63 @@ void	free_all(t_data *data, t_env *env)
 		free(tmp3->all);
 		free(tmp3);
 	}
-	free_structs(data);
+	free(data);
+	rl_clear_history();
 }
 
-void	free_struct(t_data *data, t_cmd *cmd)
+void	free_cmd_arg(t_cmd *tmp2, int i)
 {
-	t_first	*tmp;
-	t_cmd	*tmp2;
-	int		i;
-
-	while (cmd)
+	if (tmp2->arg)
 	{
-		i = 0;
-		tmp2 = cmd;
-		cmd = cmd->next;
 		while (tmp2->arg[i])
 		{
 			free(tmp2->arg[i]);
 			i++;
 		}
 		free(tmp2->arg);
-		i = 0;
+	}
+}
+
+void	free_cmd_file(t_cmd *tmp2, int i)
+{
+	if (tmp2->file)
+	{
 		while (tmp2->file[i])
 		{
 			free(tmp2->file[i]);
 			i++;
 		}
 		free(tmp2->file);
-		free(tmp2->tkn);
-		free(tmp2);
 	}
+}
+
+void	free_struct(t_data *data, t_cmd *cmd)
+{
+	t_cmd	*tmp2;
+	int		i;
+
+	if (cmd)
+	{
+		while (cmd)
+		{
+			i = 0;
+			tmp2 = cmd;
+			cmd = cmd->next;
+			free_cmd_arg(tmp2, i);
+			free_cmd_file(tmp2, i);
+			free(tmp2->tkn);
+			free(tmp2);
+		}
+	}
+	fri_te(data);
+}
+
+void	fri_te(t_data *data)
+{
+	t_first	*tmp;
+
 	while (data->first)
 	{
-		i = 0;
 		tmp = data->first;
 		data->first = data->first->next;
 		free(tmp->str);

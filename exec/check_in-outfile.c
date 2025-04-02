@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 18:39:05 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:17:55 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ int	infiler(t_cmd *cmd, char *infile)
 int	outfiler(t_cmd *cmd, char *outfile)
 {
 	int	fd;
-
+	
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		if(outfile)
-			ft_putstr_fd(outfile, 2);
+		ft_putstr_fd(outfile, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
@@ -110,6 +109,9 @@ int	check_redirect(t_cmd *cmd)
 	i = 0;
 	while (cmd->tkn[i])
 	{
+		// printf("data-> tkn : %d\n\n", cmd->tkn[i]);
+		// if(cmd->file[i])
+		// 	printf("data-> file : %s\n", cmd->file[i]);
 		j += redirect2(cmd, i, j);
 		if (j < 0)
 		{

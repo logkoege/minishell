@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 20:36:15 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:25:04 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ typedef struct s_data
 	int		lst_size;
 	int		j;
 	int		i;
+	int		sob;
+	int		a;
+	int		f;
+	int		t;
 }	t_data;
 
 // chain_list.c
@@ -100,13 +104,14 @@ int		check_other(char *input, t_data *data);
 int		check_invalid_combinations(char *input, t_data *data);
 
 // free_fonctions.c
-void	free_structs(t_data *data);
 void	free_all(t_data *data, t_env *env);
 void	free_struct(t_data *data, t_cmd *cmd);
+void	fri_te(t_data *data);
 
 // spliting.c
 int		start_split(t_data *data, char *input);
 char	*delete_space(t_data *data, char *input, int j);
+void	in_delete_space(int i, char *input, t_data *data);
 
 // utils.c
 void	rdline(t_data *data, char **envp, t_env *env);
@@ -117,7 +122,7 @@ int		inputlen(char *input);
 
 // util2.c
 int		token_is_valid(char *input, t_data *data);
-int		quote_not_closed(t_data *data);
+int		quote_not_closed(t_data *data, char *str);
 int		skip_quote(char *input, t_data *data);
 int		pipe_utils(char *input);
 void	signal_heredoc(int sig);
@@ -134,12 +139,13 @@ void	setup_signals(void);
 // dollar.c
 void	dollar_parser(t_data *data, t_env *env);
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data);
-int		dollar_changer(t_first *tmp, int i, t_env *env, t_data *data);
+int		dollar_changer(t_first *tmp, int i, t_env *env);
 t_env	*dollar_cmp(t_first *tmp, t_env *env, int i);
 void	replace_dollar(t_first *tmp, t_env *tenv2, char *str, int i);
+int		is_alpha(char c);
 
 // dollar2.c
-int		remove_dollar(t_first *tmp2, char *str, int i, t_data *data);
+int		remove_dollar(t_first *tmp2, char *str, int i);
 char	*ft_itoa(int exit_code);
 
 // env.c
@@ -156,7 +162,6 @@ char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
 char	*ft_dup_digit(char *s1, int dollar);
 int		is_digit(char c);
-int		print_heredoc_d(char *heredoc);
 
 // lst_cmd.c
 t_cmd	*lst_new_cmd(t_data *data);
@@ -258,6 +263,7 @@ void	redirect_daddy(t_data *data, pid_t pid);
 
 // heredoc
 int		here_doocker(t_cmd *cmd, char *herdoc);
+int		print_heredoc_d(char *heredoc);
 
 // execute pipes
 t_env	*exec_solo_builtin(t_data *data, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 08:55:02 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/01 14:59:48 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:11:09 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,80 +59,81 @@ char	*ft_itoa(int exit_code)
 	return (result);
 }
 
-int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
-{
-	int		c;
-	int		j;
-	char	*str2;
+// int	remove_dollar(t_first *tmp2, char *str, int i, t_data *data)
+// {
+// 	int		c;
+// 	int		j;
+// 	char	*str2;
 
-	j = 0;
-	c = 0;
-	(void)data;
-	while (j < i - 1)
-	{
-		str[j] = tmp2->str[j];
-		j++;
-	}
-	if (tmp2->str[i] == '?')
-	{
-		str2 = ft_itoa(g_exit_code);
-		while (str2[c])
-			str[j++] = str2[c++];
-		i++;
-		while (tmp2->str[i])
-			str[j++] = tmp2->str[i++];
-		str[j] = '\0';
-		free(tmp2->str);
-		tmp2->str = str;
-		free(str2);
-		return (0);
-	}
-	else if (tmp2->str[i] == '$')
-	{
-		str2 = ft_itoa(getpid());
-		while (str2[c])
-			str[j++] = str2[c++];
-		i++;
-		while (tmp2->str[i])
-			str[j++] = tmp2->str[i++];
-		str[j] = '\0';
-		free(tmp2->str);
-		tmp2->str = str;
-		free(str2);
-		return (0);
-	}
-	else if (is_digit(tmp2->str[i]))
-	{
-		free(str);
-		str = ft_dup_digit(tmp2->str, i - 1);
-		free(tmp2->str);
-		tmp2->str = ft_dup_digit(str, i - 1);
-		free(str);
-		return (0);
-	}
-	else if (tmp2->str[i] == '\"' || tmp2->str[i] == '\'' || tmp2->str[i] == ' ' || tmp2->str[i] == '\0')
-	{
-		free(str);
-		str = ft_dup(tmp2->str);
-		free(tmp2->str);
-		tmp2->str = ft_dup(str);
-		free(str);
-		return (1);
-	}
-	i++;
-	while (tmp2->str[i] != '$' && tmp2->str[i] != ' ' && tmp2->str[i] != '\0'
-		&& tmp2->str[i] != '\"' && tmp2->str[i] != '\'')
-	{
-		i++;
-	}
-	while (tmp2->str[i])
-	{
-		str[j] = tmp2->str[i];
-		i++;
-		j++;
-	}
-	str[j] = '\0';
-	free(tmp2->str);
-	tmp2->str = str;
-	return (0);
-}
+// 	j = 0;
+// 	c = 0;
+// 	(void)data;
+// 	while (j < i - 1)
+// 	{
+// 		str[j] = tmp2->str[j];
+// 		j++;
+// 	}
+// 	if (tmp2->str[i] == '?')
+// 	{
+// 		str2 = ft_itoa(g_exit_code);
+// 		while (str2[c])
+// 			str[j++] = str2[c++];
+// 		i++;
+// 		while (tmp2->str[i])
+// 			str[j++] = tmp2->str[i++];
+// 		str[j] = '\0';
+// 		free(tmp2->str);
+// 		tmp2->str = str;
+// 		free(str2);
+// 		return (0);
+// 	}
+// 	else if (tmp2->str[i] == '$')
+// 	{
+// 		str2 = ft_itoa(getpid());
+// 		while (str2[c])
+// 			str[j++] = str2[c++];
+// 		i++;
+// 		while (tmp2->str[i])
+// 			str[j++] = tmp2->str[i++];
+// 		str[j] = '\0';
+// 		free(tmp2->str);
+// 		tmp2->str = str;
+// 		free(str2);
+// 		return (0);
+// 	}
+// 	else if (is_digit(tmp2->str[i]))
+// 	{
+// 		free(str);
+// 		str = ft_dup_digit(tmp2->str, i - 1);
+// 		free(tmp2->str);
+// 		tmp2->str = ft_dup_digit(str, i - 1);
+// 		free(str);
+// 		return (0);
+// 	}
+// 	else if (tmp2->str[i] == '\"' || tmp2->str[i] == '\''
+// 		|| tmp2->str[i] == ' ' || tmp2->str[i] == '\0')
+// 	{
+// 		free(str);
+// 		str = ft_dup(tmp2->str);
+// 		free(tmp2->str);
+// 		tmp2->str = ft_dup(str);
+// 		free(str);
+// 		return (1);
+// 	}
+// 	i++;
+// 	while (tmp2->str[i] != '$' && tmp2->str[i] != ' ' && tmp2->str[i] != '\0'
+// 		&& tmp2->str[i] != '\"' && tmp2->str[i] != '\'')
+// 	{
+// 		i++;
+// 	}
+// 	while (tmp2->str[i])
+// 	{
+// 		str[j] = tmp2->str[i];
+// 		i++;
+// 		j++;
+// 	}
+// 	str[j] = '\0';
+// 	free(tmp2->str);
+// 	tmp2->str = str;
+// 	return (0);
+// }
