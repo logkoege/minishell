@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 21:37:14 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:39:05 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	infiler(t_cmd *cmd, char *infile)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd(infile, 2);
+		if(infile)
+			ft_putstr_fd(infile, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
@@ -38,7 +39,8 @@ int	outfiler(t_cmd *cmd, char *outfile)
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd(outfile, 2);
+		if(outfile)
+			ft_putstr_fd(outfile, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
@@ -57,7 +59,8 @@ int	appender(t_cmd *cmd, char *file)
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd(file, 2);
+		if(file)
+			ft_putstr_fd(file, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);

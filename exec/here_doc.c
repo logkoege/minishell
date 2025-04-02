@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:18:28 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 17:12:21 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:44:26 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	end_heredoc(char *input, int pipe_fd[2], t_cmd *cmd)
 	{
 		return(1);
 	}
+	if(!cmd->arg[0])
+		return(1);
 	return (0);
 }
 
