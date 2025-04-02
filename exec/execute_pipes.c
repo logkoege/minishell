@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/01 21:43:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:08:47 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	sinal_shell(int signal)
 {
 	if (signal == SIGINT)
 		ft_putstr_fd("", 1);
-	if(signal == SIGQUIT)
+	if (signal == SIGQUIT)
 	{
-		ft_putstr_fd("Quit (core dumped)\n",2 );
+		ft_putstr_fd("Quit (core dumped)\n", 2);
 		return ;
 	}
 }

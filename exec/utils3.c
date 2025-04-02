@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:42:19 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 20:38:35 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:07:28 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ int	print_heredoc_d(char *heredoc)
 	ft_putstr_fd(heredoc, 2);
 	ft_putstr_fd("')\n", 2);
 	g_exit_code = 0;
-	return(1);
+	return (1);
 }

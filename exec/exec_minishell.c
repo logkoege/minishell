@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 17:15:23 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:07:14 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_env	*check_arg(t_cmd *cmd, t_env *env)
 	int	i;
 
 	i = 0;
-	if(!cmd->arg[0])
-		return(NULL);
+	if (!cmd->arg[0])
+		return (NULL);
 	if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		return (check_cd(cmd, env, i));
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
