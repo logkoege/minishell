@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:02:31 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/02 00:54:58 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:08:02 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	main_exec_fils(t_data *data, t_env *env)
 	char	**env_s;
 	t_env	*tmp;
 
+	signal(SIGQUIT, SIG_DFL);
 	set_redirects(data);
 	tmp = check_arg(data->cmd, env);
 	if (tmp)

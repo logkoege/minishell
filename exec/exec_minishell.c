@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 18:49:47 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:15:23 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_env	*main_exec(t_data *data, t_env *env)
 {
 	data->cmd->fd_infile = 0;
 	data->cmd->fd_outfile = 1;
+	g_exit_code = 0;
 	env = exec_1(data, env);
 	return (env);
 }
