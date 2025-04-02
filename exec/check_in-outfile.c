@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_in-outfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 15:18:17 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:37:14 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	redirect2(t_cmd *cmd, int i, int j)
 	}
 	else if (cmd->tkn[i] == HEREDOC)
 	{
-		printf("aaaa\n");
 		if (here_doocker(cmd, cmd->file[j]) == 1)
 			return (-424242);
 		j++;
@@ -111,7 +110,8 @@ int	check_redirect(t_cmd *cmd)
 		j += redirect2(cmd, i, j);
 		if (j < 0)
 		{
-			g_exit_code = 1;
+			if(g_exit_code != 130)
+				g_exit_code = 1;
 			return (1);
 		}
 		i++;

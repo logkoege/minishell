@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 17:26:47 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:36:15 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ char	*ft_dup(char *s1);
 char	*ft_sub(char *s, int start, int len);
 char	*ft_dup_digit(char *s1, int dollar);
 int		is_digit(char c);
+int		print_heredoc_d(char *heredoc);
 
 // lst_cmd.c
 t_cmd	*lst_new_cmd(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/01 14:39:34 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:43:35 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,19 @@ void	sinal_shell(int signal)
 {
 	if (signal == SIGINT)
 		ft_putstr_fd("", 1);
-	
+	if(signal == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n",2 );
+		return ;
+	}
 }
 
 void	waiting_pid(t_cmd *cmd_tmp)
 {
 	int	status;
 
+	signal(SIGINT, &sinal_shell);
+	signal(SIGQUIT, &sinal_shell);
 	while (cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)
@@ -86,4 +92,6 @@ void	waiting_pid(t_cmd *cmd_tmp)
 		cmd_tmp = cmd_tmp->next;
 	}
 	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, SIG_IGN);
+	return ;
 }
