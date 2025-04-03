@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:08:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/03 17:55:19 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:21:50 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@ void	free_all(t_data *data, t_env *env, int i)
 	{
 		tmp3 = env;
 		env = env->next;
-		if(tmp3->before_eq)
+		if (tmp3->before_eq)
 			free(tmp3->before_eq);
-		if(tmp3->after_eq)
+		if (tmp3->after_eq)
 			free(tmp3->after_eq);
-		if(tmp3->all)
+		if (tmp3->all)
 			free(tmp3->all);
-		if(tmp3)
+		if (tmp3)
 			free(tmp3);
 	}
 	rl_clear_history();
-	if(i)
-	{
+	if (i)
 		free(data);
-	}
 }
 
 void	free_cmd_arg(t_cmd *tmp2, int i)

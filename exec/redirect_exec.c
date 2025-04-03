@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:20:11 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/03 17:55:19 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:21:25 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,15 @@ void	set_redirects(t_data *data)
 
 void	env_exit(t_data *data, t_env *env)
 {
-	t_cmd *cmd_prev;
+	t_cmd	*cmd_prev;
 
 	cmd_prev = data->cmd;
-	while(cmd_prev->prev != NULL)
+	while (cmd_prev->prev != NULL)
 		cmd_prev = cmd_prev->prev;
 	close(data->cmd->fd_infile);
 	close(data->cmd->fd_outfile);
-	free_struct(data, data->cmd);
+	free_struct(data, cmd_prev);
 	free_all(data, env, 0);
-	// (void)env;
 	exit(g_exit_code);
 }
 

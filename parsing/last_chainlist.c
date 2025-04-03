@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/03 15:15:39 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:36:48 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,102 +72,35 @@ char	*delete_quote(char *str, int i)
 	return (new);
 }
 
-// t_cmd	*first_to_cmd(t_data *data)
+// void	print_lst_cmd(t_cmd *cmd)
 // {
-// 	t_first	*tmp;
-// 	t_cmd	*cmd;
+// 	int		i;
+// 	int		j;
+// 	int		k;
 
-// 	data->t = 0;
-// 	data->a = 0;
-// 	data->f = 0;
-// 	tmp = data->first;
-// 	cmd = lst_new_cmd(data);
-// 	while (tmp)
+// 	k = 0;
+// 	i = 0;
+// 	j = 0;
+// 	while (cmd)
 // 	{
-// 		if (tmp->token == PIPE)
+// 		i = 0;
+// 		j = 0;
+// 		k = 0;
+// 		while (cmd->arg[i])
 // 		{
-// 			cmd->arg[data->a] = NULL;
-// 			cmd->file[data->f] = NULL;
-// 			lstadd_back_cmd(&cmd, lst_new_cmd(data));
-// 			cmd = cmd->next;
-// 			data->t = 0;
-// 			data->a = 0;
-// 			data->f = 0;
+// 			printf("arg[%d] = %s\n", i, cmd->arg[i]);
+// 			i++;
 // 		}
-// 		if (tmp->token == HEREDOC || tmp->token == TRUNC
-// 			|| tmp->token == INPUT || tmp->token == APPEND)
+// 		while (cmd->file[j])
 // 		{
-// 			cmd->tkn[data->t] = tmp->token;
-// 			cmd->tkn[data->t + 1] = 0;
-// 			tmp = tmp->next;
-// 			cmd->file[data->f] = delete_quote(tmp->str);
-// 			if (cmd->file[data->f][0] != '\0')
-// 			{
-// 				cmd->file[data->f + 1] = NULL;
-// 				data->f++;
-// 				data->t++;
-// 			}
-// 			else
-// 				free(cmd->file[data->f]);
+// 			printf("file[%d] = %s\n", j, cmd->file[j]);
+// 			j++;
 // 		}
-// 		else if (tmp->token == WORD)
+// 		while (cmd->tkn[k])
 // 		{
-// 			cmd->arg[data->a] = delete_quote(tmp->str);
-// 			if (cmd->arg[data->a][0])
-// 			{
-// 				cmd->arg[data->a + 1] = NULL;
-// 				cmd->tkn[data->t] = tmp->token;
-// 				cmd->tkn[data->t + 1] = 0;
-// 				data->a++;
-// 				data->t++;
-// 			}
-// 			else
-// 				free(cmd->arg[data->a]);
-// 			cmd->file[data->f] = NULL;
+// 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
+// 			k++;
 // 		}
-// 		tmp = tmp->next;
+// 		cmd = cmd->next;
 // 	}
-// 	if (tmp == NULL)
-// 	{
-// 		cmd->arg[data->a] = NULL;
-// 		cmd->file[data->f] = NULL;
-// 		cmd->tkn[data->t] = 0;
-// 		cmd->next = NULL;
-// 	}
-// 	while (cmd->prev)
-// 		cmd = cmd->prev;
-// 	return (cmd);
 // }
-
-void	print_lst_cmd(t_cmd *cmd)
-{
-	int		i;
-	int		j;
-	int		k;
-
-	k = 0;
-	i = 0;
-	j = 0;
-	while (cmd)
-	{
-		i = 0;
-		j = 0;
-		k = 0;
-		while (cmd->arg[i])
-		{
-			printf("arg[%d] = %s\n", i, cmd->arg[i]);
-			i++;
-		}
-		while (cmd->file[j])
-		{
-			printf("file[%d] = %s\n", j, cmd->file[j]);
-			j++;
-		}
-		while (cmd->tkn[k])
-		{
-			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
-			k++;
-		}
-		cmd = cmd->next;
-	}
-}

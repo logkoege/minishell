@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 17:07:25 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:18:52 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	builtin_pwd(t_env *env)
 		ft_putstr_fd("bash : pwd : cannot acces current directory\n", 2);
 		g_exit_code = 1;
 		exit(g_exit_code);
-	}	
+	}
 	g_exit_code = 0;
-	
 	return ;
 }
 
