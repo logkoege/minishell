@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 19:25:04 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:51:41 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_cmd	*lstlast_cmd(t_cmd *lst);
 t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 // last_chainlist.c
-char	*delete_quote(char *str);
+char	*delete_quote(char *str, int i);
 t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
 

@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 14:19:04 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:19:02 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	outfiler(t_cmd *cmd, char *outfile)
 	}
 	if (cmd->outfile)
 		close(cmd->fd_outfile);
-	cmd->outfile = 1;
 	if (!cmd->arg[0])
 		return (1);
+	cmd->outfile = 1;
 	cmd->fd_outfile = fd;
 	return (0);
 }
@@ -99,12 +99,14 @@ int	redirect2(t_cmd *cmd, int i, int j)
 {
 	if (cmd->tkn[i] == INPUT)
 	{
+		printf("infile : %s\n", cmd->file[j]);
 		if (infiler(cmd, cmd->file[j]) == 1)
 			return (-424242);
 		j++;
 	}
 	else if (cmd->tkn[i] == TRUNC)
 	{
+		printf("outfile : %s\n", cmd->file[j]);
 		if (outfiler(cmd, cmd->file[j]) == 1)
 			return (-424242);
 		j++;

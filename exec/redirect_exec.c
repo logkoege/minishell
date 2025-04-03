@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:20:11 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 16:44:05 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:23:24 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	set_redirects(t_data *data)
 	else if (data->cmd->outfile == 1)
 	{
 		dup2(data->cmd->fd_outfile, STDOUT_FILENO);
+		printf("YES %d\n", data->cmd->fd_outfile);
 		close(data->cmd->fd_outfile);
 	}
 }

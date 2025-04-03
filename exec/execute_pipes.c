@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/03 14:45:33 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:30:30 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	create_pipe(t_data *data, int pipe_fd[2])
 void	sinal_shell(int signal)
 {
 	if (signal == SIGINT)
-		ft_putstr_fd("", 1);
+		ft_putstr_fd("\n", 1);
 	if (signal == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", 2);
