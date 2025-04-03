@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 21:32:22 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:19:04 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@ int	infiler(t_cmd *cmd, char *infile)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		if (infile)
-			ft_putstr_fd(infile, 2);
+		ft_putstr_fd(infile, 2);
+		if (access(infile, R_OK) != 0)
+		{
+			ft_putstr_fd(" : permission denied\n", 2);
+			g_exit_code = 1;
+			return (1);
+		}
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
 	}
 	if (cmd->infile)
 		close(cmd->fd_infile);
-	if(!cmd->arg[0])
-		return(1);
+	if (!cmd->arg[0])
+		return (1);
 	cmd->infile = 1;
 	cmd->fd_infile = fd;
 	return (0);
@@ -38,19 +43,27 @@ int	outfiler(t_cmd *cmd, char *outfile)
 {
 	int	fd;
 
+	if (!outfile)
+		return (1);
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_putstr_fd(outfile, 2);
+		if (access(outfile, W_OK) != 0)
+		{
+			ft_putstr_fd(" : permission denied\n", 2);
+			g_exit_code = 1;
+			return (1);
+		}
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
 	}
 	if (cmd->outfile)
 		close(cmd->fd_outfile);
-	if(!cmd->arg[0])
-		return(1);
 	cmd->outfile = 1;
+	if (!cmd->arg[0])
+		return (1);
 	cmd->fd_outfile = fd;
 	return (0);
 }
@@ -62,16 +75,21 @@ int	appender(t_cmd *cmd, char *file)
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		if (file)
-			ft_putstr_fd(file, 2);
+		ft_putstr_fd(file, 2);
+		if (access(file, W_OK) != 0)
+		{
+			ft_putstr_fd(" : permission denied\n", 2);
+			g_exit_code = 1;
+			return (1);
+		}
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
 	}
 	if (cmd->outfile)
 		close(cmd->fd_outfile);
-	if(!cmd->arg[0])
-		return(1);
+	if (!cmd->arg[0])
+		return (1);
 	cmd->outfile = 1;
 	cmd->fd_outfile = fd;
 	return (0);
@@ -87,7 +105,6 @@ int	redirect2(t_cmd *cmd, int i, int j)
 	}
 	else if (cmd->tkn[i] == TRUNC)
 	{
-		// printf("OUTFILE : %s\n", cmd->file[j]);
 		if (outfiler(cmd, cmd->file[j]) == 1)
 			return (-424242);
 		j++;
@@ -116,7 +133,7 @@ int	check_redirect(t_cmd *cmd)
 	i = 0;
 	while (cmd->tkn[i])
 	{
-		j += redirect2(cmd, i, j);
+		j = redirect2(cmd, i, j);
 		if (j < 0)
 		{
 			if (g_exit_code != 130)

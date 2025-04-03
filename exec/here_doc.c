@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:18:28 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 18:44:26 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:17:01 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	end_heredoc(char *input, int pipe_fd[2], t_cmd *cmd)
 		close(cmd->fd_infile);
 	cmd->infile = 1;
 	cmd->fd_infile = pipe_fd[0];
-	if(g_exit_code == 130)
+	if (g_exit_code == 130)
 	{
-		return(1);
+		return (1);
 	}
-	if(!cmd->arg[0])
-		return(1);
+	if (!cmd->arg[0])
+		return (1);
 	return (0);
 }
 
