@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 13:49:06 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:19:02 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*find_path(t_env *env, char *cmd)
 
 	if (!cmd || access(cmd, X_OK | F_OK) == 0)
 		return (cmd);
-	p = ft_getenv("PATH", env, 1);
+	p = ft_dup(ft_getenv("PATH", env, 1));
 	if (!p)
 		return (NULL);
 	sp = ft_split (p, ':');

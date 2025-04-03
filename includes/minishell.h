@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 14:51:41 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:05:16 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		check_other(char *input, t_data *data);
 int		check_invalid_combinations(char *input, t_data *data);
 
 // free_fonctions.c
-void	free_all(t_data *data, t_env *env);
+void	free_all(t_data *data, t_env *env, int i);
 void	free_struct(t_data *data, t_cmd *cmd);
 void	fri_te(t_data *data);
 
@@ -256,9 +256,9 @@ int		check_redirect(t_cmd *cmd);
 
 // redirect_exec
 void	set_redirects(t_data *data);
-void	env_exit(t_data *data);
-void	path_error(t_data *data, char **env_s);
-void	execve_exit(char *path, char **env_s);
+void	env_exit(t_data *data, t_env *env);
+void	path_error(t_data *data, char **env_s, t_env *env);
+void	execve_exit(char *path, char **env_s, t_data *data, t_env *env);
 void	redirect_daddy(t_data *data, pid_t pid);
 
 // heredoc

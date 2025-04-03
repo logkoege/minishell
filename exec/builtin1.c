@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 18:05:28 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:07:25 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	builtin_env(t_env *env)
 			printf("%s\n", head->all);
 		head = head->next;
 	}
-	exit(EXIT_SUCCESS);
+	return ;
 }
 
 void	builtin_pwd(t_env *env)
@@ -40,9 +40,10 @@ void	builtin_pwd(t_env *env)
 		ft_putstr_fd("bash : pwd : cannot acces current directory\n", 2);
 		g_exit_code = 1;
 		exit(g_exit_code);
-	}
+	}	
 	g_exit_code = 0;
-	exit(g_exit_code);
+	
+	return ;
 }
 
 void	write_echo(t_cmd *exec, int i)
@@ -76,5 +77,5 @@ void	builtin_echo(t_cmd *exec)
 	write_echo(exec, i);
 	if (comt != 1)
 		printf("\n");
-	exit(EXIT_SUCCESS);
+	return ;
 }

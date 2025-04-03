@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:10:01 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/03 15:15:15 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:55:04 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rdline(t_data *data, char **envp, t_env *env)
 		dollar_parser(data, env);
 		data->cmd = first_to_cmd(data);
 		cmd_head = data->cmd;
-		print_lst_cmd(data->cmd);
+		// print_lst_cmd(data->cmd);
 		env = main_exec(data, env);
 		free_struct(data, cmd_head);
 		data->j = 0;

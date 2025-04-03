@@ -3,5 +3,11 @@
 		"configurations": [],
 		"compounds": []
 	},
-	"league-respawn-timer.enable": false
+	"league-respawn-timer.enable": false,
+	"files.associations": {
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"span": "c"
+	}
 }
