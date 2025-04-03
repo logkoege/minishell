@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 17:09:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/02 18:35:13 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:32:42 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ t_cmd	*pipe_cmd(t_data *data, t_first *tmp, t_cmd *cmd)
 	return (cmd);
 }
 
-void	file_cmd(t_data *data, t_first *tmp, t_cmd *cmd)
+t_first	*file_cmd(t_data *data, t_first *tmp, t_cmd *cmd)
 {
 	cmd->tkn[data->t] = tmp->token;
 	cmd->tkn[data->t + 1] = 0;
 	tmp = tmp->next;
-	cmd->file[data->f] = delete_quote(tmp->str);
-	if (cmd->file[data->f][0] != '\0')
+	cmd->file[data->f] = delete_quote(tmp->str, 0);
+	if (cmd->file[data->f])
 	{
 		cmd->file[data->f + 1] = NULL;
 		data->f++;
@@ -47,11 +47,12 @@ void	file_cmd(t_data *data, t_first *tmp, t_cmd *cmd)
 	}
 	else
 		free(cmd->file[data->f]);
+	return (tmp);
 }
 
 void	word_cmd(t_data *data, t_first *tmp, t_cmd *cmd)
 {
-	cmd->arg[data->a] = delete_quote(tmp->str);
+	cmd->arg[data->a] = delete_quote(tmp->str, 0);
 	if (cmd->arg[data->a][0])
 	{
 		cmd->arg[data->a + 1] = NULL;
@@ -81,7 +82,7 @@ t_cmd	*first_to_cmd(t_data *data)
 			cmd = pipe_cmd(data, tmp, cmd);
 		if (tmp->token == HEREDOC || tmp->token == TRUNC
 			|| tmp->token == INPUT || tmp->token == APPEND)
-			file_cmd(data, tmp, cmd);
+			tmp = file_cmd(data, tmp, cmd);
 		else if (tmp->token == WORD)
 			word_cmd(data, tmp, cmd);
 		tmp = tmp->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 08:40:31 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:17:48 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_env	*main_exec(t_data *data, t_env *env)
 {
 	data->cmd->fd_infile = 0;
 	data->cmd->fd_outfile = 1;
+	g_exit_code = 0;
 	env = exec_1(data, env);
 	return (env);
 }
@@ -40,6 +41,8 @@ t_env	*check_arg(t_cmd *cmd, t_env *env)
 	int	i;
 
 	i = 0;
+	if (!cmd->arg[0])
+		return (NULL);
 	if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		return (check_cd(cmd, env, i));
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)

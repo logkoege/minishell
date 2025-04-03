@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:18:28 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 15:20:10 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:18:17 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	end_heredoc(char *input, int pipe_fd[2], t_cmd *cmd)
 		close(cmd->fd_infile);
 	cmd->infile = 1;
 	cmd->fd_infile = pipe_fd[0];
+	if (g_exit_code == 130)
+	{
+		return (1);
+	}
+	if (!cmd->arg[0])
+		return (1);
 	return (0);
 }
 
@@ -61,11 +67,11 @@ int	here_doocker(t_cmd *cmd, char *herdoc)
 		{
 			dup2(fd, 0);
 			g_exit_code = 130;
-			signal(SIGINT, handle_signal);
+			signal(SIGINT, &signal_heredoc);
 			break ;
 		}
-		if (input == NULL)
-			continue ;
+		if (input == NULL && print_heredoc_d(herdoc))
+			break ;
 		if (here_doc_cmp(input, herdoc) == 1)
 			break ;
 		free_inpt(input, pipe_fd);

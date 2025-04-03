@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/02 18:49:49 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:21:23 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,27 @@ char	*utils_delete2(int *i, int *j, char *str, char *new)
 	return (new);
 }
 
-char	*delete_quote(char *str)
+char	*delete_quote(char *str, int i)
 {
-	int		i;
 	int		j;
 	char	*new;
 
-	i = 0;
 	j = 0;
 	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
-		new = utils_delete(&i, &j, str, new);
-		if (str[i] == '\0')
-			break ;
-		new = utils_delete2(&i, &j, str, new);
-		if (str[i] == '\0')
-			break ;
+		if (str[i] == '\'' && str[i + 1] != '\0')
+		{
+			new = utils_delete(&i, &j, str, new);
+			if (str[i] == '\0')
+				break ;
+		}
+		else if (str[i] == '\"' && str[i + 1] != '\0')
+		{
+			new = utils_delete2(&i, &j, str, new);
+			if (str[i] == '\0')
+				break ;
+		}
 		else
 			new[j++] = str[i++];
 	}

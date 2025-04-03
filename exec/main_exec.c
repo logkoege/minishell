@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 11:50:06 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 08:54:26 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:39:57 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_env	*exec_1(t_data *data, t_env *env)
 	cmd_tmp = data->cmd;
 	while (data->cmd)
 	{
-		if (!data->cmd->arg[0])
+		if (!data->cmd->arg[0] && !data->cmd->file[0])
 		{
 			data->cmd = data->cmd->next;
 			continue ;

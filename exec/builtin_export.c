@@ -49,7 +49,7 @@ int	check_export(char *arg, t_env *env)
 		env_check = ft_dup(arg);
 	}
 	eq++;
-	if (is_digit(arg[1]) == 1 || arg[1] == '=')
+	if (is_digit(arg[0]) == 1 || arg[0] == '=')
 		return (free(env_check), 1);
 	return (check2_export(arg, eq, env_check, env));
 }

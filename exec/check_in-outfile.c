@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:44 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 22:44:39 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:17:02 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	infiler(t_cmd *cmd, char *infile)
 	fd = open(infile, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd(infile, 2);
+		if (infile)
+			ft_putstr_fd(infile, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
@@ -57,7 +58,8 @@ int	appender(t_cmd *cmd, char *file)
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd(file, 2);
+		if (file)
+			ft_putstr_fd(file, 2);
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		g_exit_code = 1;
 		return (1);
@@ -110,7 +112,8 @@ int	check_redirect(t_cmd *cmd)
 		j += redirect2(cmd, i, j);
 		if (j < 0)
 		{
-			g_exit_code = 1;
+			if (g_exit_code != 130)
+				g_exit_code = 1;
 			return (1);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 15:05:47 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:33:36 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_cmd	*lstlast_cmd(t_cmd *lst);
 t_cmd	*lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 // last_chainlist.c
-char	*delete_quote(char *str);
+char	*delete_quote(char *str, int i);
 t_cmd	*first_to_cmd(t_data *data);
 void	print_lst_cmd(t_cmd *cmd);
 
@@ -263,6 +263,7 @@ void	redirect_daddy(t_data *data, pid_t pid);
 
 // heredoc
 int		here_doocker(t_cmd *cmd, char *herdoc);
+int		print_heredoc_d(char *heredoc);
 
 // execute pipes
 t_env	*exec_solo_builtin(t_data *data, t_env *env);

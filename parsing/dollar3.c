@@ -6,7 +6,7 @@
 /*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:54:27 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/02 00:42:07 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:21:14 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	mid_rmv(t_first *tmp2, char *str, int i)
 		free(str);
 		str = ft_dup_digit(tmp2->str, i - 1);
 		free(tmp2->str);
-		tmp2->str = ft_dup_digit(str, i - 1);
+		tmp2->str = ft_dup(str);
 		free(str);
 		return (0);
 	}
