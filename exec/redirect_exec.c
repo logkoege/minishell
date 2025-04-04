@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:20:11 by levaipro          #+#    #+#             */
-/*   Updated: 2025/03/31 16:44:05 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:21:25 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,44 @@ void	set_redirects(t_data *data)
 		dup2(data->cmd->fd_infile, STDIN_FILENO);
 		close(data->cmd->fd_infile);
 	}
-	else if (data->cmd->outfile == 1)
+	if (data->cmd->outfile == 1)
 	{
 		dup2(data->cmd->fd_outfile, STDOUT_FILENO);
 		close(data->cmd->fd_outfile);
 	}
 }
 
-void	env_exit(t_data *data)
+void	env_exit(t_data *data, t_env *env)
 {
+	t_cmd	*cmd_prev;
+
+	cmd_prev = data->cmd;
+	while (cmd_prev->prev != NULL)
+		cmd_prev = cmd_prev->prev;
 	close(data->cmd->fd_infile);
 	close(data->cmd->fd_outfile);
+	free_struct(data, cmd_prev);
+	free_all(data, env, 0);
 	exit(g_exit_code);
 }
 
-void	path_error(t_data *data, char **env_s)
+void	path_error(t_data *data, char **env_s, t_env *env)
 {
 	ft_putstr_fd(data->cmd->arg[0], 2);
 	ft_putstr_fd(" : command not found\n", 2);
 	free_path(env_s);
 	g_exit_code = 127;
-	exit(g_exit_code);
+	env_exit(data, env);
 }
 
-void	execve_exit(char *path, char **env_s)
+void	execve_exit(char *path, char **env_s, t_data *data, t_env *env)
 {
 	if (path)
 		free(path);
 	free_path(env_s);
 	printf("execve error \n");
 	g_exit_code = 126;
-	exit(g_exit_code);
+	env_exit(data, env);
 }
 
 void	redirect_daddy(t_data *data, pid_t pid)

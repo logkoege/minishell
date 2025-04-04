@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:44:04 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 11:33:36 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:05:22 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		check_other(char *input, t_data *data);
 int		check_invalid_combinations(char *input, t_data *data);
 
 // free_fonctions.c
-void	free_all(t_data *data, t_env *env);
+void	free_all(t_data *data, t_env *env, int i);
 void	free_struct(t_data *data, t_cmd *cmd);
 void	fri_te(t_data *data);
 
@@ -234,6 +234,7 @@ char	**env_to_str(t_env *env);
 // utils3
 int		is_ws(char c);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_pustr(char *str);
 
 // join
 char	*ft_strjoin(char *s1, char *s2);
@@ -256,9 +257,9 @@ int		check_redirect(t_cmd *cmd);
 
 // redirect_exec
 void	set_redirects(t_data *data);
-void	env_exit(t_data *data);
-void	path_error(t_data *data, char **env_s);
-void	execve_exit(char *path, char **env_s);
+void	env_exit(t_data *data, t_env *env);
+void	path_error(t_data *data, char **env_s, t_env *env);
+void	execve_exit(char *path, char **env_s, t_data *data, t_env *env);
 void	redirect_daddy(t_data *data, pid_t pid);
 
 // heredoc

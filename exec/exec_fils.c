@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:02:31 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/02 18:38:01 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:05:16 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	main_exec_fils(t_data *data, t_env *env)
 	set_redirects(data);
 	tmp = check_arg(data->cmd, env);
 	if (tmp)
-		env_exit(data);
+		env_exit(data, env);
 	if (is_dir(data) == 1)
-		exit(g_exit_code);
+		env_exit(data, env);
 	env_s = env_to_str(env);
 	path = find_path(env, data->cmd->arg[0]);
 	if (!path)
-		path_error(data, env_s);
+		path_error(data, env_s, env);
 	if (execve(path, data->cmd->arg, env_s) == 1)
-		execve_exit(path, env_s);
+		execve_exit(path, env_s, data, env);
 }
 
 t_env	*exec_fils(t_data *data, t_env *env, int *fd_pipe)

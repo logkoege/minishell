@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/03 12:17:32 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:30:30 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	redirect_error(t_data *data, int pipe_fd[2])
 		data->cmd->fd_outfile = pipe_fd[1];
 		close(pipe_fd[1]);
 	}
+	else
+		g_exit_code = 1;
 }
 
 void	create_pipe(t_data *data, int pipe_fd[2])
@@ -66,7 +68,7 @@ void	create_pipe(t_data *data, int pipe_fd[2])
 void	sinal_shell(int signal)
 {
 	if (signal == SIGINT)
-		ft_putstr_fd("", 1);
+		ft_putstr_fd("\n", 1);
 	if (signal == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", 2);
@@ -84,10 +86,14 @@ void	waiting_pid(t_cmd *cmd_tmp)
 	{
 		if (waitpid(cmd_tmp->pid, &status, 0) != -1)
 		{
-			if (WIFEXITED(status))
-				g_exit_code = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				g_exit_code = 128 + WTERMSIG(status);
+			if ((!cmd_tmp->next && cmd_tmp->prev)
+				|| (!cmd_tmp->next && !cmd_tmp->prev))
+			{
+				if (WIFEXITED(status))
+					g_exit_code = WEXITSTATUS(status);
+				else if (WIFSIGNALED(status))
+					g_exit_code = 128 + WTERMSIG(status);
+			}
 		}
 		cmd_tmp = cmd_tmp->next;
 	}

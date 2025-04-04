@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:29:00 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/03 14:22:48 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:08:12 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_dup(char *s1)
 	s2 = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!s2)
 		return (NULL);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		s2[i] = s1[i];
 		i++;
