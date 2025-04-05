@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:38:38 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/02 00:36:00 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/05 19:47:25 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sob_utils(t_data *data, t_first *tmp, t_env *env)
 			data->sob++;
 		data->sob++;
 	}
-	if (tmp->str[data->sob] == '\"')
+	else if (tmp->str[data->sob] == '\"')
 	{
 		data->sob++;
 		while (tmp->str[data->sob] != '\"' && tmp->str[data->sob] != '\0')
@@ -42,8 +42,8 @@ void	sob_utils(t_data *data, t_first *tmp, t_env *env)
 
 void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 {
-	data->sob = -1;
-	while (tmp->str[++data->sob])
+	data->sob = 0;
+	while (tmp->str[data->sob])
 	{
 		if ((tmp->str[data->sob] == '\'' && tmp->str[data->sob + 1] != '\0')
 			|| tmp->str[data->sob] == '\"')
@@ -61,8 +61,6 @@ void	dollar_checker(t_first *tmp, t_env *env, t_data *data)
 				data->sob++;
 			}
 		}
-		if (tmp->str[data->sob] == '\0')
-			break ;
 	}
 }
 
