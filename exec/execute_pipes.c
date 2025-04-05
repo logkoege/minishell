@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:22:32 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/03 15:30:30 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:36:44 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env	*exec_solo_builtin(t_data *data, t_env *env)
 		dup2(data->cmd->fd_outfile, STDOUT_FILENO);
 		close(data->cmd->fd_outfile);
 	}
-	env = check_arg(data->cmd, env);
+	env = check_arg(data->cmd, env, data);
 	return (env);
 }
 

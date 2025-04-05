@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:25:31 by lloginov          #+#    #+#             */
-/*   Updated: 2025/03/31 08:56:45 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:51:16 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ char	*ft_getenv(char *str, t_env *env, int i)
 
 	tmp = env;
 	if (tmp == NULL)
-	{
-		printf("Error: Environment is empty.\n");
 		return (NULL);
-	}
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->before_eq, str) == 0)

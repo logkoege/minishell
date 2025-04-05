@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:39:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/01 16:52:51 by logkoege         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:53:10 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env	*cd_home(t_env *env)
 	if (!pwd)
 	{
 		g_exit_code = 1;
-		perror("bash: cd: HOME not set\n");
+		ft_putstr_fd("bash: cd: HOME not set\n", 2);
 		return (env);
 	}
 	if (chdir(pwd) == 0)
@@ -46,7 +46,7 @@ t_env	*cd_old_pwd(t_env *env)
 	if (!old_pwd)
 	{
 		g_exit_code = 1;
-		perror("bash: cd: OLDPWD not set\n");
+		ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
 		return (env);
 	}
 	if (chdir(old_pwd) != 0)

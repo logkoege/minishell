@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:02:31 by levaipro          #+#    #+#             */
-/*   Updated: 2025/04/03 17:05:16 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:34:35 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	main_exec_fils(t_data *data, t_env *env)
 
 	signal(SIGQUIT, SIG_DFL);
 	set_redirects(data);
-	tmp = check_arg(data->cmd, env);
+	tmp = check_arg(data->cmd, env, data);
 	if (tmp)
 		env_exit(data, env);
 	if (is_dir(data) == 1)

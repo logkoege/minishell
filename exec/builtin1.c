@@ -6,17 +6,20 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/04 21:05:39 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:40:19 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	builtin_env(t_env *env)
+void	builtin_env(t_env *env, t_data *data)
+
 {
 	t_env	*head;
 
 	head = env;
+	if (!env)
+		env_exit(data, env);
 	while (head)
 	{
 		if (head->equal == 1)

@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:47:05 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/02 21:07:14 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:43:38 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_env	*check_cd(t_cmd *cmd, t_env *env, int i)
 	return (env);
 }
 
-t_env	*check_arg(t_cmd *cmd, t_env *env)
+t_env	*check_arg(t_cmd *cmd, t_env *env, t_data *data)
+
 {
 	int	i;
 
@@ -50,7 +51,7 @@ t_env	*check_arg(t_cmd *cmd, t_env *env)
 	else if (ft_strcmp(cmd->arg[i], "echo") == 0)
 		builtin_echo(cmd);
 	else if (ft_strcmp(cmd->arg[i], "env") == 0)
-		builtin_env(env);
+		builtin_env(env, data);
 	else if (ft_strcmp(cmd->arg[i], "unset") == 0)
 		env = builtin_unset(env, cmd->arg[1]);
 	else if (ft_strcmp(cmd->arg[i], "exit") == 0)
@@ -59,8 +60,8 @@ t_env	*check_arg(t_cmd *cmd, t_env *env)
 		env = builtin_export(env, cmd);
 	else
 		return (NULL);
-	if (cmd->prev || cmd->next)
-		exit(g_exit_code);
+	if (cmd->prev || cmd->next || !env)
+		env_exit(data, env);
 	return (env);
 }
 

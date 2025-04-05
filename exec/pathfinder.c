@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:44:03 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 17:19:02 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:37:02 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ void	free_path(char **split)
 	free(split);
 }
 
-void	free_end(char *p, char **sp, char *pj, char *r)
+char	*free_end(char *p, char **sp, char *pj, char *r)
 {
 	if (pj)
 		free(pj);
-	if (r)
-		free(r);
 	if (p)
 		free(p);
 	free_path(sp);
+	return (r);
 }
 
 char	*find_path(t_env *env, char *cmd)
@@ -62,9 +61,9 @@ char	*find_path(t_env *env, char *cmd)
 		pj = ft_strjoin(sp[i], "/");
 		r = ft_strjoin(pj, cmd);
 		if (access(r, F_OK | X_OK) == 0)
-			return (free_end(p, sp, NULL, NULL), r);
+			return (free_end(p, sp, NULL, r));
 		free(pj);
 		free(r);
 	}
-	return (free_end(p, sp, NULL, NULL), NULL);
+	return (free_end(p, sp, NULL, NULL));
 }
