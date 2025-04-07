@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:18:28 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/03 14:17:01 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/07 01:07:42 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,29 @@ int	here_doc_cmp(char *input, char *herdoc)
 		return (1);
 	return (0);
 }
-
+int returner(t_cmd *cmd)
+{
+	int i = 0;
+	int j = 0;
+	while (cmd->tkn[i])
+	{
+		if (cmd->tkn[i] == HEREDOC)
+			j++;
+		i++;
+	}
+	if (j > 1 && g_exit_code != 4242)
+	{
+		g_exit_code = 4242;
+		return (2);
+	}
+	if (!cmd->arg[0])
+	{
+		if (g_exit_code == 4242)
+			g_exit_code = 0;
+		return (1);
+	}
+	return (0);
+}
 int	end_heredoc(char *input, int pipe_fd[2], t_cmd *cmd)
 {
 	free(input);
@@ -31,9 +53,7 @@ int	end_heredoc(char *input, int pipe_fd[2], t_cmd *cmd)
 	{
 		return (1);
 	}
-	if (!cmd->arg[0])
-		return (1);
-	return (0);
+	return(returner(cmd));
 }
 
 int	pipe_error(int status)

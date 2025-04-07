@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_chainlist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: levaipro <levaipro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:20:11 by logkoege          #+#    #+#             */
-/*   Updated: 2025/04/03 18:36:48 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/06 23:47:42 by levaipro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,35 +72,35 @@ char	*delete_quote(char *str, int i)
 	return (new);
 }
 
-// void	print_lst_cmd(t_cmd *cmd)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		k;
+void	print_lst_cmd(t_cmd *cmd)
+{
+	int		i;
+	int		j;
+	int		k;
 
-// 	k = 0;
-// 	i = 0;
-// 	j = 0;
-// 	while (cmd)
-// 	{
-// 		i = 0;
-// 		j = 0;
-// 		k = 0;
-// 		while (cmd->arg[i])
-// 		{
-// 			printf("arg[%d] = %s\n", i, cmd->arg[i]);
-// 			i++;
-// 		}
-// 		while (cmd->file[j])
-// 		{
-// 			printf("file[%d] = %s\n", j, cmd->file[j]);
-// 			j++;
-// 		}
-// 		while (cmd->tkn[k])
-// 		{
-// 			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
-// 			k++;
-// 		}
-// 		cmd = cmd->next;
-// 	}
-// }
+	k = 0;
+	i = 0;
+	j = 0;
+	while (cmd)
+	{
+		i = 0;
+		j = 0;
+		k = 0;
+		while (cmd->arg[i])
+		{
+			printf("arg[%d] = %s\n", i, cmd->arg[i]);
+			i++;
+		}
+		while (cmd->file[j])
+		{
+			printf("file[%d] = %s\n", j, cmd->file[j]);
+			j++;
+		}
+		while (cmd->tkn[k])
+		{
+			printf("tkn[%d] = %d\n", k, cmd->tkn[k]);
+			k++;
+		}
+		cmd = cmd->next;
+	}
+}
