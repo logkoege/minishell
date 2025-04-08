@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: logkoege <logkoege@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:06:08 by lloginov          #+#    #+#             */
-/*   Updated: 2025/04/05 16:40:19 by lloginov         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:42:47 by logkoege         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	write_echo(t_cmd *exec, int i)
 {
 	while (exec->arg[i])
 	{
+		if(exec->arg[i][0] == '-')
+			i++;
 		ft_pustr(exec->arg[i]);
 		if (exec->arg[i + 1] != NULL)
 			ft_pustr(" ");
